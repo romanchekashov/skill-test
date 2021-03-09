@@ -1,18 +1,24 @@
 import React from 'react';
 import {TestEntity} from "../data/TestEntity";
+import Test from "./Test";
+import "./TestList.css";
 
 type Props = {
-    test: TestEntity
+    tests: TestEntity[]
 }
 
-const Test: React.FC<Props> = ({test}) => {
+const TestList: React.FC<Props> = ({tests}) => {
     return (
-        <div>
-            <h2>{test.name}</h2>
-            <p>{test.categories.join()}</p>
-            <button>Start</button>
+        <div className="TestList">
+            {
+                tests.map(test => (
+                    <React.Fragment key={test.id}>
+                        <Test test={test}/>
+                    </React.Fragment>
+                ))
+            }
         </div>
     );
-}
+};
 
-export default Test;
+export default TestList;

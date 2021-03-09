@@ -1,6 +1,6 @@
 import React from 'react';
-import "./Test.css";
-import {CurrentTestState} from "../redux/reducers/currentTest";
+import "../Test.css";
+import {CurrentTestState} from "../../redux/reducers/currentTest";
 import CurrentTest from "./CurrentTest";
 
 type Props = {

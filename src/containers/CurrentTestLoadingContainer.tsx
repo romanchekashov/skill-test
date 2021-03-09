@@ -1,10 +1,17 @@
 import {connect} from "react-redux";
 import {RootState} from "../redux/reducers";
-import CurrentTest from "../components/CurrentTest";
+import CurrentTestLoading from "../components/CurrentTest/CurrentTestLoading";
+import {RouteComponentProps} from "react-router-dom";
+import {loadTestById} from "../redux/actions/CurrentTestActions";
 
-export const CurrentTestContainer = connect(
-    (state: RootState) => ({
-        test: state.currentTest,
+type RouterParams = {
+    testId: string
+}
+
+export const CurrentTestLoadingContainer = connect(
+    (state: RootState, ownProps: RouteComponentProps<RouterParams>) => ({
+        testId: parseInt(ownProps.match.params.testId),
+        currentTest: state.currentTest,
     }),
-    {}
-)(CurrentTest);
+    {loadTestById}
+)(CurrentTestLoading);

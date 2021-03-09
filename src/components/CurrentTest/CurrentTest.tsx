@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TestEntity} from "../data/TestEntity";
+import {TestEntity} from "../../data/TestEntity";
 import "./CurrentTest.css";
 import {Link} from "react-router-dom";
 import {Button} from "primereact/button";
@@ -15,6 +15,14 @@ const CurrentTest: React.FC<Props> = ({test}) => {
 
     const onPageChange2 = (event: any) => {
         setFirst2(event.first);
+    }
+
+    const onNext = (event: any) => {
+        setFirst2(first2 + 1);
+    }
+
+    const onFinish = (event: any) => {
+        // setFirst2(first2 + 1);
     }
 
     const leftContent = <Button type="button" icon="pi pi-refresh" onClick={() => setFirst2(0)}/>;
@@ -34,8 +42,11 @@ const CurrentTest: React.FC<Props> = ({test}) => {
             {
                 test.questions[first2] ? <CurrentTestQuestion questionNumber={first2 + 1} question={test.questions[first2]}/> : null
             }
+
+            <Button label="Next" onClick={onNext} disabled={first2 + 1 >= test.questions.length}/>
+            <Button label="Finish" onClick={onFinish}/>
         </div>
     );
-};
+}
 
 export default CurrentTest;

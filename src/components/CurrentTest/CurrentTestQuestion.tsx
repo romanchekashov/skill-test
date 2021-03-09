@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import "./CurrentTest.css";
-import {TestItemEntity} from "../data/TestItemEntity";
+import {TestItemEntity} from "../../data/TestItemEntity";
 import {Checkbox} from "primereact/checkbox";
 
 type Props = {
@@ -23,20 +23,22 @@ const CurrentTestQuestion: React.FC<Props> = ({questionNumber, question}) => {
         setCities(selectedCities);
     }
 
-    const multi = (possibleAnswer: string) => {
+    const multi = (possibleAnswer: string, idx: number) => {
+        const id = "possibleAnswer" + idx;
         return (
-            <div className="p-field-checkbox" key={possibleAnswer}>
-                <Checkbox inputId="city1" name="city" value={possibleAnswer} onChange={onCityChange} checked={cities.indexOf(possibleAnswer) !== -1} />
-                <label htmlFor="city1">{possibleAnswer}</label>
+            <div className="p-field-checkbox possibleAnswer" key={possibleAnswer}>
+                <Checkbox inputId={id} name="city" value={possibleAnswer} onChange={onCityChange}
+                          checked={cities.indexOf(possibleAnswer) !== -1}/>
+                <label htmlFor={id}>{possibleAnswer}</label>
             </div>
         )
     }
 
     return (
-        <div className="CurrentTestQuestion possibleAnswers card">
+        <div className="CurrentTestQuestion card">
             <h3>Question {questionNumber}</h3>
             <p>{question.question}</p>
-            <div className="card">
+            <div className="possibleAnswers card">
                 {
                     question.possibleAnswers.map(multi)
                 }

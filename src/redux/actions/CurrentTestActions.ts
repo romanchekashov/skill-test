@@ -1,15 +1,41 @@
-export const SET_CURRENT_TEST_ID = "SET_CURRENT_TEST_ID";
+import {TestEntity} from "../../data/TestEntity";
 
-interface SetCurrentTestIdAction {
-    type: typeof SET_CURRENT_TEST_ID
-    currentTestId: number
+export const LOAD_TEST_BY_ID = "LOAD_TEST_BY_ID";
+export const LOAD_TEST_BY_ID_SUCCESS = "LOAD_TEST_BY_ID_SUCCESS";
+export const LOAD_TEST_BY_ID_ERROR = "LOAD_TEST_BY_ID_ERROR";
+
+
+export interface LoadTestByIdAction {
+    type: typeof LOAD_TEST_BY_ID
+    testId: number
 }
 
-export type CurrentTestActionTypes = SetCurrentTestIdAction;
+interface LoadTestByIdSuccessAction {
+    type: typeof LOAD_TEST_BY_ID_SUCCESS
+    test: TestEntity
+}
 
-export function sendMessage(newMessage: Message): ChatActionTypes {
+interface LoadTestByIdErrorAction {
+    type: typeof LOAD_TEST_BY_ID_ERROR
+    error: string
+}
+
+export type CurrentTestActionTypes =
+    LoadTestByIdAction
+    | LoadTestByIdSuccessAction
+    | LoadTestByIdErrorAction;
+
+
+export function loadTestById(testId: number): CurrentTestActionTypes {
     return {
-        type: SEND_MESSAGE,
-        payload: newMessage
+        type: LOAD_TEST_BY_ID,
+        testId
+    }
+}
+
+export function loadTestByIdSuccess(test: TestEntity): CurrentTestActionTypes {
+    return {
+        type: LOAD_TEST_BY_ID_SUCCESS,
+        test
     }
 }

@@ -1,4 +1,5 @@
-export class TestItemAnswerEntity {
-    id: number
-    answer: number
+export class UserEntity {
+    id!: number
+    username!: string
+    email!: string
 }

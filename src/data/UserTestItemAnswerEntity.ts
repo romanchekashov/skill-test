@@ -1,4 +1,6 @@
-export class TestItemAnswerEntity {
-    id: number
-    answer: number
+import {TestItemEntity} from "./TestItemEntity";
+
+export class UserTestItemAnswerEntity {
+    question!: TestItemEntity
+    answers: string[] = []
 }

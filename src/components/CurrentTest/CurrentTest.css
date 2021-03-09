@@ -5,8 +5,15 @@
     width: 150px;
 }
 
-.CurrentTestQuestion.possibleAnswers {
+.CurrentTestQuestion .possibleAnswers {
     text-align: left;
     width: 60%;
     margin: auto;
+}
+
+.possibleAnswer {
+    margin: 15px;
+}
+.possibleAnswer label {
+    margin-left: 10px;
 }
