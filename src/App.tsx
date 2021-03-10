@@ -1,24 +1,20 @@
 import React from 'react';
 import './App.css';
 import {TestListContainer} from "./containers/TestListContainer";
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {CurrentTestLoadingContainer} from "./containers/CurrentTestLoadingContainer";
-import {InputText} from "primereact/inputtext";
-import {Menubar} from "primereact/menubar";
+import {LoginContainer} from "./containers/LoginContainer";
+import {HeaderMenuContainer} from "./containers/HeaderMenuContainer";
+import PrivateRoute from "./components/auth/PrivateRoute";
 
 function App() {
-    const items: any[] = [];
-    const start: any = <Link to="/"><img alt="logo" src="logo192.png" height="40" className="p-mr-2"></img></Link>;
-    const end: any = <InputText placeholder="Search" type="text"/>;
-
     return (
         <Router>
             <div className="App">
-                <div className="card">
-                    <Menubar model={items} start={start} end={end}/>
-                </div>
+                <LoginContainer/>
+                <HeaderMenuContainer/>
                 <Switch>
-                    <Route path="/:testId" component={CurrentTestLoadingContainer}/>
+                    <PrivateRoute path="/:testId" component={CurrentTestLoadingContainer}/>
                     <Route path="/" component={TestListContainer}/>
                 </Switch>
             </div>

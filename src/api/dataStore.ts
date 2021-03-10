@@ -1,5 +1,6 @@
 import {TestEntity} from "../data/TestEntity";
 import ReduxSagaQuestions from "./ReduxSagaQuestions";
+import {UserEntity} from "../data/UserEntity";
 
 const tests: TestEntity[] = [
     {
@@ -41,12 +42,38 @@ const tests: TestEntity[] = [
     }
 ];
 
+let user!: UserEntity | null;
+
 const dataStore = {
     getTests(): TestEntity[] {
         return tests;
     },
     getTest(id: number): TestEntity {
         return tests.find(value => value.id === id) as TestEntity;
+    },
+    getUser(): UserEntity | null {
+        if (user) return user;
+
+        const username = localStorage.getItem("username");
+        if (!username) return null;
+
+        return user = {
+            id: 1,
+            username,
+            email: ""
+        };
+    },
+    setUser(username: string): UserEntity {
+        localStorage.setItem("username", username);
+        return user = {
+            id: 1,
+            username,
+            email: ""
+        };
+    },
+    logOut() {
+        localStorage.removeItem("username");
+        user = null;
     }
 };
 

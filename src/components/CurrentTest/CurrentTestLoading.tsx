@@ -2,6 +2,7 @@ import React from 'react';
 import "../Test.css";
 import {CurrentTestState} from "../../redux/reducers/currentTest";
 import CurrentTest from "./CurrentTest";
+import {ProgressSpinner} from "primereact/progressspinner";
 
 type Props = {
     testId: number
@@ -18,7 +19,10 @@ const CurrentTestLoading: React.FC<Props> = ({testId, loadTestById, currentTest}
 
     return (
         <div className="CurrentTest">
-            Test {testId} is loading...
+            <div className="loading">
+                <ProgressSpinner/>
+                <div>Test {testId} is loading...</div>
+            </div>
         </div>
     );
 };

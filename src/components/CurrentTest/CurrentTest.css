@@ -5,6 +5,17 @@
     /*width: 150px;*/
 }
 
+.CurrentTest .loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /*background-color: wheat;*/
+    justify-content: center;
+}
+
 .CurrentTest .p-paginator {
     text-align: left;
     width: 60%;

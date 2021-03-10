@@ -1,3 +1,5 @@
+import dataStore from "../api/dataStore";
+
 export const _equalArrays = (arr1: any[], arr2: any[]): boolean => {
     if (arr1.length !== arr2.length) return false;
 
@@ -6,4 +8,10 @@ export const _equalArrays = (arr1: any[], arr2: any[]): boolean => {
     }
 
     return true;
+}
+
+export const _isUserLogged = (): boolean => {
+    if (dataStore.getUser()) return true;
+    document.location.href = "/";
+    return false;
 }

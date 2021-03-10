@@ -57,7 +57,7 @@ const CurrentTest: React.FC<Props> = ({test}) => {
     const rightContent = (
         <>
             <Button label="Next" onClick={onNext} disabled={first2 + 1 >= test.questions.length}/>
-            <Button label="Finish" onClick={onFinish} style={{marginLeft: "5px"}}/>
+            <Button label="Finish" className="p-button-warning" onClick={onFinish} style={{marginLeft: "5px"}}/>
         </>
     );
 
