@@ -1,6 +1,12 @@
 .Test {
-    padding: 15px;
-    margin: 5px;
-    border: 1px solid;
-    width: 150px;
+    /*padding: 15px;*/
+    /*margin: 5px;*/
+    /*border: 1px solid;*/
+    /*width: 150px;*/
+    width: 25em;
+    margin: 15px;
+}
+
+.Test .p-card-header img {
+    height: 200px;
 }

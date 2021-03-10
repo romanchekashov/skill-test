@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "./CurrentTest.css";
 import {Checkbox} from "primereact/checkbox";
 import {UserTestItemAnswerEntity} from "../../data/UserTestItemAnswerEntity";
+import {Card} from "primereact/card";
 
 type Props = {
     questionNumber: number
@@ -42,13 +43,13 @@ const CurrentTestQuestion: React.FC<Props> = ({questionNumber, userTestItemAnswe
 
     return (
         <div className="CurrentTestQuestion card">
-            <h3>Question {questionNumber}</h3>
-            <p>{question.question}</p>
-            <div className="possibleAnswers card">
-                {
-                    question.possibleAnswers.map(multi)
-                }
-            </div>
+            <Card title={question.question} subTitle={"Question " + questionNumber} style={{ width: '100%', marginBottom: '2em' }}>
+                <div className="possibleAnswers">
+                    {
+                        question.possibleAnswers.map(multi)
+                    }
+                </div>
+            </Card>
         </div>
     );
 };

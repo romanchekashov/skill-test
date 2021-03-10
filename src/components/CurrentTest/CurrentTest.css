@@ -1,11 +1,23 @@
-.Test {
-    padding: 15px;
-    margin: 5px;
-    border: 1px solid;
-    width: 150px;
+.CurrentTest {
+    /*padding: 15px;*/
+    /*margin: 5px;*/
+    /*border: 1px solid;*/
+    /*width: 150px;*/
 }
 
-.CurrentTestQuestion .possibleAnswers {
+.CurrentTest .p-paginator {
+    text-align: left;
+    width: 60%;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.CurrentTest-head span {
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+.CurrentTestQuestion {
     text-align: left;
     width: 60%;
     margin: auto;

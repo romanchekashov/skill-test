@@ -13,9 +13,7 @@ type Props = {
 }
 
 const CurrentTest: React.FC<Props> = ({test}) => {
-    const [first2, setFirst2] = useState(0);
-    const [finished, setFinished] = useState<boolean>(false);
-    const [testResult, setTestResult] = useState<UserTestResultEntity>({
+    const testResultInitialState: UserTestResultEntity = {
         id: -1,
         test,
         user: {
@@ -27,10 +25,20 @@ const CurrentTest: React.FC<Props> = ({test}) => {
             question,
             answers: []
         }))
-    });
+    };
+
+    const [first2, setFirst2] = useState(0);
+    const [finished, setFinished] = useState<boolean>(false);
+    const [testResult, setTestResult] = useState<UserTestResultEntity>(testResultInitialState);
+
+    const initTest = () => {
+        setFirst2(0);
+        setFinished(false);
+        setTestResult(testResultInitialState);
+    }
 
     if (finished) {
-        return <CurrentTestResult testResult={testResult}/>;
+        return <CurrentTestResult testResult={testResult} onRepeat={initTest}/>;
     }
 
     const onPageChange2 = (event: any) => {
@@ -46,16 +54,21 @@ const CurrentTest: React.FC<Props> = ({test}) => {
     }
 
     const leftContent = <Button type="button" icon="pi pi-refresh" onClick={() => setFirst2(0)}/>;
-    const rightContent = <Button type="button" icon="pi pi-search"/>;
+    const rightContent = (
+        <>
+            <Button label="Next" onClick={onNext} disabled={first2 + 1 >= test.questions.length}/>
+            <Button label="Finish" onClick={onFinish} style={{marginLeft: "5px"}}/>
+        </>
+    );
 
     return (
         <div className="CurrentTest card">
-            <h2>{test.name}</h2>
-            <p>{test.categories.join()}</p>
-            <Link to="/">Home</Link>
+            <div className="CurrentTest-head">
+                <h2>{test.name} <span>{test.categories.join()}</span></h2>
+            </div>
 
-            <h5>Custom Template</h5>
-            <Paginator first={first2} rows={1} totalRecords={test.questions.length} onPageChange={onPageChange2}
+            <Paginator first={first2} rows={1} totalRecords={test.questions.length}
+                       onPageChange={onPageChange2}
                        leftContent={leftContent} rightContent={rightContent}
                        template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"></Paginator>
 
@@ -64,8 +77,7 @@ const CurrentTest: React.FC<Props> = ({test}) => {
                                                               userTestItemAnswer={testResult.result[first2]}/> : null
             }
 
-            <Button label="Next" onClick={onNext} disabled={first2 + 1 >= test.questions.length}/>
-            <Button label="Finish" onClick={onFinish}/>
+
         </div>
     );
 }
