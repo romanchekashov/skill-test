@@ -1,14 +1,17 @@
 import {TestEntity} from "../../data/TestEntity";
 import {CurrentTestActionTypes, LOAD_TEST_BY_ID, LOAD_TEST_BY_ID_SUCCESS} from "../actions/CurrentTestActions";
+import {UserTestResultEntity} from "../../data/UserTestResultEntity";
 
 export interface CurrentTestState {
     test: TestEntity | null
+    testResult: UserTestResultEntity | null
     loading: boolean
     error: string
 }
 
 let initState: CurrentTestState = {
     test: null,
+    testResult: null,
     loading: false,
     error: ""
 };

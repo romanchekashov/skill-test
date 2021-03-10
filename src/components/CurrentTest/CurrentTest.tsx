@@ -5,6 +5,8 @@ import {Link} from "react-router-dom";
 import {Button} from "primereact/button";
 import {Paginator} from "primereact/paginator";
 import CurrentTestQuestion from "./CurrentTestQuestion";
+import {UserTestResultEntity} from "../../data/UserTestResultEntity";
+import CurrentTestResult from "./CurrentTestResult";
 
 type Props = {
     test: TestEntity
@@ -12,6 +14,24 @@ type Props = {
 
 const CurrentTest: React.FC<Props> = ({test}) => {
     const [first2, setFirst2] = useState(0);
+    const [finished, setFinished] = useState<boolean>(false);
+    const [testResult, setTestResult] = useState<UserTestResultEntity>({
+        id: -1,
+        test,
+        user: {
+            id: -1,
+            email: "",
+            username: "none"
+        },
+        result: test.questions.map(question => ({
+            question,
+            answers: []
+        }))
+    });
+
+    if (finished) {
+        return <CurrentTestResult testResult={testResult}/>;
+    }
 
     const onPageChange2 = (event: any) => {
         setFirst2(event.first);
@@ -22,7 +42,7 @@ const CurrentTest: React.FC<Props> = ({test}) => {
     }
 
     const onFinish = (event: any) => {
-        // setFirst2(first2 + 1);
+        setFinished(true);
     }
 
     const leftContent = <Button type="button" icon="pi pi-refresh" onClick={() => setFirst2(0)}/>;
@@ -40,7 +60,8 @@ const CurrentTest: React.FC<Props> = ({test}) => {
                        template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"></Paginator>
 
             {
-                test.questions[first2] ? <CurrentTestQuestion questionNumber={first2 + 1} question={test.questions[first2]}/> : null
+                test.questions[first2] ? <CurrentTestQuestion questionNumber={first2 + 1}
+                                                              userTestItemAnswer={testResult.result[first2]}/> : null
             }
 
             <Button label="Next" onClick={onNext} disabled={first2 + 1 >= test.questions.length}/>

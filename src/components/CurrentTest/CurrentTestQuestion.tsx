@@ -1,16 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./CurrentTest.css";
-import {TestItemEntity} from "../../data/TestItemEntity";
 import {Checkbox} from "primereact/checkbox";
+import {UserTestItemAnswerEntity} from "../../data/UserTestItemAnswerEntity";
 
 type Props = {
     questionNumber: number
-    question: TestItemEntity
+    userTestItemAnswer: UserTestItemAnswerEntity
 }
 
-const CurrentTestQuestion: React.FC<Props> = ({questionNumber, question}) => {
+const CurrentTestQuestion: React.FC<Props> = ({questionNumber, userTestItemAnswer}) => {
 
+    const {question} = userTestItemAnswer;
     const [cities, setCities] = useState<string[]>([]);
+
+    useEffect(()=>{
+        setCities(userTestItemAnswer.answers);
+    }, [userTestItemAnswer]);
 
     const onCityChange = (e: any) => {
         let selectedCities = [...cities];
@@ -21,6 +26,7 @@ const CurrentTestQuestion: React.FC<Props> = ({questionNumber, question}) => {
             selectedCities.splice(selectedCities.indexOf(e.value), 1);
 
         setCities(selectedCities);
+        userTestItemAnswer.answers = selectedCities;
     }
 
     const multi = (possibleAnswer: string, idx: number) => {
