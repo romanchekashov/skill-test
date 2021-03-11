@@ -1,6 +1,7 @@
 import {TestEntity} from "../data/TestEntity";
 import ReduxSagaQuestions from "./ReduxSagaQuestions";
 import {UserEntity} from "../data/UserEntity";
+import ReduxQuestions from "./ReduxQuestions";
 
 const tests: TestEntity[] = [
     {
@@ -25,7 +26,7 @@ const tests: TestEntity[] = [
         id: 4,
         categories: ['web', 'programming'],
         name: 'Redux',
-        questions: [],
+        questions: ReduxQuestions,
         previewImg: "https://redux.js.org/img/redux-logo-landscape.png"
     }, {
         id: 5,

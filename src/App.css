@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.p-checkbox.p-invalid > .p-checkbox-box {
+  border-color: #e60017;
+  background: #f44336;
+}
+.p-checkbox.p-valid > .p-checkbox-box {
+  border-color: #439446;
+  background: #6ebe71;
+}

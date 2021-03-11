@@ -4,4 +4,5 @@ export class TestItemEntity {
     possibleAnswers: string[] = []
     answers: string[] = []
     multiChoice?: boolean = false
+    info?: string
 }

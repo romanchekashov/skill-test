@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import {TestEntity} from "../../data/TestEntity";
 import "./CurrentTest.css";
-import {Link} from "react-router-dom";
 import {Button} from "primereact/button";
 import {Paginator} from "primereact/paginator";
 import CurrentTestQuestion from "./CurrentTestQuestion";
 import {UserTestResultEntity} from "../../data/UserTestResultEntity";
-import CurrentTestResult from "./CurrentTestResult";
+import CurrentTestResult from "./result/CurrentTestResult";
 
 type Props = {
     test: TestEntity
