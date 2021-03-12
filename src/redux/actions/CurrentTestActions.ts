@@ -1,4 +1,4 @@
-import {TestEntity} from "../../data/TestEntity";
+import {TestDto} from "../../data/TestDto";
 
 export const LOAD_TEST_BY_ID = "LOAD_TEST_BY_ID";
 export const LOAD_TEST_BY_ID_SUCCESS = "LOAD_TEST_BY_ID_SUCCESS";
@@ -12,7 +12,7 @@ export interface LoadTestByIdAction {
 
 interface LoadTestByIdSuccessAction {
     type: typeof LOAD_TEST_BY_ID_SUCCESS
-    test: TestEntity
+    test: TestDto
 }
 
 interface LoadTestByIdErrorAction {
@@ -33,7 +33,7 @@ export function loadTestById(testId: number): CurrentTestActionTypes {
     }
 }
 
-export function loadTestByIdSuccess(test: TestEntity): CurrentTestActionTypes {
+export function loadTestByIdSuccess(test: TestDto): CurrentTestActionTypes {
     return {
         type: LOAD_TEST_BY_ID_SUCCESS,
         test

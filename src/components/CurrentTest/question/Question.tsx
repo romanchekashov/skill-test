@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import "../CurrentTest.css";
 import {Checkbox} from "primereact/checkbox";
-import {UserTestItemAnswerEntity} from "../../../data/UserTestItemAnswerEntity";
+import {UserTestItemAnswerDto} from "../../../data/UserTestItemAnswerDto";
 import {Card} from "primereact/card";
 
 type Props = {
     questionNumber: number
-    userTestItemAnswer: UserTestItemAnswerEntity
+    userTestItemAnswer: UserTestItemAnswerDto
 }
 
 const Question: React.FC<Props> = ({questionNumber, userTestItemAnswer}) => {

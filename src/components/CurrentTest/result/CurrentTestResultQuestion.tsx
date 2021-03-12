@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import "./../CurrentTest.css";
 import {Checkbox} from "primereact/checkbox";
 import {Card} from "primereact/card";
-import {UserTestItemAnswerEntity} from "../../../data/UserTestItemAnswerEntity";
+import {UserTestItemAnswerDto} from "../../../data/UserTestItemAnswerDto";
 
 type Props = {
     questionNumber: number
-    userTestItemAnswer: UserTestItemAnswerEntity
+    userTestItemAnswer: UserTestItemAnswerDto
 }
 
 const CurrentTestResultQuestion: React.FC<Props> = ({questionNumber, userTestItemAnswer}) => {
@@ -60,7 +60,7 @@ const CurrentTestResultQuestion: React.FC<Props> = ({questionNumber, userTestIte
                 </div>
             </Card>
             {
-                question.info ? <div className="card" dangerouslySetInnerHTML={{ __html: question.info }}></div> : null
+                question.info ? <div className="card" dangerouslySetInnerHTML={{__html: question.info}}></div> : null
             }
         </div>
     );

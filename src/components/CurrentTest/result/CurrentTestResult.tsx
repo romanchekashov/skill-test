@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {UserTestResultEntity} from "../../../data/UserTestResultEntity";
-import {UserTestItemAnswerEntity} from "../../../data/UserTestItemAnswerEntity";
+import {UserTestResultDto} from "../../../data/UserTestResultDto";
+import {UserTestItemAnswerDto} from "../../../data/UserTestItemAnswerDto";
 import {_equalArrays} from "../../../utils/utils";
 import {Button} from "primereact/button";
 import {Paginator} from "primereact/paginator";
@@ -8,7 +8,7 @@ import "./CurrentTestResult.css";
 import CurrentTestResultQuestion from "./CurrentTestResultQuestion";
 
 type Props = {
-    testResult: UserTestResultEntity
+    testResult: UserTestResultDto
     onRepeat: () => void
 }
 
@@ -16,7 +16,7 @@ const CurrentTestResult: React.FC<Props> = ({testResult, onRepeat}) => {
     const {result, test} = testResult;
     const [first2, setFirst2] = useState(0);
 
-    const countCorrectAnswers = (result: UserTestItemAnswerEntity[]): number => {
+    const countCorrectAnswers = (result: UserTestItemAnswerDto[]): number => {
         return result.reduce(
             (previousValue, currentValue) =>
                 _equalArrays(currentValue.answers, currentValue.question.answers) ? previousValue + 1 : previousValue,

@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import "../CurrentTest.css";
 import {Checkbox} from "primereact/checkbox";
-import {UserTestItemAnswerEntity} from "../../../data/UserTestItemAnswerEntity";
 import {Card} from "primereact/card";
+import {UserTestItemAnswerDto} from "../../../data/UserTestItemAnswerDto";
 
 type Props = {
     questionNumber: number
-    userTestItemAnswer: UserTestItemAnswerEntity
+    userTestItemAnswer: UserTestItemAnswerDto
 }
 
 const QuestionEdit: React.FC<Props> = ({questionNumber, userTestItemAnswer}) => {
@@ -14,7 +14,7 @@ const QuestionEdit: React.FC<Props> = ({questionNumber, userTestItemAnswer}) => 
     const {question} = userTestItemAnswer;
     const [cities, setCities] = useState<string[]>([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setCities(userTestItemAnswer.answers);
     }, [userTestItemAnswer]);
 
@@ -43,7 +43,8 @@ const QuestionEdit: React.FC<Props> = ({questionNumber, userTestItemAnswer}) => 
 
     return (
         <div className="CurrentTestQuestion card">
-            <Card title={question.question} subTitle={"Question " + questionNumber} style={{ width: '100%', marginBottom: '2em' }}>
+            <Card title={question.question} subTitle={"Question " + questionNumber}
+                  style={{width: '100%', marginBottom: '2em'}}>
                 <div className="possibleAnswers">
                     {
                         question.possibleAnswers.map(multi)

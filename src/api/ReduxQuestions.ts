@@ -1,6 +1,6 @@
-import {TestItemEntity} from "../data/TestItemEntity";
+import {TestItemDto} from "../data/TestItemDto";
 
-const ReduxQuestions: TestItemEntity[] = [
+const ReduxQuestions: TestItemDto[] = [
     { // https://goshakkk.name/redux-side-effect-approaches/
         id: 1,
         question: "What is a side-effect?",

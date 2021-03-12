@@ -3,10 +3,10 @@ import "./Test.css";
 import {Link} from "react-router-dom";
 import {InputText} from "primereact/inputtext";
 import {Menubar} from "primereact/menubar";
-import {UserEntity} from "../data/UserEntity";
+import {UserDto} from "../data/UserDto";
 
 type Props = {
-    user: UserEntity | null
+    user: UserDto | null
     userLogOut: () => void
 }
 

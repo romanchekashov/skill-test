@@ -1,4 +1,4 @@
-import {UserEntity} from "../../data/UserEntity";
+import {UserDto} from "../../data/UserDto";
 
 export const USER_LOG_IN = "USER_LOG_IN";
 export const USER_LOG_IN_SUCCESS = "USER_LOG_IN_SUCCESS";
@@ -12,7 +12,7 @@ export interface UserLogInAction {
 
 export interface UserLogInSuccessAction {
     type: typeof USER_LOG_IN_SUCCESS
-    user: UserEntity
+    user: UserDto
 }
 
 export interface UserLogOutAction {
@@ -29,7 +29,7 @@ export function userLogIn(username: string): UserActionTypes {
     }
 }
 
-export function userLogInSuccess(user: UserEntity): UserActionTypes {
+export function userLogInSuccess(user: UserDto): UserActionTypes {
     return {
         type: USER_LOG_IN_SUCCESS,
         user

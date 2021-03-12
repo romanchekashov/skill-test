@@ -3,11 +3,11 @@ import "../Test.css";
 import {CurrentTestState} from "../../redux/reducers/currentTest";
 import CurrentTest from "./CurrentTest";
 import {ProgressSpinner} from "primereact/progressspinner";
-import {UserEntity} from "../../data/UserEntity";
+import {UserDto} from "../../data/UserDto";
 
 type Props = {
     testId: number
-    user: UserEntity | null
+    user: UserDto | null
     currentTest: CurrentTestState
     loadTestById: (testId: number) => void
 }

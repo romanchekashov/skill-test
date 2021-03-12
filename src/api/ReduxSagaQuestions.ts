@@ -1,6 +1,6 @@
-import {TestItemEntity} from "../data/TestItemEntity";
+import {TestItemDto} from "../data/TestItemDto";
 
-const ReduxSagaQuestions: TestItemEntity[] = [
+const ReduxSagaQuestions: TestItemDto[] = [
     {
         id: 1,
         question: "In order to use Saga, what we need to do?",

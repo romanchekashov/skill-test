@@ -1,10 +1,10 @@
-import {TestEntity} from "../../data/TestEntity";
+import {TestDto} from "../../data/TestDto";
 import {CurrentTestActionTypes, LOAD_TEST_BY_ID, LOAD_TEST_BY_ID_SUCCESS} from "../actions/CurrentTestActions";
-import {UserTestResultEntity} from "../../data/UserTestResultEntity";
+import {UserTestResultDto} from "../../data/UserTestResultDto";
 
 export interface CurrentTestState {
-    test: TestEntity | null
-    testResult: UserTestResultEntity | null
+    test: TestDto | null
+    testResult: UserTestResultDto | null
     loading: boolean
     error: string
 }

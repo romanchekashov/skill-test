@@ -1,9 +1,9 @@
-import {TestEntity} from "../../data/TestEntity";
+import {TestDto} from "../../data/TestDto";
 import dataStore from "../../api/dataStore";
 
-const initState: TestEntity[] = dataStore.getTests();
+const initState: TestDto[] = dataStore.getTests();
 
-const tests = (state: TestEntity[] = initState, action: any): TestEntity[] => {
+const tests = (state: TestDto[] = initState, action: any): TestDto[] => {
     switch (action.type) {
         default: return state;
     }

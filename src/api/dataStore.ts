@@ -1,15 +1,15 @@
-import {TestEntity} from "../data/TestEntity";
+import {TestDto} from "../data/TestDto";
 import ReduxSagaQuestions from "./ReduxSagaQuestions";
-import {UserEntity} from "../data/UserEntity";
+import {UserDto} from "../data/UserDto";
 import ReduxQuestions from "./ReduxQuestions";
 
-const roman: UserEntity = {
+const roman: UserDto = {
     id: 1,
     username: "roman",
     email: "romanrich89@gmail.com"
 };
 
-const tests: TestEntity[] = [
+const tests: TestDto[] = [
     {
         id: 1,
         author: roman,
@@ -55,16 +55,16 @@ const tests: TestEntity[] = [
     }
 ];
 
-let user!: UserEntity | null;
+let user!: UserDto | null;
 
 const dataStore = {
-    getTests(): TestEntity[] {
+    getTests(): TestDto[] {
         return tests;
     },
-    getTest(id: number): TestEntity {
-        return tests.find(value => value.id === id) as TestEntity;
+    getTest(id: number): TestDto {
+        return tests.find(value => value.id === id) as TestDto;
     },
-    getUser(): UserEntity | null {
+    getUser(): UserDto | null {
         if (user) return user;
 
         const username = localStorage.getItem("username");
@@ -76,7 +76,7 @@ const dataStore = {
             email: ""
         };
     },
-    setUser(username: string): UserEntity {
+    setUser(username: string): UserDto {
         localStorage.setItem("username", username);
         return user = {
             id: 1,

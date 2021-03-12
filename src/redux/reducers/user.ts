@@ -1,10 +1,10 @@
-import {UserEntity} from "../../data/UserEntity";
+import {UserDto} from "../../data/UserDto";
 import {USER_LOG_IN, USER_LOG_IN_SUCCESS, USER_LOG_OUT, UserActionTypes} from "../actions/UserActions";
 import dataStore from "../../api/dataStore";
 
 export interface UserState {
     username: string
-    user: UserEntity | null
+    user: UserDto | null
 }
 
 let initState: UserState = {

@@ -1,4 +1,4 @@
-export class TestItemEntity {
+export class TestItemDto {
     id!: number
     question!: string
     possibleAnswers: string[] = []

@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
-import {TestEntity} from "../../data/TestEntity";
+import {TestDto} from "../../data/TestDto";
 import "./CurrentTest.css";
 import {Button} from "primereact/button";
 import {Paginator} from "primereact/paginator";
 import Question from "./question/Question";
 import CurrentTestResult from "./result/CurrentTestResult";
-import {UserEntity} from "../../data/UserEntity";
-import {UserTestResultEntity} from "../../data/UserTestResultEntity";
+import {UserTestResultDto} from "../../data/UserTestResultDto";
+import {UserDto} from "../../data/UserDto";
 
 type Props = {
-    test: TestEntity
-    user: UserEntity
+    test: TestDto
+    user: UserDto
 }
 
 const CurrentTest: React.FC<Props> = ({test, user}) => {
-    const testResultInitialState: UserTestResultEntity = {
+    const testResultInitialState: UserTestResultDto = {
         id: -1,
         test,
         user: {
@@ -30,7 +30,7 @@ const CurrentTest: React.FC<Props> = ({test, user}) => {
 
     const [first2, setFirst2] = useState(0);
     const [finished, setFinished] = useState<boolean>(false);
-    const [testResult, setTestResult] = useState<UserTestResultEntity>(testResultInitialState);
+    const [testResult, setTestResult] = useState<UserTestResultDto>(testResultInitialState);
 
     const initTest = () => {
         setFirst2(0);
@@ -62,8 +62,10 @@ const CurrentTest: React.FC<Props> = ({test, user}) => {
             {
                 test.author.username === user.username ?
                     <>
-                        <Button label="Add" className="p-button-warning" onClick={onFinish} style={{marginLeft: "5px"}}/>
-                        <Button label="Edit" className="p-button-warning" onClick={onFinish} style={{marginLeft: "5px"}}/>
+                        <Button label="Add" className="p-button-warning" onClick={onFinish}
+                                style={{marginLeft: "5px"}}/>
+                        <Button label="Edit" className="p-button-warning" onClick={onFinish}
+                                style={{marginLeft: "5px"}}/>
                     </>
                     : null
             }

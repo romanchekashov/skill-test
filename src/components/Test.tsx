@@ -1,12 +1,12 @@
 import React from 'react';
-import {TestEntity} from "../data/TestEntity";
+import {TestDto} from "../data/TestDto";
 import "./Test.css";
 import {Link} from "react-router-dom";
 import {Card} from "primereact/card";
 import {Button} from "primereact/button";
 
 type Props = {
-    test: TestEntity
+    test: TestDto
 }
 
 const Test: React.FC<Props> = ({test}) => {

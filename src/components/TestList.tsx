@@ -1,10 +1,10 @@
 import React from 'react';
-import {TestEntity} from "../data/TestEntity";
+import {TestDto} from "../data/TestDto";
 import Test from "./Test";
 import "./TestList.css";
 
 type Props = {
-    tests: TestEntity[]
+    tests: TestDto[]
 }
 
 const TestList: React.FC<Props> = ({tests}) => {
