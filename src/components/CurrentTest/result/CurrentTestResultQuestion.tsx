@@ -2,8 +2,8 @@ import React from 'react';
 import "./../CurrentTest.css";
 import {Checkbox} from "primereact/checkbox";
 import {Card} from "primereact/card";
-import {UserTestItemAnswerDto} from "../../../data/UserTestItemAnswerDto";
-import {TestItemAnswerDto} from "../../../data/test/TestItemAnswerDto";
+import {UserTestItemAnswerDto} from "../../../dto/UserTestItemAnswerDto";
+import {TestItemAnswerDto} from "../../../dto/test/TestItemAnswerDto";
 
 type Props = {
     questionNumber: number

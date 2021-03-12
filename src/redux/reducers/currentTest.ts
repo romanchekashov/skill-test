@@ -1,6 +1,6 @@
-import {TestDto} from "../../data/test/TestDto";
+import {TestDto} from "../../dto/test/TestDto";
 import {CurrentTestActionTypes, LOAD_TEST_BY_ID, LOAD_TEST_BY_ID_SUCCESS} from "../actions/CurrentTestActions";
-import {UserTestResultDto} from "../../data/UserTestResultDto";
+import {UserTestResultDto} from "../../dto/UserTestResultDto";
 
 export interface CurrentTestState {
     test: TestDto | null

@@ -1,4 +1,4 @@
-import {UserDto} from "../../data/UserDto";
+import {UserDto} from "../../dto/UserDto";
 
 export const USER_LOG_IN = "USER_LOG_IN";
 export const USER_LOG_IN_SUCCESS = "USER_LOG_IN_SUCCESS";

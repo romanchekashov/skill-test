@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {UserTestResultDto} from "../../../data/UserTestResultDto";
-import {UserTestItemAnswerDto} from "../../../data/UserTestItemAnswerDto";
+import {UserTestResultDto} from "../../../dto/UserTestResultDto";
+import {UserTestItemAnswerDto} from "../../../dto/UserTestItemAnswerDto";
 import {Button} from "primereact/button";
 import {Paginator} from "primereact/paginator";
 import "./CurrentTestResult.css";

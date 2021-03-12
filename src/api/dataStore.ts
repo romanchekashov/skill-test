@@ -1,6 +1,6 @@
-import {TestDto} from "../data/test/TestDto";
+import {TestDto} from "../dto/test/TestDto";
 import ReduxSagaQuestions from "./ReduxSagaQuestions";
-import {UserDto} from "../data/UserDto";
+import {UserDto} from "../dto/UserDto";
 import ReduxQuestions from "./ReduxQuestions";
 
 const roman: UserDto = {

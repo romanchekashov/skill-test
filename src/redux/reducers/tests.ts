@@ -1,4 +1,4 @@
-import {TestDto} from "../../data/test/TestDto";
+import {TestDto} from "../../dto/test/TestDto";
 import dataStore from "../../api/dataStore";
 
 const initState: TestDto[] = dataStore.getTests();

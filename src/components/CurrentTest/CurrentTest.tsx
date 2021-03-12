@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {TestDto} from "../../data/test/TestDto";
+import {TestDto} from "../../dto/test/TestDto";
 import "./CurrentTest.css";
 import {Button} from "primereact/button";
 import {Paginator} from "primereact/paginator";
 import Question from "./question/Question";
 import CurrentTestResult from "./result/CurrentTestResult";
-import {UserTestResultDto} from "../../data/UserTestResultDto";
-import {UserDto} from "../../data/UserDto";
+import {UserTestResultDto} from "../../dto/UserTestResultDto";
+import {UserDto} from "../../dto/UserDto";
 
 type Props = {
     test: TestDto

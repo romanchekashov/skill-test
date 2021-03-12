@@ -1,4 +1,4 @@
-import {TestItemDto} from "../data/test/TestItemDto";
+import {TestItemDto} from "../dto/test/TestItemDto";
 
 const ReduxQuestions: TestItemDto[] = [
     { // https://goshakkk.name/redux-side-effect-approaches/
