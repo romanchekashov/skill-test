@@ -1,4 +1,5 @@
 import {TestItemEntity} from "./TestItemEntity";
+import {UserEntity} from "./UserEntity";
 
 export class TestEntity {
     id!: number
@@ -6,4 +7,5 @@ export class TestEntity {
     previewImg?: string
     categories: string[] = []
     questions: TestItemEntity[] = []
+    author!: UserEntity
 }

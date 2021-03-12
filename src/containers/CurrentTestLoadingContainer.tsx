@@ -12,6 +12,7 @@ export const CurrentTestLoadingContainer = connect(
     (state: RootState, ownProps: RouteComponentProps<RouterParams>) => ({
         testId: parseInt(ownProps.match.params.testId),
         currentTest: state.currentTest,
+        user: state.user?.user,
     }),
     {loadTestById}
 )(CurrentTestLoading);

@@ -6,7 +6,7 @@ import {Menubar} from "primereact/menubar";
 import {UserEntity} from "../data/UserEntity";
 
 type Props = {
-    user: UserEntity | null,
+    user: UserEntity | null
     userLogOut: () => void
 }
 

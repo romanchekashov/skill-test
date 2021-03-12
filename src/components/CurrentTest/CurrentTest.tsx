@@ -3,15 +3,17 @@ import {TestEntity} from "../../data/TestEntity";
 import "./CurrentTest.css";
 import {Button} from "primereact/button";
 import {Paginator} from "primereact/paginator";
-import CurrentTestQuestion from "./CurrentTestQuestion";
-import {UserTestResultEntity} from "../../data/UserTestResultEntity";
+import Question from "./question/Question";
 import CurrentTestResult from "./result/CurrentTestResult";
+import {UserEntity} from "../../data/UserEntity";
+import {UserTestResultEntity} from "../../data/UserTestResultEntity";
 
 type Props = {
     test: TestEntity
+    user: UserEntity
 }
 
-const CurrentTest: React.FC<Props> = ({test}) => {
+const CurrentTest: React.FC<Props> = ({test, user}) => {
     const testResultInitialState: UserTestResultEntity = {
         id: -1,
         test,
@@ -57,6 +59,14 @@ const CurrentTest: React.FC<Props> = ({test}) => {
         <>
             <Button label="Next" onClick={onNext} disabled={first2 + 1 >= test.questions.length}/>
             <Button label="Finish" className="p-button-warning" onClick={onFinish} style={{marginLeft: "5px"}}/>
+            {
+                test.author.username === user.username ?
+                    <>
+                        <Button label="Add" className="p-button-warning" onClick={onFinish} style={{marginLeft: "5px"}}/>
+                        <Button label="Edit" className="p-button-warning" onClick={onFinish} style={{marginLeft: "5px"}}/>
+                    </>
+                    : null
+            }
         </>
     );
 
@@ -72,8 +82,8 @@ const CurrentTest: React.FC<Props> = ({test}) => {
                        template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"></Paginator>
 
             {
-                test.questions[first2] ? <CurrentTestQuestion questionNumber={first2 + 1}
-                                                              userTestItemAnswer={testResult.result[first2]}/> : null
+                test.questions[first2] ? <Question questionNumber={first2 + 1}
+                                                   userTestItemAnswer={testResult.result[first2]}/> : null
             }
 
 

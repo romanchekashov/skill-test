@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import "./CurrentTest.css";
+import "../CurrentTest.css";
 import {Checkbox} from "primereact/checkbox";
-import {UserTestItemAnswerEntity} from "../../data/UserTestItemAnswerEntity";
+import {UserTestItemAnswerEntity} from "../../../data/UserTestItemAnswerEntity";
 import {Card} from "primereact/card";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
     userTestItemAnswer: UserTestItemAnswerEntity
 }
 
-const CurrentTestQuestion: React.FC<Props> = ({questionNumber, userTestItemAnswer}) => {
+const QuestionEdit: React.FC<Props> = ({questionNumber, userTestItemAnswer}) => {
 
     const {question} = userTestItemAnswer;
     const [cities, setCities] = useState<string[]>([]);
@@ -54,4 +54,4 @@ const CurrentTestQuestion: React.FC<Props> = ({questionNumber, userTestItemAnswe
     );
 };
 
-export default CurrentTestQuestion;
+export default QuestionEdit;
