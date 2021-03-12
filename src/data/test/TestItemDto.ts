@@ -1,8 +1,9 @@
+import {TestItemAnswerDto} from "./TestItemAnswerDto";
+
 export class TestItemDto {
     id!: number
     question!: string
-    possibleAnswers: string[] = []
-    answers: string[] = []
+    answers: TestItemAnswerDto[] = []
     multiChoice?: boolean = false
     info?: string
 }

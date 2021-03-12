@@ -1,6 +1,6 @@
-import {TestItemDto} from "./TestItemDto";
+import {TestItemDto} from "./test/TestItemDto";
 
 export class UserTestItemAnswerDto {
     question!: TestItemDto
-    answers: string[] = []
+    answerIds: number[] = []
 }

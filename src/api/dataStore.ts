@@ -1,4 +1,4 @@
-import {TestDto} from "../data/TestDto";
+import {TestDto} from "../data/test/TestDto";
 import ReduxSagaQuestions from "./ReduxSagaQuestions";
 import {UserDto} from "../data/UserDto";
 import ReduxQuestions from "./ReduxQuestions";
@@ -13,42 +13,42 @@ const tests: TestDto[] = [
     {
         id: 1,
         author: roman,
-        categories: ['web'],
+        categories: ['web'].map((name, id) => ({id, name})),
         name: 'CSS',
         questions: [],
         previewImg: "http://sun9-62.userapi.com/impf/c850736/v850736459/86435/WReeg4oZhY4.jpg?size=600x331&quality=96&proxy=1&sign=87406d5087d729048575d1a1f746b250&type=album"
     }, {
         id: 2,
         author: roman,
-        categories: ['web', 'programming'],
+        categories: ['web', 'programming'].map((name, id) => ({id, name})),
         name: 'JavaScript es6',
         questions: [],
         previewImg: "https://frontendjournal.com/wp-content/uploads/2020/09/Javascript-ES6.jpg"
     }, {
         id: 3,
         author: roman,
-        categories: ['web', 'programming'],
+        categories: ['web', 'programming'].map((name, id) => ({id, name})),
         name: 'React',
         questions: [],
         previewImg: "https://miro.medium.com/max/3600/1*HSisLuifMO6KbLfPOKtLow.jpeg"
     }, {
         id: 4,
         author: roman,
-        categories: ['web', 'programming'],
+        categories: ['web', 'programming'].map((name, id) => ({id, name})),
         name: 'Redux',
         questions: ReduxQuestions,
         previewImg: "https://redux.js.org/img/redux-logo-landscape.png"
     }, {
         id: 5,
         author: roman,
-        categories: ['web', 'programming'],
+        categories: ['web', 'programming'].map((name, id) => ({id, name})),
         name: 'Redux-Saga',
         questions: ReduxSagaQuestions,
         previewImg: "https://tomphill.co.uk/static/3bda91f9b743ba12b4224a77d77dcf2f/01f8d/1419368_4c25_3.jpg"
     }, {
         id: 6,
         author: roman,
-        categories: ['devops'],
+        categories: ['devops'].map((name, id) => ({id, name})),
         name: 'Docker',
         questions: [],
         previewImg: "https://habrastorage.org/webt/8w/2q/ga/8w2qgad0hpcszydr-apdn1uib-8.png"

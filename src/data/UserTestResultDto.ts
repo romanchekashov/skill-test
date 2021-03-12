@@ -1,5 +1,5 @@
 import {UserDto} from "./UserDto";
-import {TestDto} from "./TestDto";
+import {TestDto} from "./test/TestDto";
 import {UserTestItemAnswerDto} from "./UserTestItemAnswerDto";
 
 export class UserTestResultDto {

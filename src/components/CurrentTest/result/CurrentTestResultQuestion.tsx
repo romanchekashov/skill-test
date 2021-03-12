@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import "./../CurrentTest.css";
 import {Checkbox} from "primereact/checkbox";
 import {Card} from "primereact/card";
 import {UserTestItemAnswerDto} from "../../../data/UserTestItemAnswerDto";
+import {TestItemAnswerDto} from "../../../data/test/TestItemAnswerDto";
 
 type Props = {
     questionNumber: number
@@ -11,40 +12,22 @@ type Props = {
 
 const CurrentTestResultQuestion: React.FC<Props> = ({questionNumber, userTestItemAnswer}) => {
 
-    const {question, answers} = userTestItemAnswer;
-    const [cities, setCities] = useState<string[]>([]);
+    const {question, answerIds} = userTestItemAnswer;
 
-    useEffect(() => {
-        setCities(userTestItemAnswer.answers);
-    }, [userTestItemAnswer]);
-
-    const onCityChange = (e: any) => {
-        let selectedCities = [...cities];
-
-        if (e.checked)
-            selectedCities.push(e.value);
-        else
-            selectedCities.splice(selectedCities.indexOf(e.value), 1);
-
-        setCities(selectedCities);
-        userTestItemAnswer.answers = selectedCities;
-    }
-
-    const multi = (possibleAnswer: string, idx: number) => {
-        const id = "possibleAnswer" + idx;
-        const isChecked = answers.indexOf(possibleAnswer) !== -1;
-        const isCorrectAnswer = question.answers.indexOf(possibleAnswer) !== -1;
+    const multi = (answerDto: TestItemAnswerDto, idx: number) => {
+        const {id, answer, correct} = answerDto;
+        const checkboxId = "possibleAnswer" + idx;
+        const isChecked = answerIds.some(value => value === id);
 
         return (
-            <div className="p-field-checkbox possibleAnswer" key={possibleAnswer}>
-                <Checkbox inputId={id}
-                          className={isCorrectAnswer ? "p-valid" : isChecked ? "p-invalid" : ""}
+            <div className="p-field-checkbox possibleAnswer" key={idx}>
+                <Checkbox inputId={checkboxId}
+                          className={correct ? "p-valid" : isChecked ? "p-invalid" : ""}
                           name="city"
-                          value={possibleAnswer}
-                          onChange={onCityChange}
-                          checked={isChecked || isCorrectAnswer}
+                          value={answerDto}
+                          checked={isChecked || correct}
                           disabled={true}/>
-                <label htmlFor={id}>{possibleAnswer}</label>
+                <label htmlFor={checkboxId}>{answer}</label>
             </div>
         )
     }
@@ -55,7 +38,7 @@ const CurrentTestResultQuestion: React.FC<Props> = ({questionNumber, userTestIte
                   style={{width: '100%', marginBottom: '2em'}}>
                 <div className="possibleAnswers">
                     {
-                        question.possibleAnswers.map(multi)
+                        question.answers.map(multi)
                     }
                 </div>
             </Card>

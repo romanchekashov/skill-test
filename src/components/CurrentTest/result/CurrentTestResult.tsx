@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {UserTestResultDto} from "../../../data/UserTestResultDto";
 import {UserTestItemAnswerDto} from "../../../data/UserTestItemAnswerDto";
-import {_equalArrays} from "../../../utils/utils";
 import {Button} from "primereact/button";
 import {Paginator} from "primereact/paginator";
 import "./CurrentTestResult.css";
 import CurrentTestResultQuestion from "./CurrentTestResultQuestion";
+import {_equalArrays} from "../../../utils/utils";
 
 type Props = {
     testResult: UserTestResultDto
@@ -19,7 +19,10 @@ const CurrentTestResult: React.FC<Props> = ({testResult, onRepeat}) => {
     const countCorrectAnswers = (result: UserTestItemAnswerDto[]): number => {
         return result.reduce(
             (previousValue, currentValue) =>
-                _equalArrays(currentValue.answers, currentValue.question.answers) ? previousValue + 1 : previousValue,
+                (_equalArrays(
+                    currentValue.answerIds,
+                    currentValue.question.answers.filter(value => value.correct).map(value => value.id))
+                    ? previousValue + 1 : previousValue),
             0);
     }
 

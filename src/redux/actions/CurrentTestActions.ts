@@ -1,4 +1,4 @@
-import {TestDto} from "../../data/TestDto";
+import {TestDto} from "../../data/test/TestDto";
 
 export const LOAD_TEST_BY_ID = "LOAD_TEST_BY_ID";
 export const LOAD_TEST_BY_ID_SUCCESS = "LOAD_TEST_BY_ID_SUCCESS";

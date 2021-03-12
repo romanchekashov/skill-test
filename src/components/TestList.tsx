@@ -1,5 +1,5 @@
 import React from 'react';
-import {TestDto} from "../data/TestDto";
+import {TestDto} from "../data/test/TestDto";
 import Test from "./Test";
 import "./TestList.css";
 

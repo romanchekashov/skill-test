@@ -3,6 +3,7 @@ import "../CurrentTest.css";
 import {Checkbox} from "primereact/checkbox";
 import {UserTestItemAnswerDto} from "../../../data/UserTestItemAnswerDto";
 import {Card} from "primereact/card";
+import {TestItemAnswerDto} from "../../../data/test/TestItemAnswerDto";
 
 type Props = {
     questionNumber: number
@@ -12,13 +13,14 @@ type Props = {
 const Question: React.FC<Props> = ({questionNumber, userTestItemAnswer}) => {
 
     const {question} = userTestItemAnswer;
-    const [cities, setCities] = useState<string[]>([]);
+    const [cities, setCities] = useState<TestItemAnswerDto[]>([]);
 
-    useEffect(()=>{
-        setCities(userTestItemAnswer.answers);
+    useEffect(() => {
+        const {answerIds, question} = userTestItemAnswer;
+        setCities(question.answers.filter(value => answerIds.indexOf(value.id) !== -1));
     }, [userTestItemAnswer]);
 
-    const onCityChange = (e: any) => {
+    const onAnswerChange = (e: any) => {
         let selectedCities = [...cities];
 
         if (e.checked)
@@ -27,26 +29,30 @@ const Question: React.FC<Props> = ({questionNumber, userTestItemAnswer}) => {
             selectedCities.splice(selectedCities.indexOf(e.value), 1);
 
         setCities(selectedCities);
-        userTestItemAnswer.answers = selectedCities;
+        userTestItemAnswer.answerIds = selectedCities.map(value => value.id);
     }
 
-    const multi = (possibleAnswer: string, idx: number) => {
-        const id = "possibleAnswer" + idx;
+    const multi = (answerDto: TestItemAnswerDto, idx: number) => {
+        const {id, answer} = answerDto;
+        const checkboxId = "possibleAnswer" + idx;
         return (
-            <div className="p-field-checkbox possibleAnswer" key={possibleAnswer}>
-                <Checkbox inputId={id} name="city" value={possibleAnswer} onChange={onCityChange}
-                          checked={cities.indexOf(possibleAnswer) !== -1}/>
-                <label htmlFor={id}>{possibleAnswer}</label>
+            <div className="p-field-checkbox possibleAnswer" key={idx}>
+                <Checkbox inputId={checkboxId} name="city"
+                          value={answerDto}
+                          onChange={onAnswerChange}
+                          checked={cities.some(value => value.id === id)}/>
+                <label htmlFor={checkboxId}>{answer}</label>
             </div>
         )
     }
 
     return (
         <div className="CurrentTestQuestion card">
-            <Card title={question.question} subTitle={"Question " + questionNumber} style={{ width: '100%', marginBottom: '2em' }}>
+            <Card title={question.question} subTitle={"Question " + questionNumber}
+                  style={{width: '100%', marginBottom: '2em'}}>
                 <div className="possibleAnswers">
                     {
-                        question.possibleAnswers.map(multi)
+                        question.answers.map(multi)
                     }
                 </div>
             </Card>

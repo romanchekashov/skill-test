@@ -1,5 +1,5 @@
 import React from 'react';
-import {TestDto} from "../data/TestDto";
+import {TestDto} from "../data/test/TestDto";
 import "./Test.css";
 import {Link} from "react-router-dom";
 import {Card} from "primereact/card";
@@ -26,7 +26,7 @@ const Test: React.FC<Props> = ({test}) => {
     );
     return (
         <div>
-            <Card title={test.name} subTitle={test.categories.join()} className="Test" footer={footer} header={header}>
+            <Card title={test.name} subTitle={test.categories.map(value => value.name).join()} className="Test" footer={footer} header={header}>
                 <p className="p-m-0" style={{lineHeight: '1.5'}}>asdom asdsadd</p>
             </Card>
         </div>

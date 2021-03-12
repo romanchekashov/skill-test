@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TestDto} from "../../data/TestDto";
+import {TestDto} from "../../data/test/TestDto";
 import "./CurrentTest.css";
 import {Button} from "primereact/button";
 import {Paginator} from "primereact/paginator";
@@ -24,7 +24,7 @@ const CurrentTest: React.FC<Props> = ({test, user}) => {
         },
         result: test.questions.map(question => ({
             question,
-            answers: []
+            answerIds: []
         }))
     };
 
@@ -75,7 +75,7 @@ const CurrentTest: React.FC<Props> = ({test, user}) => {
     return (
         <div className="CurrentTest card">
             <div className="CurrentTest-head">
-                <h2>{test.name} <span>{test.categories.join()}</span></h2>
+                <h2>{test.name} <span>{test.categories.map(value => value.name).join()}</span></h2>
             </div>
 
             <Paginator first={first2} rows={1} totalRecords={test.questions.length}
