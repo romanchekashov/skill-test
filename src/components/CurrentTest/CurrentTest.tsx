@@ -19,7 +19,6 @@ const CurrentTest: React.FC<Props> = ({test, user}) => {
         test,
         user: {
             id: -1,
-            email: "",
             username: "none"
         },
         result: test.questions.map(question => ({

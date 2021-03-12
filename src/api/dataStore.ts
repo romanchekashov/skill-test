@@ -5,8 +5,7 @@ import ReduxQuestions from "./ReduxQuestions";
 
 const roman: UserDto = {
     id: 1,
-    username: "roman",
-    email: "romanrich89@gmail.com"
+    username: "roman"
 };
 
 const tests: TestDto[] = [
@@ -72,16 +71,14 @@ const dataStore = {
 
         return user = {
             id: 1,
-            username,
-            email: ""
+            username
         };
     },
     setUser(username: string): UserDto {
         localStorage.setItem("username", username);
         return user = {
             id: 1,
-            username,
-            email: ""
+            username
         };
     },
     logOut() {
