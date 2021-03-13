@@ -8,6 +8,7 @@ export function auth(username: string, password: string): Promise<UserDto> {
     return fetch(baseUrl + 'auth/', {
         method: "POST", // POST for create, PUT to update when id already exists.
         headers: {"content-type": "application/json"},
+        credentials: "include",
         body: JSON.stringify({
             username: base64.encode(username),
             password: base64.encode(password)
