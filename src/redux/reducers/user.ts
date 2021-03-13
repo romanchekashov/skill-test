@@ -4,11 +4,13 @@ import dataStore from "../../api/dataStore";
 
 export interface UserState {
     username: string
+    error: string
     user: UserDto | null
 }
 
 let initState: UserState = {
     username: "",
+    error: "",
     user: dataStore.getUser()
 };
 

@@ -4,21 +4,28 @@ import {Button} from "primereact/button";
 import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
 import {UserState} from "../../redux/reducers/user";
+import {Password} from "primereact/password";
+import {auth} from "../../api/openApi";
+import {UserDto} from "../../dto/UserDto";
 
 type Props = {
     user: UserState
-    userLogIn: (username: string) => void
+    userLogInSuccess: (user: UserDto) => void
 }
 
-const Login: React.FC<Props> = ({user, userLogIn}) => {
+const Login: React.FC<Props> = ({user, userLogInSuccess}) => {
     const [username, setUsername] = useState<string>(user.username);
+    const [password, setPassword] = useState<string>("");
 
     const onHide = () => {
     };
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        userLogIn(username);
+        auth(username, password)
+            .then(userLogInSuccess)
+            .catch(reason => {
+            });
     };
 
     return (
@@ -30,14 +37,22 @@ const Login: React.FC<Props> = ({user, userLogIn}) => {
                 <div className="p-field">
                     <label htmlFor="username1" className="p-d-block">Username</label>
                     <InputText id="username1"
-                               aria-describedby="username1-help"
                                className="p-d-block"
                                value={username}
                                onChange={(e) => setUsername((e.target as any).value.trim())}
                                placeholder="Username"
                                required={true}
                                minLength={3}/>
-                    <small id="username1-help" className="p-d-block">Enter your username to log in.</small>
+                </div>
+                <div className="p-field">
+                    <label htmlFor="password" className="p-d-block">Password</label>
+                    <Password id="password"
+                              className="p-d-block"
+                              value={password}
+                              onChange={(e) => setPassword((e.target as any).value.trim())}
+                              placeholder="Password"
+                              required={true}
+                              minLength={8}/>
                 </div>
                 <Button type="submit" label="Login"/>
             </form>
