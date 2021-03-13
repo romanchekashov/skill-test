@@ -8,6 +8,7 @@ import {HeaderMenuContainer} from "./containers/HeaderMenuContainer";
 import PrivateRoute from "./components/auth/PrivateRoute";
 
 function App() {
+    console.log(process.env.NODE_ENV);
     return (
         <Router>
             <div className="App">

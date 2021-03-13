@@ -1,3 +1,5 @@
+import {isProd} from "../utils/utils";
+
 export async function handleResponse(response: any) {
     if (response.ok) return response.json();
     if (response.status === 400) {
@@ -28,5 +30,6 @@ export function getCookie(name: string): string {
 export const xsrf = (headers: any): any => {
     const xsrf_token = getCookie("xsrf_token");
     if (xsrf_token) headers["X-XSRF-TOKEN"] = xsrf_token;
+    if (!isProd()) headers["Authorization"] = `Bearer ${getCookie("jwt_access_token")}`;
     return headers;
 }
