@@ -17,3 +17,10 @@
 .Login button {
     margin-top: 5px;
 }
+
+.Login .sign-up {
+    margin: 15px;
+}
+.Login .log-in {
+    margin: 15px;
+}

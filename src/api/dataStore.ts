@@ -54,7 +54,7 @@ const tests: TestDto[] = [
     }
 ];
 
-let user!: UserDto | null;
+const USER_KEY = "user";
 
 const dataStore = {
     getTests(): TestDto[] {
@@ -64,26 +64,17 @@ const dataStore = {
         return tests.find(value => value.id === id) as TestDto;
     },
     getUser(): UserDto | null {
-        if (user) return user;
-
-        const username = localStorage.getItem("username");
-        if (!username) return null;
-
-        return user = {
-            id: 1,
-            username
-        };
+        let user = null;
+        const sUser = sessionStorage.getItem(USER_KEY);
+        if (sUser) user = JSON.parse(sUser);
+        return user;
     },
-    setUser(username: string): UserDto {
-        localStorage.setItem("username", username);
-        return user = {
-            id: 1,
-            username
-        };
+    setUser(user: UserDto): boolean {
+        sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+        return true;
     },
     logOut() {
-        localStorage.removeItem("username");
-        user = null;
+        sessionStorage.removeItem(USER_KEY);
     }
 };
 

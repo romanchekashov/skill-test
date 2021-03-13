@@ -4,9 +4,7 @@ import Login from "../components/auth/Login";
 import {userLogInSuccess} from "../redux/actions/UserActions";
 
 export const LoginContainer = connect(
-    (state: RootState) => ({
-        user: state.user,
-    }),
+    (state: RootState) => ({}),
     {
         userLogInSuccess
     }
