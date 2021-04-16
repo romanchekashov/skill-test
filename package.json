@@ -2,6 +2,7 @@
   "private": true,
   "name": "skill-test",
   "workspaces": [
+    "server",
     "web"
   ]
 }
