@@ -4,5 +4,10 @@
   "workspaces": [
     "server",
     "web"
-  ]
+  ],
+  "scripts": {
+    "start-server": "yarn workspace @skill-test/server run start",
+    "start-web": "yarn workspace @skill-test/web run start",
+    "test": "yarn workspaces run test"
+  }
 }
