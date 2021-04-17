@@ -1,5 +1,5 @@
 import React from 'react';
-import {TestDto} from "../dto/test/TestDto";
+import {TestDto} from "@skill-test/data/dto/test/TestDto";
 import "./Test.css";
 import {Link} from "react-router-dom";
 import {Card} from "primereact/card";

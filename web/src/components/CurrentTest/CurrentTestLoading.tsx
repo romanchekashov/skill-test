@@ -3,7 +3,7 @@ import "../Test.css";
 import {CurrentTestState} from "../../redux/reducers/currentTest";
 import CurrentTest from "./CurrentTest";
 import {ProgressSpinner} from "primereact/progressspinner";
-import {UserDto} from "../../dto/UserDto";
+import {UserDto} from "@skill-test/data/dto/UserDto";
 
 type Props = {
     testId: number

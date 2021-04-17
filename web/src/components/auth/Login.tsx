@@ -5,7 +5,7 @@ import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
 import {Password} from "primereact/password";
 import {createUser, getCurrentUser, login} from "../../api/openApi";
-import {UserDto} from "../../dto/UserDto";
+import {UserDto} from "@skill-test/data/dto/UserDto";
 import {SelectButton} from "primereact/selectbutton";
 import dataStore from "../../api/dataStore";
 

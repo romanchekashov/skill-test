@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import "../CurrentTest.css";
 import {Checkbox} from "primereact/checkbox";
-import {UserTestItemAnswerDto} from "../../../dto/UserTestItemAnswerDto";
+import {UserTestItemAnswerDto} from "@skill-test/data/dto/UserTestItemAnswerDto";
 import {Card} from "primereact/card";
-import {TestItemAnswerDto} from "../../../dto/test/TestItemAnswerDto";
+import {TestItemAnswerDto} from "@skill-test/data/dto/test/TestItemAnswerDto";
 
 type Props = {
     questionNumber: number

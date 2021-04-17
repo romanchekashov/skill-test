@@ -3,7 +3,7 @@ import "./Test.css";
 import {Link} from "react-router-dom";
 import {InputText} from "primereact/inputtext";
 import {Menubar} from "primereact/menubar";
-import {UserDto} from "../dto/UserDto";
+import {UserDto} from "@skill-test/data/dto/UserDto";
 
 type Props = {
     user: UserDto | null

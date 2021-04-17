@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@skill-test/data": "1.0.0",
     "base-64": "^1.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
