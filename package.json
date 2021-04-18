@@ -4,11 +4,13 @@
   "workspaces": [
     "data",
     "server",
-    "web"
+    "web",
+    "client"
   ],
   "scripts": {
     "start-server": "yarn workspace @skill-test/server run start",
     "start-web": "yarn workspace @skill-test/web run start",
+    "start-client": "yarn workspace @skill-test/client run dev",
     "test": "yarn workspaces run test"
   }
 }
