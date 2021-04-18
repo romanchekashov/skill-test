@@ -1,0 +1,13 @@
+{
+  "name": "@skill-test/server-db-liquibase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "postgresql.js",
+  "scripts": {
+    "db-update": "node postgresql.js update",
+    "db-rollbackCount": "node postgresql.js rollbackCount"
+  },
+  "dependencies": {
+    "liquibase": "^1.0.1"
+  }
+}

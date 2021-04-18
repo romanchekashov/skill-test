@@ -3,6 +3,7 @@
   "name": "skill-test",
   "workspaces": [
     "data",
+    "server-db-liquibase",
     "server",
     "web",
     "client"
@@ -11,6 +12,8 @@
     "start-server": "yarn workspace @skill-test/server run start",
     "start-web": "yarn workspace @skill-test/web run start",
     "start-client": "yarn workspace @skill-test/client run dev",
+    "db-update": "yarn workspace @skill-test/server-db-liquibase run db-update",
+    "db-rollbackCount": "yarn workspace @skill-test/server-db-liquibase run db-rollbackCount",
     "test": "yarn workspaces run test"
   }
 }
