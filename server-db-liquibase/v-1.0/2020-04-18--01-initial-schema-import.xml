@@ -30,4 +30,69 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="create_table_decks" author="rchekashov">
+        <createSequence sequenceName="decks_id_seq" startValue="1" incrementBy="1"/>
+        <createTable tableName="decks">
+            <column name="id" type="bigint" defaultValueComputed="nextval(&apos;decks_id_seq&apos;)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="author_id" type="bigint"/>
+            <column name="name" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="preview_img" type="varchar(1024)"/>
+        </createTable>
+
+        <addUniqueConstraint columnNames="name, author_id"
+                             constraintName="uk_decks_name_author_id"
+                             tableName="decks"/>
+
+         <addForeignKeyConstraint constraintName="fk_decks_to_users"
+                                 baseTableName="decks"
+                                 baseColumnNames="author_id"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+
+        <rollback>
+            <dropTable tableName="decks"/>
+            <dropSequence sequenceName="decks_id_seq"/>
+            <dropUniqueConstraint constraintName="uk_decks_name_author_id"
+                                  tableName="decks"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_table_cards" author="rchekashov">
+        <createSequence sequenceName="cards_id_seq" startValue="1" incrementBy="1"/>
+        <createTable tableName="cards">
+            <column name="id" type="bigint" defaultValueComputed="nextval(&apos;cards_id_seq&apos;)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="deck_id" type="bigint"/>
+            <column name="question" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="answer" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="explanation" type="text"/>
+        </createTable>
+
+        <addUniqueConstraint columnNames="question, deck_id"
+                             constraintName="uk_cards_question_deck_id"
+                             tableName="cards"/>
+
+         <addForeignKeyConstraint constraintName="fk_cards_to_decks"
+                                 baseTableName="cards"
+                                 baseColumnNames="deck_id"
+                                 referencedTableName="decks"
+                                 referencedColumnNames="id"/>
+
+        <rollback>
+            <dropTable tableName="cards"/>
+            <dropSequence sequenceName="cards_id_seq"/>
+            <dropUniqueConstraint constraintName="uk_cards_question_deck_id"
+                                  tableName="cards"/>
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>
