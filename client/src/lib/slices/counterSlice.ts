@@ -1,16 +1,16 @@
-import { createSlice, Dispatch } from '@reduxjs/toolkit'
-import { CoreState } from '../../src/store'
+import { createSlice, Dispatch } from "@reduxjs/toolkit";
+import { CoreState } from "../../store";
 
 type CounterState = {
-  value: number
-}
+  value: number;
+};
 
 const initialState: CounterState = {
   value: 0,
-}
+};
 
 const counterSlice = createSlice({
-  name: 'counter',
+  name: "counter",
   initialState,
   reducers: {
     // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -18,19 +18,19 @@ const counterSlice = createSlice({
     // which detects changes to a "draft state" and produces a brand new
     // immutable state based off those changes
     increment: (state) => {
-      state.value += 1
+      state.value += 1;
     },
     decrement: (state) => {
-      state.value -= 1
+      state.value -= 1;
     },
     reset: (state) => {
-      state.value = 0
+      state.value = 0;
     },
     incrementByAmount: (state, action) => {
-      state.value += action.payload
+      state.value += action.payload;
     },
   },
-})
+});
 
 /**
  * Extract count from root state
@@ -38,14 +38,14 @@ const counterSlice = createSlice({
  * @param   {Object} state The root state
  * @returns {number} The current count
  */
-export const selectCount = (state: CoreState) => state.counter.value
+export const selectCount = (state: CoreState) => state.counter.value;
 
 export const {
   increment,
   decrement,
   reset,
   incrementByAmount,
-} = counterSlice.actions
+} = counterSlice.actions;
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -53,8 +53,8 @@ export const {
 // code can then be executed and other actions can be dispatched
 export const incrementAsync = (amount: number) => (dispatch: Dispatch) => {
   setTimeout(() => {
-    dispatch(incrementByAmount(amount))
-  }, 1000)
-}
+    dispatch(incrementByAmount(amount));
+  }, 1000);
+};
 
-export default counterSlice.reducer
+export default counterSlice.reducer;

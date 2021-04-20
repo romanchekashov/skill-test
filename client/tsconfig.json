@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDirs": ["src/", "types/", "pages/", "lib/", "components/"],
+    "rootDirs": ["src/"],
     "allowJs": true,
     "alwaysStrict": true,
     "esModuleInterop": true,
