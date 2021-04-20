@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux'
 
-import Clock from '../components/clock'
-import Counter from '../components/counter'
-import { tick } from '../lib/slices/clockSlice'
-import useInterval from '../lib/useInterval'
+import Clock from '../src/components/clock'
+import Counter from '../src/components/counter'
+import { tick } from '../src/lib/slices/clockSlice'
+import useInterval from '../src/lib/useInterval'
 
 const IndexPage = () => {
   const dispatch = useDispatch()

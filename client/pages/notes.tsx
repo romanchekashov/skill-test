@@ -3,11 +3,11 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import AddNoteForm from '../components/add-note'
-import { deleteNote, loadNotes, selectNotes } from '../lib/slices/notesSlice'
-import { PersistedNote } from '../types/Note'
+import AddNoteForm from './components/add-note'
+import { deleteNote, loadNotes, selectNotes } from './lib/slices/notesSlice'
+import { PersistedNote } from './types/Note'
 
-const EditNoteForm = Dynamic(import('../components/edit-note'), { ssr: false })
+const EditNoteForm = Dynamic(import('./components/edit-note'), { ssr: false })
 const Notes = () => {
   const [selectedNote, setSelectedNote] = useState<PersistedNote>()
   const dispatch = useDispatch()

@@ -2,7 +2,7 @@ import { UserDto } from "@skill-test/data/dto/UserDto";
 import base64 from "base-64";
 import { handleError, handleResponse, xsrf } from "./apiUtils";
 
-const baseUrl = process.env.REACT_APP_API_URL + "/";
+const baseUrl = process.env.API_URL + "/";
 
 export function login(username: string, password: string): Promise<UserDto> {
   return fetch(baseUrl + "login", {
