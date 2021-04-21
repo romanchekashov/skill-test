@@ -4,7 +4,7 @@ import Link from 'next/link'
 import {Card} from "primereact/card";
 import {Button} from "primereact/button";
 
-import styles from "./DeckThumbnail.module.css";
+import styles from "./DeckView.module.css";
 
 type Props = {
     deck: DeckDto
@@ -26,14 +26,11 @@ const DeckView: React.FC<Props> = ({deck}) => {
         </span>
     );
     return (
-        <div>
-            <Card title={test.name} 
-                  subTitle={deck.categories?.map(value => value.name).join()} 
-                  className={styles.Test} 
-                  footer={footer} 
-                  header={header}>
-                <p className="p-m-0" style={{lineHeight: '1.5'}}>asdom asdsadd</p>
-            </Card>
+        <div className="CurrentTest card">
+            <div className="CurrentTest-head">
+                <h2>{deck.name} <span>{deck.categories.map(value => value.name).join()}</span></h2>
+            </div>
+            {deck.cards.map(({id, question}) => (<p key={id}>{question}</p>))}
         </div>
     );
 }

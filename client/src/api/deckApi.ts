@@ -13,3 +13,14 @@ export function getDecks(): Promise<DeckDto[]> {
     .then((response) => handleResponse(response))
     .catch(handleError);
 }
+
+export function getDeck(id: number): Promise<DeckDto> {
+  return fetch(baseUrl + "/" + id, {
+    method: "GET", // POST for create, PUT to update when id already exists.
+    headers: xsrf({
+      "content-type": "application/json",
+    }),
+  })
+    .then((response) => handleResponse(response))
+    .catch(handleError);
+}

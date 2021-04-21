@@ -7,7 +7,7 @@ import {
 import { CoreState } from "../../store";
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
 import { LoadingState } from "../LoadingState";
-import { getDecks } from "../../api/deckApi";
+import { getDecks, getDeck } from "../../api/deckApi";
 
 export interface DecksState {
   decks: DeckDto[];
@@ -30,6 +30,14 @@ export const fetchDecks = createAsyncThunk<DeckDto[]>(
   "decks/fetchDecks",
   async () => {
     const response = await getDecks();
+    return response;
+  }
+);
+
+export const fetchDeck = createAsyncThunk<DeckDto, number>(
+  "decks/fetchDeck",
+  async (id) => {
+    const response = await getDeck(id);
     return response;
   }
 );
@@ -62,6 +70,25 @@ export const decksSlice = createSlice({
       state.decksLoading = LoadingState.ERROR;
       console.log(state.decksLoading, state.decks);
     },
+    // ----------------------
+    [fetchDeck.pending as any]: (state: DecksState) => {
+      state.selectedDeck = undefined;
+      state.selectedDeckLoading = LoadingState.LOADING;
+    },
+    [fetchDeck.fulfilled as any]: (
+      state: DecksState,
+      action: PayloadAction<DeckDto>
+    ) => {
+      state.selectedDeck = action.payload;
+      state.selectedDeckLoading = LoadingState.LOADED;
+    },
+    [fetchDeck.rejected as any]: (
+      state: DecksState,
+      action: PayloadAction<string>
+    ) => {
+      state.selectedDeckLoadingError = action.payload;
+      state.selectedDeckLoading = LoadingState.ERROR;
+    },
   },
 });
 
@@ -73,6 +100,15 @@ export const selectDecks = createSelector(
     decks: state.decks.decks,
     decksLoading: state.decks.decksLoading,
     decksLoadingError: state.decks.decksLoadingError,
+  }),
+  (state) => state
+);
+
+export const selectDeck = createSelector(
+  (state: CoreState) => ({
+    deck: state.decks.selectedDeck,
+    deckLoading: state.decks.selectedDeckLoading,
+    deckLoadingError: state.decks.selectedDeckLoadingError,
   }),
   (state) => state
 );
