@@ -1,15 +1,20 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { UserEntity } from "../UserEntity";
+import { User, UserEntity } from "../UserEntity";
 import { getIntPrimaryKey } from "../../database";
-import { CardEntity, TABLE_NAME_CARDS } from "./CardEntity";
+import { Card, CardEntity, TABLE_NAME_CARDS } from "./CardEntity";
 
 export const TABLE_NAME_DECKS = "decks";
 
+export const ASSOCIATION_ALIAS_DECK_TO_CARD = "cards";
+export const ASSOCIATION_ALIAS_USER_TO_DECK = "decks";
+export const ASSOCIATION_ALIAS_DECK_TO_USER = "author";
 export interface Deck {
   id?: number;
   author_id: number;
   name: string;
   preview_img?: string;
+  cards?: Card[];
+  author: User;
 }
 
 export class DeckEntity extends Model implements Deck {
@@ -17,6 +22,7 @@ export class DeckEntity extends Model implements Deck {
   author_id!: number;
   name!: string;
   preview_img?: string;
+  author!: User;
 }
 
 export const DeckEntityInit = (sequelize: Sequelize): void => {
@@ -43,14 +49,18 @@ export const DeckEntityInit = (sequelize: Sequelize): void => {
   DeckEntity.hasMany(CardEntity, {
     sourceKey: "id",
     foreignKey: "deck_id",
-    as: TABLE_NAME_CARDS, // this determines the name in `associations`!
+    as: ASSOCIATION_ALIAS_DECK_TO_CARD, // this determines the name in `associations`!
   });
-  // TestItemEntity.belongsTo(TestEntity);
+  CardEntity.belongsTo(DeckEntity, { foreignKey: "deck_id", targetKey: "id" });
 
   UserEntity.hasMany(DeckEntity, {
     sourceKey: "id",
     foreignKey: "author_id",
-    as: TABLE_NAME_DECKS, // this determines the name in `associations`!
+    as: ASSOCIATION_ALIAS_USER_TO_DECK, // this determines the name in `associations`!
   });
-  // TestEntity.belongsTo(UserEntity);
+  DeckEntity.belongsTo(UserEntity, {
+    foreignKey: "author_id",
+    targetKey: "id",
+    as: ASSOCIATION_ALIAS_DECK_TO_USER,
+  });
 };

@@ -1,7 +1,11 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { getIntPrimaryKey } from "../database";
 
-export class UserEntity extends Model {
+export interface User {
+  id: number;
+  username: string;
+}
+export class UserEntity extends Model implements User {
   id!: number;
   username!: string;
   password!: string;

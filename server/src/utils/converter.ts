@@ -11,21 +11,28 @@ export const mapDeckDtoToEntity = (
   name,
   preview_img: previewImg,
   author_id,
+  author: {
+    id: author_id,
+    username: "",
+  },
 });
 
-export const mapEntityToDtoDeck = (
-  { id, name, preview_img, author_id }: Deck,
-  username: string
-): DeckDto => ({
+export const mapEntityToDtoDeck = ({
+  id,
+  name,
+  preview_img,
+  cards,
+  author,
+}: Deck): DeckDto => ({
   id,
   name,
   previewImg: preview_img,
-  author: {
-    id: author_id,
-    username,
+  author: author && {
+    id: author.id,
+    username: author.username,
   },
   categories: [],
-  cards: [],
+  cards: cards?.map(mapEntityToDtoCard) || [],
 });
 
 // --------------------------------- Cards

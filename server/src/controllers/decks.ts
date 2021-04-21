@@ -1,27 +1,56 @@
 import { Request, Response, Router } from "express";
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
-import { DeckEntity } from "../dao/models/learn/DeckEntity";
+import {
+  ASSOCIATION_ALIAS_DECK_TO_CARD,
+  ASSOCIATION_ALIAS_DECK_TO_USER,
+  DeckEntity,
+} from "../dao/models/learn/DeckEntity";
 import { mapDeckDtoToEntity, mapEntityToDtoDeck } from "../utils/converter";
 import { errorHandler } from "../utils/error_handler";
+import { UserEntity } from "../dao/models/UserEntity";
+import { CardEntity } from "../dao/models/learn/CardEntity";
 
 const decksRouter = Router();
 
 decksRouter.get("/", (req: Request, res: Response) => {
   DeckEntity.findAll().then((decks) => {
-    const dtos = decks.map((deck) =>
-      mapEntityToDtoDeck(deck, req.user.username)
-    );
+    const dtos = decks.map(mapEntityToDtoDeck);
     // console.log(decks, req.user, dtos);
     res.send(dtos);
   });
+});
+
+decksRouter.get("/:id", (req: Request, res: Response) => {
+  var deckId = req.params.id;
+  DeckEntity.findByPk(deckId, {
+    include: [
+      {
+        model: UserEntity,
+        as: ASSOCIATION_ALIAS_DECK_TO_USER,
+      },
+      {
+        model: CardEntity,
+        as: ASSOCIATION_ALIAS_DECK_TO_CARD,
+      },
+    ],
+  })
+    .then((deck) => {
+      if (!deck) throw new Error(`Deck ${deckId} not found`);
+
+      const dto = mapEntityToDtoDeck(deck);
+      // console.log(deck, dto);
+      res.send(dto);
+    })
+    .catch((reason) => {
+      errorHandler(reason, res);
+    });
 });
 
 decksRouter.post("/", (req: Request, res: Response) => {
   const dto: DeckDto = req.body;
   DeckEntity.create(mapDeckDtoToEntity(dto, req.user.id))
     .then((deck) => {
-      // finds all entries in the users table
-      res.json(mapEntityToDtoDeck(deck, req.user.username)); // sends users back to the page
+      res.json(mapEntityToDtoDeck(deck));
     })
     .catch((reason) => {
       errorHandler(reason, res);
