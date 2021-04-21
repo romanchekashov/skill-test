@@ -15,6 +15,9 @@ require("pg").types.setTypeParser(1114, (stringValue: string) => {
   // e.g., UTC offset. Use any offset that you would like.
 });
 
+// bigint send as number, not string
+require("pg").defaults.parseInt8 = true;
+
 let sequelize: Sequelize;
 
 const sequelizeDB = (): Sequelize => {
@@ -91,7 +94,7 @@ export const getBooleanAttribute = (defaultValue: boolean = false): any => ({
 });
 
 export const getIntPrimaryKey = (): any => ({
-  type: DataTypes.INTEGER,
+  type: DataTypes.BIGINT,
   autoIncrement: true,
   primaryKey: true,
 });

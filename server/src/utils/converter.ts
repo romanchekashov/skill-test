@@ -3,6 +3,7 @@ import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
 import { Card } from "../dao/models/learn/CardEntity";
 import { Deck } from "../dao/models/learn/DeckEntity";
 
+// --------------------------------- Decks
 export const mapDeckDtoToEntity = (
   { name, previewImg }: DeckDto,
   author_id: number
@@ -12,6 +13,22 @@ export const mapDeckDtoToEntity = (
   author_id,
 });
 
+export const mapEntityToDtoDeck = (
+  { id, name, preview_img, author_id }: Deck,
+  username: string
+): DeckDto => ({
+  id,
+  name,
+  previewImg: preview_img,
+  author: {
+    id: author_id,
+    username,
+  },
+  categories: [],
+  cards: [],
+});
+
+// --------------------------------- Cards
 export const mapCardDtoToEntity = ({
   deckId,
   question,
@@ -22,4 +39,18 @@ export const mapCardDtoToEntity = ({
   question,
   answer,
   explanation,
+});
+
+export const mapEntityToDtoCard = ({
+  id,
+  question,
+  answer,
+  explanation,
+  deck_id,
+}: Card): CardDto => ({
+  id,
+  question,
+  answer,
+  explanation,
+  deckId: deck_id,
 });

@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express";
 import { CardDto } from "@skill-test/data/dto/learn/CardDto";
 import { CardEntity } from "../dao/models/learn/CardEntity";
 import { DeckEntity } from "../dao/models/learn/DeckEntity";
-import { mapCardDtoToEntity } from "../utils/converter";
+import { mapCardDtoToEntity, mapEntityToDtoCard } from "../utils/converter";
 import { errorHandler } from "../utils/error_handler";
 
 const cardsRouter = Router();
@@ -31,7 +31,7 @@ cardsRouter.get("/", (req: Request, res: Response) => {
 
   CardEntity.findAll(filter).then((cards) => {
     // finds all entries in the users table
-    res.send(cards); // sends users back to the page
+    res.send(cards.map(mapEntityToDtoCard)); // sends users back to the page
   });
 });
 
@@ -41,7 +41,7 @@ cardsRouter.post("/", (req: Request, res: Response) => {
     .then(() => {
       return CardEntity.create(mapCardDtoToEntity(dto)).then((card) => {
         // finds all entries in the users table
-        res.json(card); // sends users back to the page
+        res.json(mapEntityToDtoCard(card)); // sends users back to the page
       });
     })
     .catch((reason) => {
