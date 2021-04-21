@@ -65,3 +65,7 @@ code {
   border-color: #439446;
   background: #6ebe71;
 }
+
+.container {
+  margin: auto 15px;
+}
