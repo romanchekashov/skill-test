@@ -1,5 +1,5 @@
 export class CardDto {
-  id!: number;
+  id?: number;
   deckId!: number;
   question!: string;
   answer!: string;
