@@ -1,0 +1,26 @@
+.Login {
+    width: 20vw;
+}
+
+.Login .p-d-block {
+    display: block !important;
+}
+
+.Login .p-field {
+    text-align: left;
+}
+
+.Login input {
+    width: 100%;
+}
+
+.Login button {
+    margin-top: 5px;
+}
+
+.Login .sign-up {
+    margin: 15px;
+}
+.Login .log-in {
+    margin: 15px;
+}

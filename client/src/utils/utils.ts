@@ -17,3 +17,9 @@ export const _equalArrays = (arr1: any[], arr2: any[]): boolean => {
 //     document.location.href = "/";
 //     return false;
 // }
+// export const redirectToMainPage = () => {
+//   if (document.location.href !== "") {
+//     document.location.href = "";
+//   }
+// };
+export const isBrowser = () => typeof window !== "undefined";
