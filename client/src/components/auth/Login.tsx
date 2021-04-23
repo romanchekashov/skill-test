@@ -6,10 +6,10 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { SelectButton } from "primereact/selectbutton";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import dataStore from "../../api/dataStore";
-import { useAppDispatch } from "../../lib/hooks";
+import { useAppDispatch, useAppSelector } from "../../lib/hooks";
 import {
+  closeLoginDialog,
   createUser,
   loadCurrentUser,
   LoginDialogMode,
@@ -17,7 +17,6 @@ import {
   selectUser,
   showLogin,
   showSignup,
-  closeLoginDialog,
 } from "../../lib/slices/usersSlice";
 import styles from "./Login.module.css";
 
@@ -35,7 +34,7 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
     userLodingError,
     userCreateError,
     loginDialogMode,
-  } = useSelector(selectUser);
+  } = useAppSelector(selectUser);
 
   const [userNotFound, setUserNotFound] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
@@ -60,7 +59,6 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
     if (userCreateError) setUsernameError(userCreateError);
   }, [userCreateError]);
 
-  console.log(userLodingError, userNotFound);
   if (userLodingError && !userNotFound) {
     if (router.pathname !== "/") router.push("/");
     setUserNotFound(true);
