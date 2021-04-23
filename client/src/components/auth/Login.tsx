@@ -43,8 +43,8 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
   };
 
   useEffect(() => {
-    dispatch(loadCurrentUser());
-  }, []);
+    if (!user) dispatch(loadCurrentUser());
+  }, [user]);
 
   if (userLodingError && !userNotFound) {
     if (router.pathname !== "/") router.push("/");
