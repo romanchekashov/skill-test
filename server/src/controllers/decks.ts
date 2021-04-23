@@ -9,15 +9,19 @@ import { mapDeckDtoToEntity, mapEntityToDtoDeck } from "../utils/converter";
 import { errorHandler } from "../utils/error_handler";
 import { UserEntity } from "../dao/models/UserEntity";
 import { CardEntity } from "../dao/models/learn/CardEntity";
+import deckService from "../services/deckService";
 
 const decksRouter = Router();
 
 decksRouter.get("/", (req: Request, res: Response) => {
-  DeckEntity.findAll().then((decks) => {
-    const dtos = decks.map(mapEntityToDtoDeck);
-    // console.log(decks, req.user, dtos);
-    res.send(dtos);
-  });
+  deckService
+    .getAll()
+    .then((dto) => {
+      res.send(dto);
+    })
+    .catch((reason) => {
+      errorHandler(reason, res);
+    });
 });
 
 decksRouter.get("/:id", (req: Request, res: Response) => {
