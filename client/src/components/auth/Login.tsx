@@ -11,8 +11,12 @@ import dataStore from "../../api/dataStore";
 import {
   createUser,
   loadCurrentUser,
+  LoginDialogMode,
   loginUser,
   selectUser,
+  showLogin,
+  showSignup,
+  closeLoginDialog,
 } from "../../lib/slices/usersSlice";
 
 type Props = {
@@ -22,9 +26,13 @@ type Props = {
 const Login: React.FC<Props> = ({ userLogInSuccess }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { user, userLoading, userLoginError, userLodingError } = useSelector(
-    selectUser
-  );
+  const {
+    user,
+    userLoading,
+    userLoginError,
+    userLodingError,
+    loginDialogMode,
+  } = useSelector(selectUser);
 
   const [userNotFound, setUserNotFound] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
@@ -32,8 +40,7 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const logIn = "Log In";
   const signUp = "Sign Up";
-  const modes = [logIn, signUp];
-  const [mode, setMode] = useState<string>(logIn);
+  const modes = [LoginDialogMode.logIn, LoginDialogMode.signUp];
   const [usernameError, setUsernameError] = useState<string>("");
 
   const setUser = (user: UserDto): void => {
@@ -53,7 +60,9 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
 
   if (userNotFound && user) setUserNotFound(false);
 
-  const onHide = () => {};
+  const onHide = () => {
+    dispatch(closeLoginDialog());
+  };
 
   const doLogin = (username: string, password: string): void => {
     dispatch(loginUser({ username, password }));
@@ -63,7 +72,7 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
     e.preventDefault();
     if (usernameError) setUsernameError("");
 
-    if (mode === signUp) {
+    if (loginDialogMode === LoginDialogMode.signUp) {
       if (password === confirmPassword) {
         dispatch(createUser({ username, password }));
       }
@@ -75,21 +84,29 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
   const header = () => {
     return (
       <SelectButton
-        value={mode}
+        value={loginDialogMode || LoginDialogMode.logIn}
         options={modes}
-        onChange={(e) => setMode(e.value)}
+        onChange={(e) => {
+          if (LoginDialogMode.signUp === e.value) {
+            dispatch(showSignup());
+          } else {
+            dispatch(showLogin());
+          }
+        }}
       />
     );
   };
 
-  const notSamePassword = mode === signUp && password !== confirmPassword;
+  const isSignUp = loginDialogMode === LoginDialogMode.signUp;
+  const notSamePassword = isSignUp && password !== confirmPassword;
+
   return (
     <Dialog
       className="Login"
       header={header}
-      visible={userNotFound}
+      visible={!!loginDialogMode}
       onHide={onHide}
-      closable={false}
+      closable={true}
     >
       {userLoginError}
       <form onSubmit={handleSubmit}>
@@ -128,7 +145,7 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
             feedback={false}
           />
         </div>
-        {mode === signUp ? (
+        {isSignUp ? (
           <div className="p-field">
             <label htmlFor="confirmPassword" className="p-d-block">
               Confirm password
@@ -149,7 +166,7 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
             />
           </div>
         ) : null}
-        {mode === signUp ? (
+        {isSignUp ? (
           <Button type="submit" label={signUp} className="sign-up" />
         ) : (
           <Button type="submit" label={logIn} className="log-in" />

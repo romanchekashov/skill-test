@@ -34,6 +34,7 @@ export const fetchDecks = createAsyncThunk<DeckDto[]>(
   "decks/fetchDecks",
   async () => {
     const response = await getDecks();
+    console.log(response);
     return response;
   }
 );
@@ -72,11 +73,11 @@ export const decksSlice = createSlice({
     },
     [fetchDecks.rejected as any]: (
       state: DecksState,
-      action: PayloadAction<string>
+      action: PayloadAction<any>
     ) => {
       state.decksLoadingError = action.payload;
       state.decksLoading = LoadingState.ERROR;
-      console.log(state.decksLoading, state.decks);
+      console.log("fetchDecks: ", state.decksLoading, state.decks, action);
     },
     // ----------------------
     [fetchDeck.pending as any]: (state: DecksState) => {

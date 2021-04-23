@@ -20,7 +20,7 @@ class Storage {
 const USER_KEY = "user";
 
 const storage = isBrowser() ? sessionStorage : new Storage();
-let cookieStore: string;
+let cookieStore: string = "";
 
 const dataStore = {
   getUser(): UserDto | undefined {

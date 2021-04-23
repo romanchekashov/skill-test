@@ -1,9 +1,15 @@
 import Link from "next/link";
+import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Menubar } from "primereact/menubar";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser, selectUser } from "../lib/slices/usersSlice";
+import {
+  logoutUser,
+  selectUser,
+  showLogin,
+  showSignup,
+} from "../lib/slices/usersSlice";
 import { isBrowser } from "../utils/utils";
 import Login from "./auth/Login";
 
@@ -38,7 +44,22 @@ const HeaderMenu: React.FC<Props> = ({}) => {
       <img alt="logo" src="logo192.png" height="40" className="p-mr-2"></img>
     </Link>
   );
-  const end: any = <InputText placeholder="Search" type="text" />;
+  const end: any = (
+    <>
+      <InputText placeholder="Search" type="text" />
+      <Button
+        label="Log In"
+        icon="pi pi-check"
+        style={{ margin: "0 5px" }}
+        onClick={() => dispatch(showLogin())}
+      />
+      <Button
+        label="Sign Up"
+        icon="pi pi-check"
+        onClick={() => dispatch(showSignup())}
+      />
+    </>
+  );
 
   return (
     <div className="card">
