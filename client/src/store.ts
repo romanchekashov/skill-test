@@ -10,6 +10,7 @@ import counterReducer from "./lib/slices/counterSlice";
 import notesReducer from "./lib/slices/notesSlice";
 import decksReducer from "./lib/slices/decksSlice";
 import usersReducer from "./lib/slices/usersSlice";
+import cardsReducer from "./lib/slices/cardsSlice";
 
 const rootReducer = combineReducers({
   counter: counterReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   notes: notesReducer,
   decks: decksReducer,
   users: usersReducer,
+  cards: cardsReducer,
 });
 
 const store = configureStore({

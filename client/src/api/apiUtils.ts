@@ -52,3 +52,40 @@ export const xsrf = (headers: any): any => {
     headers["Authorization"] = `Bearer ${getCookie("jwt_access_token")}`;
   return headers;
 };
+
+export function get<T>(url: string): Promise<T> {
+  return fetch(url, {
+    method: "GET",
+    headers: xsrf({ "content-type": "application/json" }),
+  })
+    .then((response) => handleResponse(response))
+    .catch(handleError);
+}
+
+/**
+ * How to create TS generics:
+ * 1 - function foo<T>(x: T): T { return x; }
+ * 2 - const foo = <T extends unknown>(x: T) => x;
+ *
+ * @param url
+ * @param json
+ * @returns
+ */
+export const post = <T extends unknown>(url: string, json: T): Promise<T> =>
+  fetch(url, {
+    method: "POST",
+    headers: xsrf({ "content-type": "application/json" }),
+    body: JSON.stringify(json),
+  })
+    .then((response) => handleResponse(response))
+    .catch(handleError);
+
+export function put<T>(url: string, json: T): Promise<T> {
+  return fetch(url, {
+    method: "PUT",
+    headers: xsrf({ "content-type": "application/json" }),
+    body: JSON.stringify(json),
+  })
+    .then((response) => handleResponse(response))
+    .catch(handleError);
+}

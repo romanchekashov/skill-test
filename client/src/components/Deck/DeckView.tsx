@@ -1,11 +1,14 @@
+import { CardDto } from "@skill-test/data/dto/learn/CardDto";
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
 import Link from "next/link";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { DeckMode } from "../../lib/DeckMode";
+import { useAppDispatch } from "../../lib/hooks";
+import { editCard, viewCard } from "../../lib/slices/cardsSlice";
 import { setMode } from "../../lib/slices/decksSlice";
+import CardEdit from "../Card/CardEdit";
 import styles from "./DeckView.module.css";
 
 type Props = {
@@ -13,7 +16,7 @@ type Props = {
 };
 
 const DeckView: React.FC<Props> = ({ deck }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const header = (
     <img
@@ -52,19 +55,41 @@ const DeckView: React.FC<Props> = ({ deck }) => {
           label="Add Card"
           icon="pi pi-check"
           onClick={() => {
-            dispatch(setMode(DeckMode.LEARN));
+            if (deck && deck.id) {
+              const card: CardDto = {
+                deckId: deck.id,
+                question: "",
+                answer: "",
+              };
+              dispatch(editCard(card));
+            }
           }}
         />
       </div>
 
       <div className="p-grid">
-        {deck.cards.map(({ id, question, answer }) => (
-          <div key={id} className="p-col-3">
-            <Card title={question} style={{}}>
-              <div className="possibleAnswers">{answer}</div>
+        {deck.cards.map((card) => (
+          <div key={card.id} className="p-col-3">
+            <Card title={card.question} style={{}}>
+              <div className="possibleAnswers">{card.answer}</div>
+              <Button
+                icon="pi pi-eye"
+                className="p-button-rounded p-button-text"
+                onClick={() => {
+                  dispatch(viewCard(card));
+                }}
+              />
+              <Button
+                icon="pi pi-pencil"
+                className="p-button-rounded p-button-text"
+                onClick={() => {
+                  dispatch(editCard(card));
+                }}
+              />
             </Card>
           </div>
         ))}
+        <CardEdit />
       </div>
     </div>
   );

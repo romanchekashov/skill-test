@@ -4,6 +4,7 @@ import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/saga-blue/theme.css";
+import "react-quill/dist/quill.snow.css";
 import React, { ComponentType } from "react";
 import { Provider } from "react-redux";
 import "../index.css";

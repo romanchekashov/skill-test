@@ -4,21 +4,20 @@ import { InputText } from "primereact/inputtext";
 import { Menubar } from "primereact/menubar";
 import { SlideMenu } from "primereact/slidemenu";
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../lib/hooks";
 import {
   logoutUser,
   selectUser,
   showLogin,
   showSignup,
 } from "../lib/slices/usersSlice";
-import { isBrowser } from "../utils/utils";
 import Login from "./auth/Login";
 
 type Props = {};
 
 const HeaderMenu: React.FC<Props> = ({}) => {
-  const dispatch = useDispatch();
-  const { user } = useSelector(selectUser);
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector(selectUser);
   const [items, setItems] = useState<any[]>([]);
   const [showLoginBtns, setShowLoginBtns] = useState<boolean>(true);
   const userMenu = useRef(null);

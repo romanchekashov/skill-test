@@ -23,3 +23,6 @@ export const _equalArrays = (arr1: any[], arr2: any[]): boolean => {
 //   }
 // };
 export const isBrowser = () => typeof window !== "undefined";
+
+export const removeNewLines = (text: string): string =>
+  text.replace(/\r?\n|\r/g, " ");
