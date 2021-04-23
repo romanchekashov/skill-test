@@ -1,4 +1,9 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import {
+  combineReducers,
+  configureStore,
+  ThunkAction,
+  Action,
+} from "@reduxjs/toolkit";
 
 import clockReducer from "./lib/slices/clockSlice";
 import counterReducer from "./lib/slices/counterSlice";
@@ -14,9 +19,18 @@ const rootReducer = combineReducers({
   users: usersReducer,
 });
 
-export type CoreState = ReturnType<typeof rootReducer>;
-
-export default configureStore({
+const store = configureStore({
   reducer: rootReducer,
   devTools: true,
 });
+
+export type CoreState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  CoreState,
+  unknown,
+  Action<string>
+>;
+
+export default store;

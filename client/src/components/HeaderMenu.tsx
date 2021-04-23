@@ -19,6 +19,7 @@ const HeaderMenu: React.FC<Props> = ({}) => {
   const dispatch = useDispatch();
   const { user } = useSelector(selectUser);
   const [items, setItems] = useState<any[]>([]);
+  const [showLoginBtns, setShowLoginBtns] = useState<boolean>(true);
 
   useEffect(() => {
     if (user) {
@@ -36,6 +37,8 @@ const HeaderMenu: React.FC<Props> = ({}) => {
           ],
         },
       ]);
+
+      setShowLoginBtns(false);
     }
   }, [user]);
 
@@ -47,17 +50,21 @@ const HeaderMenu: React.FC<Props> = ({}) => {
   const end: any = (
     <>
       <InputText placeholder="Search" type="text" />
-      <Button
-        label="Log In"
-        icon="pi pi-check"
-        style={{ margin: "0 5px" }}
-        onClick={() => dispatch(showLogin())}
-      />
-      <Button
-        label="Sign Up"
-        icon="pi pi-check"
-        onClick={() => dispatch(showSignup())}
-      />
+      {showLoginBtns ? (
+        <>
+          <Button
+            label="Log In"
+            icon="pi pi-check"
+            style={{ margin: "0 5px" }}
+            onClick={() => dispatch(showLogin())}
+          />
+          <Button
+            label="Sign Up"
+            icon="pi pi-check"
+            onClick={() => dispatch(showSignup())}
+          />
+        </>
+      ) : null}
     </>
   );
 

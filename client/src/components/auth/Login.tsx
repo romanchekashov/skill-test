@@ -8,6 +8,7 @@ import { SelectButton } from "primereact/selectbutton";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import dataStore from "../../api/dataStore";
+import { useAppDispatch } from "../../lib/hooks";
 import {
   createUser,
   loadCurrentUser,
@@ -18,6 +19,7 @@ import {
   showSignup,
   closeLoginDialog,
 } from "../../lib/slices/usersSlice";
+import styles from "./Login.module.css";
 
 type Props = {
   userLogInSuccess?: (user: UserDto) => void;
@@ -25,12 +27,13 @@ type Props = {
 
 const Login: React.FC<Props> = ({ userLogInSuccess }) => {
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     user,
     userLoading,
     userLoginError,
     userLodingError,
+    userCreateError,
     loginDialogMode,
   } = useSelector(selectUser);
 
@@ -53,6 +56,11 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
     if (!user) dispatch(loadCurrentUser());
   }, [user]);
 
+  useEffect(() => {
+    if (userCreateError) setUsernameError(userCreateError);
+  }, [userCreateError]);
+
+  console.log(userLodingError, userNotFound);
   if (userLodingError && !userNotFound) {
     if (router.pathname !== "/") router.push("/");
     setUserNotFound(true);
@@ -74,7 +82,9 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
 
     if (loginDialogMode === LoginDialogMode.signUp) {
       if (password === confirmPassword) {
-        dispatch(createUser({ username, password }));
+        dispatch(createUser({ username, password })).then((data: any) => {
+          if (!data.error) dispatch(loginUser({ username, password }));
+        });
       }
     } else {
       doLogin(username, password);
@@ -102,13 +112,16 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
 
   return (
     <Dialog
-      className="Login"
+      className={styles.Login}
       header={header}
       visible={!!loginDialogMode}
       onHide={onHide}
       closable={true}
     >
-      {userLoginError}
+      {userLoginError ? (
+        <div className={styles.error}>{userLoginError}</div>
+      ) : null}
+
       <form onSubmit={handleSubmit}>
         <div className="p-field">
           <label htmlFor="username" className="p-d-block">
@@ -125,7 +138,7 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
             minLength={3}
           />
           {usernameError ? (
-            <small id="username-help" className="p-error">
+            <small id="username-help" className="p-error p-d-block">
               {usernameError}
             </small>
           ) : null}
@@ -164,6 +177,11 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
               minLength={8}
               feedback={false}
             />
+            {notSamePassword ? (
+              <small id="confirmPassword" className="p-error p-d-block">
+                Passwords should be same.
+              </small>
+            ) : null}
           </div>
         ) : null}
         {isSignUp ? (

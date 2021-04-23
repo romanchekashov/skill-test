@@ -1,26 +1,41 @@
 .Login {
-    width: 20vw;
+  width: 90vw;
+}
+@media (min-width: 760px) {
+  .Login {
+    width: 60vw;
+  }
+}
+@media (min-width: 980px) {
+  .Login {
+    width: 30vw;
+  }
+}
+
+.error {
+  color: red;
+  text-align: center;
 }
 
 .Login .p-d-block {
-    display: block !important;
+  display: block !important;
 }
 
 .Login .p-field {
-    text-align: left;
+  text-align: left;
 }
 
 .Login input {
-    width: 100%;
+  width: 100%;
 }
 
 .Login button {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 .Login .sign-up {
-    margin: 15px;
+  margin: 15px;
 }
 .Login .log-in {
-    margin: 15px;
+  margin: 15px;
 }
