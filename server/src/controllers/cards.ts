@@ -5,6 +5,8 @@ import { DeckEntity } from "../dao/models/learn/DeckEntity";
 import { mapCardDtoToEntity, mapEntityToDtoCard } from "../utils/converter";
 import { errorHandler } from "../utils/error_handler";
 
+import { Card } from "../dao/models/learn/CardEntity";
+
 const cardsRouter = Router();
 
 const isDeckBelongToUser = (
@@ -39,10 +41,17 @@ cardsRouter.post("/", (req: Request, res: Response) => {
   const dto: CardDto = req.body;
   isDeckBelongToUser(dto.deckId, req.user.id)
     .then(() => {
-      return CardEntity.create(mapCardDtoToEntity(dto)).then((card) => {
-        // finds all entries in the users table
-        res.json(mapEntityToDtoCard(card)); // sends users back to the page
+      const { id } = dto;
+      if (!id) return CardEntity.create(mapCardDtoToEntity(dto));
+
+      return CardEntity.findByPk(id).then((card) => {
+        if (!card) throw new Error(`Card ${id} not found`);
+        const entity = mapCardDtoToEntity(dto);
+        return card.update({ ...entity, id });
       });
+    })
+    .then((card) => {
+      res.json(mapEntityToDtoCard(card));
     })
     .catch((reason) => {
       errorHandler(reason, res);

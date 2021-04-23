@@ -42,6 +42,7 @@ decksRouter.get("/:id", (req: Request, res: Response) => {
       if (!deck) throw new Error(`Deck ${deckId} not found`);
 
       const dto = mapEntityToDtoDeck(deck);
+      dto.cards.sort((a, b) => (a.id || 0) - (b.id || 0));
       // console.log(deck, dto);
       res.send(dto);
     })
