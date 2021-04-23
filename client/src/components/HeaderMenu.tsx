@@ -3,6 +3,7 @@ import { Menubar } from "primereact/menubar";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser, selectUser } from "../lib/slices/usersSlice";
+import { isBrowser } from "../utils/utils";
 import Login from "./auth/Login";
 
 type Props = {};
@@ -35,7 +36,7 @@ const HeaderMenu: React.FC<Props> = ({}) => {
 
   return (
     <div className="card">
-      <Login />
+      {isBrowser() ? <Login /> : null}
       <Menubar model={items} start={start} end={end} />
     </div>
   );

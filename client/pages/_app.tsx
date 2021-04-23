@@ -1,15 +1,14 @@
+import App, { AppInitialProps } from "next/app";
+import Head from "next/head";
+import "primeflex/primeflex.css";
+import "primeicons/primeicons.css";
+import "primereact/resources/primereact.min.css";
+import "primereact/resources/themes/saga-blue/theme.css";
 import React, { ComponentType } from "react";
 import { Provider } from "react-redux";
-import { AppInitialProps } from "next/app";
-import Head from "next/head";
-
-import store from "../src/store";
-
 import "../index.css";
-import "primereact/resources/themes/saga-blue/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
-import "primeflex/primeflex.css";
+import store from "../src/store";
+import dataStore from "../src/api/dataStore";
 
 /**
  * manifest.json provides metadata used when your web app is installed on a
@@ -20,10 +19,17 @@ import "primeflex/primeflex.css";
 const MyApp = ({
   Component,
   pageProps,
+  cookie,
+  userAgent,
 }: {
   Component: ComponentType<AppInitialProps>;
   pageProps: AppInitialProps;
+  cookie: any;
+  userAgent: any;
 }) => {
+  // console.log("pageProps: ", pageProps, cookie, userAgent);
+  if (!dataStore.getCookieStore() && cookie) dataStore.setCookieStore(cookie);
+
   return (
     <Provider store={store}>
       <Head>
@@ -36,6 +42,19 @@ const MyApp = ({
       <Component {...pageProps} />
     </Provider>
   );
+};
+
+/**
+ * https://nextjs.org/docs/advanced-features/custom-app
+ * @param appContext
+ * @returns
+ */
+MyApp.getInitialProps = async (appContext) => {
+  const appProps = await App.getInitialProps(appContext);
+  const { req } = appContext.ctx;
+  const cookie = req ? req.headers.cookie : document.cookie;
+  const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
+  return { cookie, userAgent, ...appProps };
 };
 
 export default MyApp;

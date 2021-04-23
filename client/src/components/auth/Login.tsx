@@ -49,8 +49,9 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
   if (userLodingError && !userNotFound) {
     if (router.pathname !== "/") router.push("/");
     setUserNotFound(true);
-    console.log(user, userLodingError, router.pathname);
   }
+
+  if (userNotFound && user) setUserNotFound(false);
 
   const onHide = () => {};
 
@@ -86,7 +87,7 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
     <Dialog
       className="Login"
       header={header}
-      visible={!user}
+      visible={userNotFound}
       onHide={onHide}
       closable={false}
     >
