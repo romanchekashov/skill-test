@@ -9,7 +9,7 @@ import "react-quill/dist/quill.snow.css";
 import { Provider } from "react-redux";
 import dataStore from "../api/dataStore";
 import "../index.css";
-import store from "../store";
+import store from "../lib/store";
 
 /**
  * manifest.json provides metadata used when your web app is installed on a

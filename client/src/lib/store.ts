@@ -4,9 +4,9 @@ import {
   configureStore,
   ThunkAction,
 } from "@reduxjs/toolkit";
-import cardsReducer from "./lib/slices/cardsSlice";
-import decksReducer from "./lib/slices/decksSlice";
-import usersReducer from "./lib/slices/usersSlice";
+import cardsReducer from "./slices/cardsSlice";
+import decksReducer from "./slices/decksSlice";
+import usersReducer from "./slices/usersSlice";
 
 const rootReducer = combineReducers({
   decks: decksReducer,

@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { CardDto } from "@skill-test/data/dto/learn/CardDto";
 import cardApi from "../../api/cardApi";
-import { CoreState } from "../../store";
+import { CoreState } from "../store";
 import { CrudMode } from "../CrudMode";
 import { LoadingState } from "../LoadingState";
 import { handleThunkError } from "../reduxUtils";

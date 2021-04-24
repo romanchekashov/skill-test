@@ -4,7 +4,7 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { CoreState } from "../../store";
+import { CoreState } from "../store";
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
 import { LoadingState } from "../LoadingState";
 import { getDecks, getDeck } from "../../api/deckApi";

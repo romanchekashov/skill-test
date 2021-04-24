@@ -12,7 +12,7 @@ import {
   login,
   logout,
 } from "../../api/openApi";
-import { CoreState } from "../../store";
+import { CoreState } from "../store";
 import { LoadingState } from "../LoadingState";
 
 export enum LoginDialogMode {
