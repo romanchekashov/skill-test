@@ -12,6 +12,7 @@ import {
   showSignup,
 } from "../../app/slices/usersSlice";
 import Login from "../auth/Login";
+import LangSelect from "./LangSelect";
 
 type Props = {};
 
@@ -61,6 +62,7 @@ const HeaderMenu: React.FC<Props> = ({}) => {
   const end: any = (
     <>
       <InputText placeholder="Search" type="text" />
+      <LangSelect />
       {showLoginBtns ? (
         loginBtns
       ) : (
