@@ -21,6 +21,7 @@ const LangSelect: React.FC<Props> = ({}) => {
 
   return (
     <SplitButton
+      id="lang-select"
       label="EN"
       icon="pi pi-globe"
       onClick={selectLang}
