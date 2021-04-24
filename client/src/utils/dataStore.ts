@@ -1,4 +1,5 @@
 import { UserDto } from "@skill-test/data/dto/UserDto";
+import { CookieStore } from "./CookieStore";
 import { isBrowser } from "./utils";
 
 class Storage {
@@ -20,9 +21,12 @@ class Storage {
 const USER_KEY = "user";
 
 const storage = isBrowser() ? sessionStorage : new Storage();
-let cookieStore: string = "";
 
-const dataStore = {
+let cookieStore: CookieStore;
+
+export const getCookie = (name: string): string => cookieStore?.getCookie(name);
+
+export default {
   getUser(): UserDto | undefined {
     const sUser = storage.getItem(USER_KEY);
     if (sUser) return JSON.parse(sUser);
@@ -35,11 +39,9 @@ const dataStore = {
     storage.removeItem(USER_KEY);
   },
   setCookieStore(store: string) {
-    cookieStore = store;
+    cookieStore = new CookieStore(store);
   },
-  getCookieStore(): string {
+  getCookieStore(): CookieStore {
     return cookieStore;
   },
 };
-
-export default dataStore;

@@ -1,5 +1,5 @@
+import { getCookie } from "../utils/dataStore";
 import { isProd } from "../utils/utils";
-import dataStore from "../utils/dataStore";
 
 export async function handleResponse(response: any) {
   if (response.ok) return response.json();
@@ -28,21 +28,6 @@ export function handleError(error: any) {
   // eslint-disable-next-line no-console
   console.error("API call failed. ", error);
   throw error;
-}
-
-// возвращает куки с указанным name,
-// или undefined, если ничего не найдено
-export function getCookie(name: string): string {
-  let matches = dataStore
-    .getCookieStore()
-    .match(
-      new RegExp(
-        "(?:^|; )" +
-          name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
-          "=([^;]*)"
-      )
-    );
-  return matches ? decodeURIComponent(matches[1]) : "";
 }
 
 export const xsrf = (headers: any): any => {
