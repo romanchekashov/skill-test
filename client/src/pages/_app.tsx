@@ -7,7 +7,7 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import React, { ComponentType } from "react";
 import "react-quill/dist/quill.snow.css";
 import { Provider } from "react-redux";
-import dataStore from "../api/dataStore";
+import dataStore from "../utils/dataStore";
 import "../index.css";
 import store from "../lib/store";
 

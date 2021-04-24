@@ -1,5 +1,5 @@
 import { UserDto } from "@skill-test/data/dto/UserDto";
-import { isBrowser } from "../utils/utils";
+import { isBrowser } from "./utils";
 
 class Storage {
   map;

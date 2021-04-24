@@ -1,5 +1,5 @@
 import { isProd } from "../utils/utils";
-import dataStore from "./dataStore";
+import dataStore from "../utils/dataStore";
 
 export async function handleResponse(response: any) {
   if (response.ok) return response.json();

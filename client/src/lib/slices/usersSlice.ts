@@ -5,7 +5,7 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { UserDto } from "@skill-test/data/dto/UserDto";
-import dataStore from "../../api/dataStore";
+import dataStore from "../../utils/dataStore";
 import {
   createUser as apiCreateUser,
   getCurrentUser,
