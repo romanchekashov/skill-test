@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DeckThumbnailList from "../src/components/DeckThumbnailList/DeckThumbnailList";
-import HeaderMenu from "../src/components/HeaderMenu";
+import HeaderMenu from "../src/components/Header/HeaderMenu";
 import { LoadingState } from "../src/lib/LoadingState";
 import { fetchDecks, selectDecks } from "../src/lib/slices/decksSlice";
 

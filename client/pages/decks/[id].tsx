@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import HeaderMenu from "../../src/components/HeaderMenu";
+import HeaderMenu from "../../src/components/Header/HeaderMenu";
 import { fetchDeck, selectDeck } from "../../src/lib/slices/decksSlice";
 import DeckView from "../../src/components/Deck/DeckView";
 import { LoadingState } from "../../src/lib/LoadingState";
