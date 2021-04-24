@@ -6,7 +6,6 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { SelectButton } from "primereact/selectbutton";
 import React, { useEffect, useState } from "react";
-import dataStore from "../../api/dataStore";
 import { useAppDispatch, useAppSelector } from "../../lib/hooks";
 import {
   closeLoginDialog,
@@ -44,12 +43,6 @@ const Login: React.FC<Props> = ({ userLogInSuccess }) => {
   const signUp = "Sign Up";
   const modes = [LoginDialogMode.logIn, LoginDialogMode.signUp];
   const [usernameError, setUsernameError] = useState<string>("");
-
-  const setUser = (user: UserDto): void => {
-    dataStore.setUser(user);
-    // userLogInSuccess(user);
-    setUserNotFound(false);
-  };
 
   useEffect(() => {
     if (!user) dispatch(loadCurrentUser());
