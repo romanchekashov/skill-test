@@ -4,13 +4,13 @@ import { InputText } from "primereact/inputtext";
 import { Menubar } from "primereact/menubar";
 import { SlideMenu } from "primereact/slidemenu";
 import React, { useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../lib/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   logoutUser,
   selectUser,
   showLogin,
   showSignup,
-} from "../../lib/slices/usersSlice";
+} from "../../app/slices/usersSlice";
 import Login from "../auth/Login";
 
 type Props = {};

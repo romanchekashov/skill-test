@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import DeckLearn from "../../components/Deck/DeckLearn";
 import DeckView from "../../components/Deck/DeckView";
 import HeaderMenu from "../../components/Header/HeaderMenu";
-import { DeckMode } from "../../lib/DeckMode";
-import { LoadingState } from "../../lib/LoadingState";
-import { fetchDeck, selectDeck } from "../../lib/slices/decksSlice";
+import { DeckMode } from "../../app/DeckMode";
+import { LoadingState } from "../../app/LoadingState";
+import { fetchDeck, selectDeck } from "../../app/slices/decksSlice";
 
 const DeckPage = () => {
   const router = useRouter();

@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import React from "react";
-import { DeckMode } from "../../lib/DeckMode";
-import { useAppDispatch } from "../../lib/hooks";
-import { editCard, viewCard } from "../../lib/slices/cardsSlice";
-import { setMode } from "../../lib/slices/decksSlice";
+import { DeckMode } from "../../app/DeckMode";
+import { useAppDispatch } from "../../app/hooks";
+import { editCard, viewCard } from "../../app/slices/cardsSlice";
+import { setMode } from "../../app/slices/decksSlice";
 import CardEdit from "../Card/CardEdit";
 import styles from "./DeckView.module.css";
 

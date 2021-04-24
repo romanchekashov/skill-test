@@ -3,14 +3,14 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { InputTextarea } from "primereact/inputtextarea";
 import React, { useEffect, useState } from "react";
-import { CrudMode } from "../../lib/CrudMode";
-import { useAppDispatch, useAppSelector } from "../../lib/hooks";
+import { CrudMode } from "../../app/CrudMode";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   createCard,
   selectCardSave,
   setMode,
-} from "../../lib/slices/cardsSlice";
-import { addCard, selectDeck } from "../../lib/slices/decksSlice";
+} from "../../app/slices/cardsSlice";
+import { addCard, selectDeck } from "../../app/slices/decksSlice";
 import { isBrowser, removeNewLines } from "../../utils/utils";
 import Editor from "../Editor";
 
