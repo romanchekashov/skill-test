@@ -12,7 +12,7 @@ import {
   showSignup,
 } from "../../app/slices/usersSlice";
 import Login from "../auth/Login";
-import LangSelect from "./LangSelect";
+import LangSelect from "./LangSelect/LangSelect";
 
 type Props = {};
 

@@ -7,9 +7,13 @@ import "primereact/resources/themes/saga-blue/theme.css";
 import React, { ComponentType } from "react";
 import "react-quill/dist/quill.snow.css";
 import { Provider } from "react-redux";
-import dataStore from "../utils/dataStore";
-import "../index.css";
 import store from "../app/store";
+import "../index.css";
+import {
+  getCookiePart,
+  getCookieStore,
+  setCookieStore,
+} from "../utils/cookies";
 
 /**
  * manifest.json provides metadata used when your web app is installed on a
@@ -22,14 +26,16 @@ const MyApp = ({
   pageProps,
   cookie,
   userAgent,
+  locale,
 }: {
   Component: ComponentType<AppInitialProps>;
   pageProps: AppInitialProps;
   cookie: any;
   userAgent: any;
+  locale: any;
 }) => {
-  // console.log("pageProps: ", pageProps, cookie, userAgent);
-  if (!dataStore.getCookieStore() && cookie) dataStore.setCookieStore(cookie);
+  // console.log("pageProps: ", locale, pageProps, cookie, userAgent);
+  if (!getCookieStore() && cookie) setCookieStore(cookie);
 
   return (
     <Provider store={store}>
@@ -45,17 +51,34 @@ const MyApp = ({
   );
 };
 
+const checkLocale = (appContext: any) => {
+  const { req, res } = appContext.ctx;
+  if (!req) return;
+  const { locale, defaultLocale } = appContext.router;
+  const cookieLocale = getCookiePart(req.headers.cookie, "NEXT_LOCALE");
+  // console.log(req.headers.cookie, typeof req.headers.cookie, locale, req.url);
+
+  if (locale && cookieLocale && cookieLocale !== locale) {
+    const location =
+      defaultLocale === cookieLocale ? req.url : `/${cookieLocale}${req.url}`;
+    res.writeHead(307, { location });
+    res.end();
+  }
+};
+
 /**
  * https://nextjs.org/docs/advanced-features/custom-app
  * @param appContext
  * @returns
  */
-MyApp.getInitialProps = async (appContext) => {
+MyApp.getInitialProps = async (appContext: any) => {
   const appProps = await App.getInitialProps(appContext);
+  checkLocale(appContext);
   const { req } = appContext.ctx;
+  const { locale } = appContext.router;
   const cookie = req ? req.headers.cookie : document.cookie;
   const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
-  return { cookie, userAgent, ...appProps };
+  return { cookie, userAgent, locale, ...appProps };
 };
 
 export default MyApp;

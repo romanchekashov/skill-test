@@ -1,4 +1,4 @@
-import { getCookie } from "../utils/dataStore";
+import { getCookie } from "../utils/cookies";
 import { isProd } from "../utils/utils";
 
 export async function handleResponse(response: any) {
