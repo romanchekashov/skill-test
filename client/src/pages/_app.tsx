@@ -4,12 +4,12 @@ import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/saga-blue/theme.css";
-import "react-quill/dist/quill.snow.css";
 import React, { ComponentType } from "react";
+import "react-quill/dist/quill.snow.css";
 import { Provider } from "react-redux";
+import dataStore from "../api/dataStore";
 import "../index.css";
-import store from "../src/store";
-import dataStore from "../src/api/dataStore";
+import store from "../store";
 
 /**
  * manifest.json provides metadata used when your web app is installed on a
