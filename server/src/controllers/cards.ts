@@ -1,11 +1,9 @@
-import { Request, Response, Router } from "express";
 import { CardDto } from "@skill-test/data/dto/learn/CardDto";
+import { Request, Response, Router } from "express";
 import { CardEntity } from "../dao/models/learn/CardEntity";
 import { DeckEntity } from "../dao/models/learn/DeckEntity";
+import { sendRes } from "../utils/controller_utils";
 import { mapCardDtoToEntity, mapEntityToDtoCard } from "../utils/converter";
-import { errorHandler } from "../utils/error_handler";
-
-import { Card } from "../dao/models/learn/CardEntity";
 
 const cardsRouter = Router();
 
@@ -31,31 +29,29 @@ cardsRouter.get("/", (req: Request, res: Response) => {
     };
   }
 
-  CardEntity.findAll(filter).then((cards) => {
-    // finds all entries in the users table
-    res.send(cards.map(mapEntityToDtoCard)); // sends users back to the page
-  });
+  sendRes(
+    CardEntity.findAll(filter).then((cards) => cards.map(mapEntityToDtoCard)),
+    res
+  );
 });
 
 cardsRouter.post("/", (req: Request, res: Response) => {
   const dto: CardDto = req.body;
-  isDeckBelongToUser(dto.deckId, req.user.id)
-    .then(() => {
-      const { id } = dto;
-      if (!id) return CardEntity.create(mapCardDtoToEntity(dto));
+  sendRes(
+    isDeckBelongToUser(dto.deckId, req.user.id)
+      .then(() => {
+        const { id } = dto;
+        if (!id) return CardEntity.create(mapCardDtoToEntity(dto));
 
-      return CardEntity.findByPk(id).then((card) => {
-        if (!card) throw new Error(`Card ${id} not found`);
-        const entity = mapCardDtoToEntity(dto);
-        return card.update({ ...entity, id });
-      });
-    })
-    .then((card) => {
-      res.json(mapEntityToDtoCard(card));
-    })
-    .catch((reason) => {
-      errorHandler(reason, res);
-    });
+        return CardEntity.findByPk(id).then((card) => {
+          if (!card) throw new Error(`Card ${id} not found`);
+          const entity = mapCardDtoToEntity(dto);
+          return card.update({ ...entity, id });
+        });
+      })
+      .then(mapEntityToDtoCard),
+    res
+  );
 });
 
 export default cardsRouter;

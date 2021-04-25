@@ -1,40 +1,19 @@
 import { Request, Response, Router } from "express";
 import deckService from "../services/deckService";
-import { errorHandler } from "../utils/error_handler";
+import { sendRes } from "../utils/controller_utils";
 
 const decksRouter = Router();
 
 decksRouter.get("/", (req: Request, res: Response) => {
-  deckService
-    .getAll()
-    .then((dto) => {
-      res.send(dto);
-    })
-    .catch((reason) => {
-      errorHandler(reason, res);
-    });
+  sendRes(deckService.getAll(), res);
 });
 
 decksRouter.get("/:id", (req: Request, res: Response) => {
-  deckService
-    .getById(parseInt(req.params.id))
-    .then((dto) => {
-      res.send(dto);
-    })
-    .catch((reason) => {
-      errorHandler(reason, res);
-    });
+  sendRes(deckService.getById(parseInt(req.params.id)), res);
 });
 
 decksRouter.post("/", (req: Request, res: Response) => {
-  deckService
-    .create(req.body, req.user.id)
-    .then((dto) => {
-      res.send(dto);
-    })
-    .catch((reason) => {
-      errorHandler(reason, res);
-    });
+  sendRes(deckService.create(req.body, req.user.id), res);
 });
 
 export default decksRouter;

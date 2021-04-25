@@ -1,14 +1,14 @@
-import { Request, Response, Router } from "express";
-import { UserEntity } from "../dao/models/UserEntity";
-import { md5 } from "../utils/utils";
 import base64 from "base-64";
+import { Request, Response, Router } from "express";
 import {
-  login,
   authenticateCurrentUserIfTokenExists,
+  login,
   logOutCurrentUser,
 } from "../auth";
+import { UserEntity } from "../dao/models/UserEntity";
 import deckService from "../services/deckService";
-import { errorHandler } from "../utils/error_handler";
+import { sendRes } from "../utils/controller_utils";
+import { md5 } from "../utils/utils";
 
 const openRouter = Router();
 
@@ -56,14 +56,7 @@ openRouter.get("/", (req: Request, res: Response) => {
 });
 
 openRouter.get("/decks", (req: Request, res: Response) => {
-  deckService
-    .getAll()
-    .then((dto) => {
-      res.send(dto);
-    })
-    .catch((reason) => {
-      errorHandler(reason, res);
-    });
+  sendRes(deckService.getAll(), res);
 });
 
 export default openRouter;
