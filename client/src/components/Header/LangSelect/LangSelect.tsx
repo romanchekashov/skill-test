@@ -1,6 +1,7 @@
 import { SplitButton } from "primereact/splitbutton";
 import React, { useEffect, useState } from "react";
 import { getCookie, setCookie } from "../../../utils/cookies";
+import styles from "./LangSelect.module.css";
 
 const COOKIE_NAME = "NEXT_LOCALE";
 enum Locale {
@@ -58,13 +59,25 @@ const LangSelect: React.FC<Props> = ({}) => {
   }, []);
 
   return (
-    <SplitButton
-      id="lang-select"
-      label={locale}
-      icon="pi pi-globe"
-      model={items}
-      className="p-button-secondary"
-    ></SplitButton>
+    <>
+      <style>
+        {`
+          .lang_select {
+            margin-left: 5px;
+          }
+          .lang_select .p-splitbutton-defaultbutton {
+            margin-right: -10px;
+          }
+        `}
+      </style>
+      <SplitButton
+        id="lang-select"
+        label={locale}
+        icon="pi pi-globe"
+        model={items}
+        className={"p-button-secondary lang_select"}
+      ></SplitButton>
+    </>
   );
 };
 

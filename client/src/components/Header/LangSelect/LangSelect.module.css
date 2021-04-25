@@ -1,3 +1,7 @@
-.active_style {
-  color: blue;
+.select {
+  margin-left: 5px;
+}
+
+.select.lang_select .p-splitbutton-defaultbutton {
+  margin-right: -10px;
 }
