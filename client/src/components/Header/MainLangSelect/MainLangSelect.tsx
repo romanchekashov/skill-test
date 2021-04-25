@@ -1,7 +1,7 @@
 import { SplitButton } from "primereact/splitbutton";
 import React, { useEffect, useState } from "react";
 import { getCookie, setCookie } from "../../../utils/cookies";
-import styles from "./LangSelect.module.scss";
+import styles from "./MainLangSelect.module.scss";
 
 const COOKIE_NAME = "NEXT_LOCALE";
 enum Locale {
@@ -18,7 +18,7 @@ const iconActive = "pi pi-circle-on";
 
 type Props = {};
 
-const LangSelect: React.FC<Props> = ({}) => {
+const MainLangSelect: React.FC<Props> = ({}) => {
   const [locale, setLocale] = useState<Locale>(Locale.EN);
   const [items, setItems] = useState([
     {
@@ -71,4 +71,4 @@ const LangSelect: React.FC<Props> = ({}) => {
   );
 };
 
-export default LangSelect;
+export default MainLangSelect;

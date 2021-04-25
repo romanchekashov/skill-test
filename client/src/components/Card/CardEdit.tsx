@@ -13,6 +13,7 @@ import {
 import { addCard, selectDeck } from "../../app/slices/decksSlice";
 import { isBrowser, removeNewLines } from "../../utils/utils";
 import Editor from "../Editor";
+import LangSelect from "../LangSelect/LangSelect";
 
 type Props = {};
 
@@ -74,12 +75,18 @@ const CardEdit: React.FC<Props> = ({}) => {
     <Dialog
       header={`Card ${mode}`}
       visible={!!mode}
-      style={{ width: "50vw" }}
+      style={{ width: "50vw", zIndex: 20 }}
       footer={renderFooter()}
       onHide={() => onHide()}
       baseZIndex={1000}
     >
       <div className="p-grid">
+        <div className="p-col-12 p-field">
+          <label htmlFor="question" className="p-d-block">
+            Language
+          </label>
+          <LangSelect />
+        </div>
         <div className="p-col-12 p-field">
           <label htmlFor="question" className="p-d-block">
             Question
