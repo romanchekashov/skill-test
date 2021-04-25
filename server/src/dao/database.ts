@@ -8,6 +8,7 @@ import { TestCategoryEntityInit } from "./models/test/TestCategoryEntity";
 import { isProd, md5 } from "../utils/utils";
 import { DeckEntityInit } from "./models/learn/DeckEntity";
 import { CardEntityInit } from "./models/learn/CardEntity";
+import { CardTranslationEntityInit } from "./models/learn/CardTranslationEntity";
 
 // https://sequelize.org/master/manual/dialect-specific-things.html
 require("pg").types.setTypeParser(1114, (stringValue: string) => {
@@ -46,6 +47,7 @@ const sequelizeDB = (): Sequelize => {
         UserEntityInit(sequelize);
         CardEntityInit(sequelize);
         DeckEntityInit(sequelize);
+        CardTranslationEntityInit(sequelize);
         // TestAnswerEntityInit(sequelize);
         // TestItemEntityInit(sequelize);
         // CategoryEntityInit(sequelize);

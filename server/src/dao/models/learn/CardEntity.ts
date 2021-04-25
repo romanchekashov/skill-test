@@ -1,5 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { getIntPrimaryKey } from "../../database";
+import { CardTranslation } from "./CardTranslationEntity";
 
 export const TABLE_NAME_CARDS = "cards";
 
@@ -9,6 +10,7 @@ export interface Card {
   question: string;
   answer: string;
   explanation?: string;
+  translations?: CardTranslation[];
 }
 
 export class CardEntity extends Model implements Card {
