@@ -95,4 +95,43 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="create_table_cards_translations" author="rchekashov">
+        <createTable tableName="cards_translations">
+            <column name="card_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lang" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="default_lang" type="bool"/>
+            <column name="question" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="answer" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="explanation" type="text"/>
+        </createTable>
+
+        <addDefaultValue columnName="default_lang"
+                         defaultValue="false"
+                         tableName="cards_translations"/>
+
+         <addForeignKeyConstraint constraintName="fk_cards_translations_to_cards"
+                                 baseTableName="cards_translations"
+                                 baseColumnNames="card_id"
+                                 referencedTableName="cards"
+                                 referencedColumnNames="id"/>
+
+        <addPrimaryKey columnNames="card_id, lang"
+                       constraintName="pk_card_id_lang"
+                       tableName="cards_translations"/>
+
+        <rollback>
+            <dropTable tableName="cards_translations"/>
+            <dropUniqueConstraint constraintName="uk_cards_question_deck_id"
+                                  tableName="cards"/>
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>

@@ -14,3 +14,8 @@ Mono-repo created with yarn workspaces and consist two packages:
 
 Start Docker: `docker-compose up -d`
 Stop Docker: `docker-compose down`
+
+### server-db-liquibase - DataBase migration with Liquibase (run: `docker-compose up -d` to start PostgreSQL)
+
+- update DB: `yarn db-update`
+- rollbackCount DB: `yarn db-rollbackCount <number of latest changeSets to rollback>`
