@@ -88,10 +88,10 @@
                                  referencedColumnNames="id"/>
 
         <rollback>
-            <dropTable tableName="cards"/>
-            <dropSequence sequenceName="cards_id_seq"/>
             <dropUniqueConstraint constraintName="uk_cards_question_deck_id"
                                   tableName="cards"/>
+            <dropTable tableName="cards"/>
+            <dropSequence sequenceName="cards_id_seq"/>
         </rollback>
     </changeSet>
 
@@ -134,9 +134,9 @@
                              tableName="cards_translations"/>
 
         <rollback>
-            <dropTable tableName="cards_translations"/>
             <dropUniqueConstraint constraintName="uk_cards_question_card_id_lang"
                                   tableName="cards_translations"/>
+            <dropTable tableName="cards_translations"/>
         </rollback>
     </changeSet>
 
