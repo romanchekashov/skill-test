@@ -41,7 +41,7 @@ const HeaderMenu: React.FC<Props> = ({}) => {
 
   const start: any = (
     <Link href="/">
-      <img alt="logo" src="logo192.png" height="40" className="p-mr-2"></img>
+      <img alt="logo" src="/logo192.png" height="40" className="p-mr-2"></img>
     </Link>
   );
   const loginBtns: any = (
