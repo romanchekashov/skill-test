@@ -119,7 +119,7 @@
                          defaultValue="false"
                          tableName="cards_translations"/>
 
-         <addForeignKeyConstraint constraintName="fk_cards_translations_to_cards"
+        <addForeignKeyConstraint constraintName="fk_cards_translations_to_cards"
                                  baseTableName="cards_translations"
                                  baseColumnNames="card_id"
                                  referencedTableName="cards"
@@ -129,8 +129,14 @@
                        constraintName="pk_card_id_lang"
                        tableName="cards_translations"/>
 
+        <addUniqueConstraint columnNames="question, card_id, lang"
+                             constraintName="uk_cards_question_card_id_lang"
+                             tableName="cards_translations"/>
+
         <rollback>
             <dropTable tableName="cards_translations"/>
+            <dropUniqueConstraint constraintName="uk_cards_question_card_id_lang"
+                                  tableName="cards_translations"/>
         </rollback>
     </changeSet>
 
