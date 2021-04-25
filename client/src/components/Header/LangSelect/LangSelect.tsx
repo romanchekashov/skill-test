@@ -60,22 +60,12 @@ const LangSelect: React.FC<Props> = ({}) => {
 
   return (
     <>
-      <style>
-        {`
-          .lang_select {
-            margin-left: 5px;
-          }
-          .lang_select .p-splitbutton-defaultbutton {
-            margin-right: -10px;
-          }
-        `}
-      </style>
       <SplitButton
         id="lang-select"
         label={locale}
         icon="pi pi-globe"
         model={items}
-        className={"p-button-secondary lang_select"}
+        className={"p-button-secondary " + styles.select}
       ></SplitButton>
     </>
   );
