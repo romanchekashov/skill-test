@@ -1,5 +1,7 @@
 import { CategoryDto } from "./dto/CategoryDto";
+import { Language } from "./dto/Language";
 import { CardDto } from "./dto/learn/CardDto";
+import { CardTranslationDto } from "./dto/learn/CardTranslationDto";
 import { DeckDto } from "./dto/learn/DeckDto";
 import { Mark } from "./dto/learn/Mark";
 import { UserCardAnswerDto } from "./dto/learn/UserCardAnswerDto";
@@ -22,6 +24,8 @@ export TestItemDto;
 
 // learn
 export CardDto;
+export CardTranslationDto;
+export Language;
 export DeckDto;
 export Mark;
 export UserCardAnswerDto;
