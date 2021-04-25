@@ -14,6 +14,7 @@
     "start-client": "yarn workspace @skill-test/client run dev",
     "db-update": "yarn workspace @skill-test/server-db-liquibase run db-update",
     "db-rollbackCount": "yarn workspace @skill-test/server-db-liquibase run db-rollbackCount",
+    "db-clearCheckSums": "yarn workspace @skill-test/server-db-liquibase run db-clearCheckSums",
     "test": "yarn workspaces run test"
   }
 }

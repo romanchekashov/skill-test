@@ -103,7 +103,9 @@
             <column name="lang" type="varchar(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="default_lang" type="bool"/>
+            <column name="default_lang" type="bool">
+                <constraints nullable="false"/>
+            </column>
             <column name="question" type="varchar(256)">
                 <constraints nullable="false"/>
             </column>
@@ -129,8 +131,6 @@
 
         <rollback>
             <dropTable tableName="cards_translations"/>
-            <dropUniqueConstraint constraintName="uk_cards_question_deck_id"
-                                  tableName="cards"/>
         </rollback>
     </changeSet>
 

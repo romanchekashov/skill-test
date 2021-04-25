@@ -5,7 +5,8 @@
   "main": "postgresql.js",
   "scripts": {
     "db-update": "node postgresql.js update",
-    "db-rollbackCount": "node postgresql.js rollbackCount"
+    "db-rollbackCount": "node postgresql.js rollbackCount",
+    "db-clearCheckSums": "node postgresql.js clearCheckSums"
   },
   "dependencies": {
     "liquibase": "^1.0.1"
