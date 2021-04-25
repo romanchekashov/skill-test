@@ -1,9 +1,9 @@
 import { CardDto } from "@skill-test/data/dto/learn/CardDto";
 import { Request, Response, Router } from "express";
-import { CardEntity } from "../dao/models/learn/CardEntity";
 import { DeckEntity } from "../dao/models/learn/DeckEntity";
+import cardService from "../services/cardService";
 import { sendRes } from "../utils/controller_utils";
-import { mapCardDtoToEntity, mapEntityToDtoCard } from "../utils/converter";
+import { parseIntIfExists } from "../utils/utils";
 
 const cardsRouter = Router();
 
@@ -19,37 +19,16 @@ const isDeckBelongToUser = (
 };
 
 cardsRouter.get("/", (req: Request, res: Response) => {
-  const deckId = req.query.deckId;
-  let filter = {};
-  if (deckId) {
-    filter = {
-      where: {
-        deck_id: deckId,
-      },
-    };
-  }
-
-  sendRes(
-    CardEntity.findAll(filter).then((cards) => cards.map(mapEntityToDtoCard)),
-    res
-  );
+  const { deckId } = req.query;
+  sendRes(cardService.getAll({ deck_id: parseIntIfExists(deckId) }), res);
 });
 
 cardsRouter.post("/", (req: Request, res: Response) => {
   const dto: CardDto = req.body;
   sendRes(
-    isDeckBelongToUser(dto.deckId, req.user.id)
-      .then(() => {
-        const { id } = dto;
-        if (!id) return CardEntity.create(mapCardDtoToEntity(dto));
-
-        return CardEntity.findByPk(id).then((card) => {
-          if (!card) throw new Error(`Card ${id} not found`);
-          const entity = mapCardDtoToEntity(dto);
-          return card.update({ ...entity, id });
-        });
-      })
-      .then(mapEntityToDtoCard),
+    isDeckBelongToUser(dto.deckId, req.user.id).then(() =>
+      cardService.createOrUpdate(dto)
+    ),
     res
   );
 });
