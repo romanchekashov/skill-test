@@ -8,7 +8,7 @@ import React, { ComponentType } from "react";
 import "react-quill/dist/quill.snow.css";
 import { Provider } from "react-redux";
 import store from "../app/store";
-import "../index.css";
+import "../styles/index.scss";
 import {
   getCookiePart,
   getCookieStore,

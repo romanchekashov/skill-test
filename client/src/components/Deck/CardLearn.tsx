@@ -1,7 +1,7 @@
 import { UserCardAnswerDto } from "@skill-test/data/dto/learn/UserCardAnswerDto";
 import { Card } from "primereact/card";
 import React from "react";
-import styles from "./CardLearn.module.css";
+import styles from "./CardLearn.module.scss";
 
 type Props = {
   questionNumber: number;

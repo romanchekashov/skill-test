@@ -17,7 +17,7 @@ import {
   showLogin,
   showSignup,
 } from "../../app/slices/usersSlice";
-import styles from "./Login.module.css";
+import styles from "./Login.module.scss";
 
 type Props = {
   userLogInSuccess?: (user: UserDto) => void;

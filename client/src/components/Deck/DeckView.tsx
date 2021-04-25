@@ -9,7 +9,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { editCard, viewCard } from "../../app/slices/cardsSlice";
 import { setMode } from "../../app/slices/decksSlice";
 import CardEdit from "../Card/CardEdit";
-import styles from "./DeckView.module.css";
+import styles from "./DeckView.module.scss";
 
 type Props = {
   deck: DeckDto;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
 import DeckThumbnail from "../DeckThumbnail/DeckThumbnail";
-import styles from "./DeckThumbnailList.module.css";
+import styles from "./DeckThumbnailList.module.scss";
 
 type Props = {
   decks: DeckDto[];

@@ -5,7 +5,7 @@ import { Button } from "primereact/button";
 import { Paginator } from "primereact/paginator";
 import React, { useState } from "react";
 import CardLearn from "./CardLearn";
-import styles from "./DeckLearn.module.css";
+import styles from "./DeckLearn.module.scss";
 
 type Props = {
   deck: DeckDto;

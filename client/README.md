@@ -65,3 +65,5 @@ https://nextjs.org/docs/basic-features/built-in-css-support
   margin-right: -10px;
 }
 ```
+
+- SASS(SCSS) with CSS Modules: https://www.freecodecamp.org/news/how-to-use-sass-with-css-modules-in-next-js/

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 
-import styles from "./DeckThumbnail.module.css";
+import styles from "./DeckThumbnail.module.scss";
 
 type Props = {
   deck: DeckDto;

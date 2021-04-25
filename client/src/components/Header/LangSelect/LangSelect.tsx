@@ -1,7 +1,7 @@
 import { SplitButton } from "primereact/splitbutton";
 import React, { useEffect, useState } from "react";
 import { getCookie, setCookie } from "../../../utils/cookies";
-import styles from "./LangSelect.module.css";
+import styles from "./LangSelect.module.scss";
 
 const COOKIE_NAME = "NEXT_LOCALE";
 enum Locale {
