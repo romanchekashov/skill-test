@@ -19,6 +19,7 @@ export class CardEntity extends Model implements Card {
   question!: string;
   answer!: string;
   explanation!: string;
+  translations?: CardTranslation[];
 }
 
 export const CardEntityInit = (sequelize: Sequelize): void => {

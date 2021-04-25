@@ -1,6 +1,10 @@
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
 import { CardEntity } from "../dao/models/learn/CardEntity";
 import {
+  ASSOCIATION_ALIAS_CARD_TO_CARD_TRANSLATIONS,
+  CardTranslationEntity,
+} from "../dao/models/learn/CardTranslationEntity";
+import {
   ASSOCIATION_ALIAS_DECK_TO_CARD,
   ASSOCIATION_ALIAS_DECK_TO_USER,
   DeckEntity,
@@ -22,6 +26,12 @@ const getById = (id: number): Promise<DeckDto> => {
       {
         model: CardEntity,
         as: ASSOCIATION_ALIAS_DECK_TO_CARD,
+        include: [
+          {
+            model: CardTranslationEntity,
+            as: ASSOCIATION_ALIAS_CARD_TO_CARD_TRANSLATIONS,
+          },
+        ],
       },
     ],
   }).then((deck) => {

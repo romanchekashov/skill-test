@@ -1,6 +1,8 @@
 import { CardDto } from "@skill-test/data/dto/learn/CardDto";
+import { CardTranslationDto } from "@skill-test/data/dto/learn/CardTranslationDto";
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
 import { Card } from "../dao/models/learn/CardEntity";
+import { CardTranslation } from "../dao/models/learn/CardTranslationEntity";
 import { Deck } from "../dao/models/learn/DeckEntity";
 
 // --------------------------------- Decks
@@ -41,11 +43,13 @@ export const mapCardDtoToEntity = ({
   question,
   answer,
   explanation,
+  translations,
 }: CardDto): Card => ({
   deck_id: deckId,
   question,
   answer,
   explanation,
+  translations: translations.map(mapCardTranslationDtoToEntity),
 });
 
 export const mapEntityToDtoCard = ({
@@ -54,10 +58,34 @@ export const mapEntityToDtoCard = ({
   answer,
   explanation,
   deck_id,
+  translations,
 }: Card): CardDto => ({
   id,
   question,
   answer,
   explanation,
   deckId: deck_id,
+  translations: translations?.map(mapEntityToDtoCardTranslation) || [],
+});
+
+// --------------------------------- Cards
+export const mapCardTranslationDtoToEntity = (
+  dto: CardTranslationDto,
+  card_id: number
+): CardTranslation => ({ ...dto, card_id });
+
+export const mapEntityToDtoCardTranslation = ({
+  card_id,
+  lang,
+  default_lang,
+  question,
+  answer,
+  explanation,
+}: CardTranslation): CardTranslationDto => ({
+  card_id,
+  lang,
+  default_lang,
+  question,
+  answer,
+  explanation,
 });
