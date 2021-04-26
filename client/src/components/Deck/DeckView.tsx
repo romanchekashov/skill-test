@@ -5,9 +5,10 @@ import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import React from "react";
 import { DeckMode } from "../../app/DeckMode";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { editCard, viewCard } from "../../app/slices/cardsSlice";
 import { setMode } from "../../app/slices/decksSlice";
+import { selectLangs } from "../../app/slices/langsSlice";
 import CardEdit from "../Card/CardEdit";
 import styles from "./DeckView.module.scss";
 
@@ -17,6 +18,7 @@ type Props = {
 
 const DeckView: React.FC<Props> = ({ deck }) => {
   const dispatch = useAppDispatch();
+  const { locale } = useAppSelector(selectLangs);
 
   const header = (
     <img

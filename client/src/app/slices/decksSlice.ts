@@ -4,12 +4,14 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { CoreState } from "../store";
-import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
-import { LoadingState } from "../LoadingState";
-import { getDecks, getDeck } from "../../api/deckApi";
-import { DeckMode } from "../DeckMode";
 import { CardDto } from "@skill-test/data/dto/learn/CardDto";
+import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
+import { getDeck, getDecks } from "../../api/deckApi";
+import { fillCardWithTranslation } from "../../utils/utils";
+import { DeckMode } from "../DeckMode";
+import { LoadingState } from "../LoadingState";
+import { CoreState } from "../store";
+import { LangsState } from "./langsSlice";
 
 export interface DecksState {
   decks: DeckDto[];
@@ -35,15 +37,18 @@ export const fetchDecks = createAsyncThunk<DeckDto[]>(
   "decks/fetchDecks",
   async () => {
     const response = await getDecks();
-    console.log(response);
     return response;
   }
 );
 
 export const fetchDeck = createAsyncThunk<DeckDto, number>(
   "decks/fetchDeck",
-  async (id) => {
+  async (id, { getState }) => {
     const response = await getDeck(id);
+    const { langs } = getState() as { langs: LangsState };
+    response.cards = response.cards.map((card) =>
+      fillCardWithTranslation(card, langs.locale)
+    );
     return response;
   }
 );
@@ -73,7 +78,6 @@ export const decksSlice = createSlice({
     [fetchDecks.pending as any]: (state: DecksState) => {
       state.decks = [];
       state.decksLoading = LoadingState.LOADING;
-      console.log(state.decksLoading, state.decks);
     },
     [fetchDecks.fulfilled as any]: (
       state: DecksState,
@@ -81,7 +85,6 @@ export const decksSlice = createSlice({
     ) => {
       state.decks = action.payload;
       state.decksLoading = LoadingState.LOADED;
-      console.log(state.decksLoading, state.decks);
     },
     [fetchDecks.rejected as any]: (
       state: DecksState,
@@ -89,7 +92,6 @@ export const decksSlice = createSlice({
     ) => {
       state.decksLoadingError = action.payload;
       state.decksLoading = LoadingState.ERROR;
-      console.log("fetchDecks: ", state.decksLoading, state.decks, action);
     },
     // ----------------------
     [fetchDeck.pending as any]: (state: DecksState) => {

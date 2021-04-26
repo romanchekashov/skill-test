@@ -1,5 +1,8 @@
 // import dataStore from "../api/dataStore";
 
+import { CardDto } from "@skill-test/data/dto/learn/CardDto";
+import { Language } from "../types/Language";
+
 export const isProd = (): boolean => process.env.NODE_ENV === "production";
 
 export const _equalArrays = (arr1: any[], arr2: any[]): boolean => {
@@ -33,4 +36,22 @@ export const timeout = (fn: Function, ms?: number): Promise<any> => {
       resolve(fn());
     }, ms)
   );
+};
+
+export const fillCardWithTranslation = (
+  dto: CardDto,
+  locale: Language
+): CardDto => {
+  const tr =
+    dto.translations.find(({ lang }) => lang === locale) ||
+    dto.translations.find(({ lang }) => lang === Language.en);
+
+  if (!tr) return dto;
+
+  return {
+    ...dto,
+    question: tr.question,
+    answer: tr.answer,
+    explanation: tr.explanation,
+  };
 };

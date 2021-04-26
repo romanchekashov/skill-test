@@ -16,11 +16,12 @@ export interface LangsState {
 }
 
 const NEXT_LOCALE = "NEXT_LOCALE";
+const locale = (getCookie(NEXT_LOCALE) as Language) || Language.en;
 
 const initialState: LangsState = {
-  locale: (getCookie(NEXT_LOCALE) as Language) || Language.en,
+  locale,
   defaultLang: Language.en,
-  selectedLang: Language.en,
+  selectedLang: locale,
 };
 
 // https://www.newline.co/@bespoyasov/how-to-use-thunks-with-redux-toolkit-and-typescript--1e65fc64

@@ -1,9 +1,8 @@
 import { CardDto } from "@skill-test/data/dto/learn/CardDto";
+import { CardTranslationDto } from "@skill-test/data/dto/learn/CardTranslationDto";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-import { InputTextarea } from "primereact/inputtextarea";
 import React, { useEffect, useState } from "react";
-import { CrudMode } from "../../app/CrudMode";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   createCard,
@@ -11,9 +10,10 @@ import {
   setMode,
 } from "../../app/slices/cardsSlice";
 import { addCard, selectDeck } from "../../app/slices/decksSlice";
-import { isBrowser, removeNewLines } from "../../utils/utils";
-import Editor from "../Editor";
+import { selectLangs } from "../../app/slices/langsSlice";
+import { fillCardWithTranslation, removeNewLines } from "../../utils/utils";
 import LangSelect from "../LangSelect/LangSelect";
+import CardTranslationEdit from "./CardTranslationEdit";
 
 type Props = {};
 
@@ -23,34 +23,64 @@ const CardEdit: React.FC<Props> = ({}) => {
     selectCardSave
   );
   const { deck } = useAppSelector(selectDeck);
+  const { selectedLang, locale } = useAppSelector(selectLangs);
 
-  const [question, setQuestion] = useState<string>();
-  const [answer, setAnswer] = useState<string>();
-  const [explanation, setExplanation] = useState<string>("");
+  const [translations, setTranslations] = useState<CardTranslationDto[]>([]);
+  const [translation, setTranslation] = useState<CardTranslationDto>();
 
   useEffect(() => {
     if (card) {
-      setQuestion(card.question);
-      setAnswer(card.answer);
-      setExplanation(card.explanation || "");
+      setTranslations(
+        card.translations?.length
+          ? card.translations.map((t) => ({ ...t }))
+          : []
+      );
     }
   }, [card]);
+
+  useEffect(() => {
+    if (!card) return;
+
+    let translation = translations.find(({ lang }) => lang === selectedLang);
+
+    if (!translation) {
+      translation = {
+        card_id: card.id,
+        lang: selectedLang,
+        default_lang: false,
+        question: card.question,
+        answer: card.answer,
+        explanation: card.explanation || "",
+      };
+      setTranslations([...translations, translation]);
+    }
+    setTranslation(translation);
+  }, [card, selectedLang, translations]);
 
   const onHide = () => {
     dispatch(setMode());
   };
 
   const save = () => {
-    if (deck?.id && question && answer) {
+    if (deck?.id && translations.length > 0) {
+      const newTranslations = translations.map((t) => {
+        const tr = { ...t };
+        tr.question = removeNewLines(tr.question).trim();
+        tr.answer = removeNewLines(tr.answer).trim();
+        return tr;
+      });
       const dto: CardDto = card
-        ? { ...card, question, answer, explanation }
-        : { deckId: deck.id, question, answer, explanation };
-      dto.question = removeNewLines(dto.question).trim();
-      dto.answer = removeNewLines(dto.answer).trim();
-      console.log(dto);
+        ? { ...card, translations: newTranslations }
+        : {
+            deckId: deck.id,
+            question: "",
+            answer: "",
+            translations: newTranslations,
+          };
+      // console.log(dto);
       dispatch(createCard(dto)).then((data: any) => {
         if (!data.error) {
-          dispatch(addCard(data.payload));
+          dispatch(addCard(fillCardWithTranslation(data.payload, locale)));
           onHide();
         }
       });
@@ -87,54 +117,13 @@ const CardEdit: React.FC<Props> = ({}) => {
           </label>
           <LangSelect />
         </div>
-        <div className="p-col-12 p-field">
-          <label htmlFor="question" className="p-d-block">
-            Question
-          </label>
-          {mode === CrudMode.READ ? (
-            <p>{question}</p>
-          ) : (
-            <InputTextarea
-              id="question"
-              value={question}
-              onChange={(e: any) => setQuestion(e.target.value)}
-              rows={3}
-              cols={30}
-              style={{ resize: "none", width: "100%" }}
-            />
-          )}
-        </div>
-        <div className="p-col-12 p-field">
-          <label htmlFor="answer" className="p-d-block">
-            Answer
-          </label>
-          {mode === CrudMode.READ ? (
-            <p>{answer}</p>
-          ) : (
-            <InputTextarea
-              id="answer"
-              value={answer}
-              onChange={(e: any) => setAnswer(e.target.value)}
-              rows={5}
-              cols={30}
-              style={{ resize: "none", width: "100%" }}
-            />
-          )}
-        </div>
-        <div className="p-col-12 p-field">
-          <label htmlFor="explanation" className="p-d-block">
-            Explanation
-          </label>
-          {mode === CrudMode.READ ? (
-            <div dangerouslySetInnerHTML={{ __html: explanation }}></div>
-          ) : (
-            <Editor
-              style={{ height: "320px" }}
-              value={explanation}
-              onTextChange={setExplanation}
-            />
-          )}
-        </div>
+        {translation ? (
+          <CardTranslationEdit
+            mode={mode}
+            translation={translation}
+            // onUpdate={() => console.log(translation)}
+          />
+        ) : null}
       </div>
     </Dialog>
   );
