@@ -44,14 +44,28 @@ const getById = (id: number): Promise<DeckDto> => {
   });
 };
 
-const create = (dto: DeckDto, authorId: number): Promise<DeckDto> => {
-  return DeckEntity.create(mapDeckDtoToEntity(dto, authorId)).then(
-    mapEntityToDtoDeck
-  );
+const createOrUpdate = (dto: DeckDto, authorId: number): Promise<DeckDto> => {
+  return createOrUpdateDeck(dto, authorId).then(mapEntityToDtoDeck);
+};
+
+const createOrUpdateDeck = (
+  dto: DeckDto,
+  authorId: number
+): Promise<DeckEntity> => {
+  const { id } = dto;
+  if (id) {
+    return DeckEntity.findByPk(id).then((deck) => {
+      if (!deck) throw new Error(`Deck ${id} not found`);
+      const entity = mapDeckDtoToEntity(dto, authorId);
+      entity.id = id;
+      return deck.update(entity);
+    });
+  }
+  return DeckEntity.create(mapDeckDtoToEntity(dto, authorId));
 };
 
 export default {
   getAll,
   getById,
-  create,
+  createOrUpdate,
 };

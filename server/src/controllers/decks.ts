@@ -13,7 +13,7 @@ decksRouter.get("/:id", (req: Request, res: Response) => {
 });
 
 decksRouter.post("/", (req: Request, res: Response) => {
-  sendRes(deckService.create(req.body, req.user.id), res);
+  sendRes(deckService.createOrUpdate(req.body, req.user.id), res);
 });
 
 export default decksRouter;
