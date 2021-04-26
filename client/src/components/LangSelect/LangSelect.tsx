@@ -36,9 +36,11 @@ const LangSelect: React.FC<Props> = ({}) => {
   useEffect(() => {
     setItems(cities);
     setSelectedCity1(cities[0]);
+    setAppendTo(document.querySelector("." + styles.select));
   }, []);
 
   const [selectedCity1, setSelectedCity1] = useState<any>(cities[0]);
+  const [appendTo, setAppendTo] = useState<any>(document.body);
 
   const onCityChange = (e: any) => {
     setSelectedCity1(e.value);
@@ -48,8 +50,7 @@ const LangSelect: React.FC<Props> = ({}) => {
     <div className={styles.select}>
       <Dropdown
         value={selectedCity1}
-        appendTo={document.querySelector("." + styles.select)}
-        style={{ top: "0 !important", left: "0 !important" }}
+        appendTo={appendTo}
         options={items}
         onChange={onCityChange}
         optionLabel="name"
