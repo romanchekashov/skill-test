@@ -1,17 +1,9 @@
 import { SplitButton } from "primereact/splitbutton";
 import React, { useEffect, useState } from "react";
-import { getCookie, setCookie } from "../../../utils/cookies";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { selectLangs, setLocale } from "../../../app/slices/langsSlice";
+import { Language } from "../../../types/Language";
 import styles from "./MainLangSelect.module.scss";
-
-const COOKIE_NAME = "NEXT_LOCALE";
-enum Locale {
-  EN = "EN",
-  RU = "RU",
-}
-const locales: any = {
-  en: Locale.EN,
-  ru: Locale.RU,
-};
 
 const icon = "pi pi-circle-off";
 const iconActive = "pi pi-circle-on";
@@ -19,50 +11,40 @@ const iconActive = "pi pi-circle-on";
 type Props = {};
 
 const MainLangSelect: React.FC<Props> = ({}) => {
-  const [locale, setLocale] = useState<Locale>(Locale.EN);
+  const dispatch = useAppDispatch();
+  const { locale } = useAppSelector(selectLangs);
+
+  const [label, setLabel] = useState("");
   const [items, setItems] = useState([
     {
       label: "EN English",
-      locale: Locale.EN,
+      locale: Language.en,
       icon: iconActive,
-      command: () => selectLang(Locale.EN),
+      command: () => dispatch(setLocale(Language.en)),
     },
     {
       label: "RU Русский",
-      locale: Locale.RU,
+      locale: Language.ru,
       icon,
-      command: () => selectLang(Locale.RU),
+      command: () => dispatch(setLocale(Language.ru)),
     },
   ]);
 
-  const selectLang = (newLocale: Locale) => {
-    const value = (newLocale as string).toLowerCase();
-    const lang = getCookie(COOKIE_NAME);
-    if (lang !== value) {
-      setCookie({ name: COOKIE_NAME, value, path: "/" });
-      document.location.reload();
-    }
-  };
-
   useEffect(() => {
-    const lang = getCookie(COOKIE_NAME);
-    if (lang) {
-      const newLocale = locales[lang];
-      setLocale(newLocale);
-      setItems(
-        items.map((item) => {
-          item.icon = item.locale === newLocale ? iconActive : icon;
-          return item;
-        })
-      );
-    }
-  }, []);
+    setLabel(locale.toUpperCase());
+    setItems(
+      items.map((item) => {
+        item.icon = item.locale === locale ? iconActive : icon;
+        return item;
+      })
+    );
+  }, [locale]);
 
   return (
     <>
       <SplitButton
         id="lang-select"
-        label={locale}
+        label={label}
         icon="pi pi-globe"
         model={items}
         className={"p-button-secondary " + styles.select}

@@ -35,7 +35,6 @@ const MyApp = ({
   locale: any;
 }) => {
   // console.log("pageProps: ", locale, pageProps, cookie, userAgent);
-  if (!getCookieStore() && cookie) setCookieStore(cookie);
 
   return (
     <Provider store={store}>
@@ -55,14 +54,18 @@ const checkLocale = (appContext: any) => {
   const { req, res } = appContext.ctx;
   if (!req) return;
   const { locale, defaultLocale } = appContext.router;
-  const cookieLocale = getCookiePart(req.headers.cookie, "NEXT_LOCALE");
-  // console.log(req.headers.cookie, typeof req.headers.cookie, locale, req.url);
+  const { cookie } = req.headers;
+  if (cookie) {
+    if (!getCookieStore()) setCookieStore(cookie);
+    const cookieLocale = getCookiePart(cookie, "NEXT_LOCALE");
+    // console.log(cookie, locale, req.url);
 
-  if (locale && cookieLocale && cookieLocale !== locale) {
-    const location =
-      defaultLocale === cookieLocale ? req.url : `/${cookieLocale}${req.url}`;
-    res.writeHead(307, { location });
-    res.end();
+    if (locale && cookieLocale && cookieLocale !== locale) {
+      const location =
+        defaultLocale === cookieLocale ? req.url : `/${cookieLocale}${req.url}`;
+      res.writeHead(307, { location });
+      res.end();
+    }
   }
 };
 

@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
@@ -53,7 +53,6 @@ type Props = {
 };
 
 const Editor: React.FC<Props> = ({ value, onTextChange, style }) => {
-  console.log(value);
   return (
     <QuillNoSSRWrapper
       modules={modules}

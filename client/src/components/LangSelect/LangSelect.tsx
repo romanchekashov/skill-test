@@ -1,60 +1,39 @@
 import { Dropdown } from "primereact/dropdown";
 import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectLang, selectLangs } from "../../app/slices/langsSlice";
 import { Language } from "../../types/Language";
-import { getCookie, setCookie } from "../../utils/cookies";
 import styles from "./LangSelect.module.scss";
 
-const COOKIE_NAME = "NEXT_LOCALE";
-enum Locale {
-  EN = "EN",
-  RU = "RU",
-}
-const locales: readonly string[] = Object.values(Language);
-const cities = [
+const langOptions = [
   { name: "EN English", code: Language.en },
   { name: "RU Русский", code: Language.ru },
 ];
 
-const icon = "pi pi-circle-off";
-const iconActive = "pi pi-circle-on";
-
 type Props = {};
 
 const LangSelect: React.FC<Props> = ({}) => {
-  const [locale, setLocale] = useState<Locale>(Locale.EN);
-  const [items, setItems] = useState<any>(cities);
-
-  const selectLang = (newLocale: Locale) => {
-    const value = (newLocale as string).toLowerCase();
-    const lang = getCookie(COOKIE_NAME);
-    if (lang !== value) {
-      setCookie({ name: COOKIE_NAME, value, path: "/" });
-      document.location.reload();
-    }
-  };
+  const dispatch = useAppDispatch();
+  const { selectedLang } = useAppSelector(selectLangs);
+  const [appendTo, setAppendTo] = useState<any>(document.body);
 
   useEffect(() => {
-    setItems(cities);
-    setSelectedCity1(cities[0]);
     setAppendTo(document.querySelector("." + styles.select));
   }, []);
 
-  const [selectedCity1, setSelectedCity1] = useState<any>(cities[0]);
-  const [appendTo, setAppendTo] = useState<any>(document.body);
-
-  const onCityChange = (e: any) => {
-    setSelectedCity1(e.value);
+  const onChange = (e: any) => {
+    dispatch(selectLang(e.value.code));
   };
 
   return (
     <div className={styles.select}>
       <Dropdown
-        value={selectedCity1}
+        value={langOptions.find(({ code }) => code === selectedLang)}
         appendTo={appendTo}
-        options={items}
-        onChange={onCityChange}
+        options={langOptions}
+        onChange={onChange}
         optionLabel="name"
-        placeholder="Select a City"
+        placeholder="Select a Lang"
       />
     </div>
   );

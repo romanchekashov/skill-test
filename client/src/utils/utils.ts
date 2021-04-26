@@ -26,3 +26,11 @@ export const isBrowser = () => typeof window !== "undefined";
 
 export const removeNewLines = (text: string): string =>
   text.replace(/\r?\n|\r/g, " ");
+
+export const timeout = (fn: Function, ms?: number): Promise<any> => {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(fn());
+    }, ms)
+  );
+};

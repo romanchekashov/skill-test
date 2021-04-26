@@ -7,11 +7,13 @@ import {
 import cardsReducer from "./slices/cardsSlice";
 import decksReducer from "./slices/decksSlice";
 import usersReducer from "./slices/usersSlice";
+import langsReducer from "./slices/langsSlice";
 
 const rootReducer = combineReducers({
   decks: decksReducer,
   users: usersReducer,
   cards: cardsReducer,
+  langs: langsReducer,
 });
 
 const store = configureStore({
