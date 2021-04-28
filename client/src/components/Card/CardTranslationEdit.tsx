@@ -59,6 +59,7 @@ const CardTranslationEdit: React.FC<Props> = ({
             rows={3}
             cols={30}
             style={{ resize: "none", width: "100%" }}
+            maxLength={256}
           />
         )}
       </div>
@@ -76,6 +77,7 @@ const CardTranslationEdit: React.FC<Props> = ({
             rows={5}
             cols={30}
             style={{ resize: "none", width: "100%" }}
+            maxLength={512}
           />
         )}
       </div>

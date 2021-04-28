@@ -1,5 +1,4 @@
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
-import { Grade } from "@skill-test/data/dto/learn/Grade";
 import { UserCardAnswerDto } from "@skill-test/data/dto/learn/UserCardAnswerDto";
 import { UserDeckLearnResultDto } from "@skill-test/data/dto/learn/UserDeckLearnResultDto";
 import { UserDto } from "@skill-test/data/dto/UserDto";
@@ -10,10 +9,8 @@ import { DeckMode } from "../../app/DeckMode";
 import { useAppDispatch } from "../../app/hooks";
 import { setMode } from "../../app/slices/decksSlice";
 import CardLearn from "./CardLearn";
+import CardLearnCheck from "./CardLearnCheck/CardLearnCheck";
 import { CardLearnMode } from "./CardLearnMode";
-import styles from "./DeckLearn.module.scss";
-import GradeSelect from "./GradeSelect";
-import Timer from "./Timer";
 
 type Props = {
   deck: DeckDto;
@@ -30,33 +27,28 @@ const DeckLearn: React.FC<Props> = ({ deck, user }) => {
   };
 
   const [first2, setFirst2] = useState(0);
-  const [finished, setFinished] = useState<boolean>(false);
   const [result, setResult] = useState<UserDeckLearnResultDto>(
     resultInitialState
   );
 
-  const initTest = () => {
-    setFirst2(0);
-    setFinished(false);
-    setResult(resultInitialState);
-  };
-
-  //   if (finished) {
-  //     return <CurrentTestResult testResult={testResult} onRepeat={initTest} />;
-  //   }
-
   const onPageChange2 = (event: any) => {
-    setFirst2(event.first);
-    setGrade(undefined);
-    setShowGrade(false);
-    setCardLearnMode(CardLearnMode.ANSWERING);
+    newCard(event.first);
   };
 
   const onNext = (event: any) => {
-    setFirst2(first2 + 1);
-    setGrade(undefined);
-    setShowGrade(false);
-    setCardLearnMode(CardLearnMode.ANSWERING);
+    newCard(first2 + 1);
+  };
+
+  const newCard = (index: number) => {
+    const userCardAnswer: UserCardAnswerDto = result.result[index];
+    setFirst2(index);
+    if (userCardAnswer.answer) {
+      setShowGrade(true);
+      setCardLearnMode(CardLearnMode.CHECKING);
+    } else {
+      setShowGrade(false);
+      setCardLearnMode(CardLearnMode.ANSWERING);
+    }
   };
 
   const check = () => {
@@ -65,12 +57,10 @@ const DeckLearn: React.FC<Props> = ({ deck, user }) => {
   };
 
   const onFinish = (event: any) => {
-    setFinished(true);
     dispatch(setMode(DeckMode.VIEW));
   };
 
   const userCardAnswer: UserCardAnswerDto = result.result[first2];
-  const [grade, setGrade] = useState<Grade>();
   const [cardLearnMode, setCardLearnMode] = useState<CardLearnMode>(
     CardLearnMode.ANSWERING
   );
@@ -89,32 +79,11 @@ const DeckLearn: React.FC<Props> = ({ deck, user }) => {
   );
   const rightContent = (
     <>
-      {showGrade ? (
-        <GradeSelect
-          grade={userCardAnswer.grade}
-          onUpdate={(g) => {
-            userCardAnswer.grade = g;
-            setGrade(g);
-          }}
-          className={styles.gradeSelect}
-        />
-      ) : (
-        <>
-          <Timer
-            timeoutInSeconds={10}
-            start={first2}
-            finished={check}
-            className={styles.gradeSelect}
-          />
-          <Button
-            label="Check"
-            className="p-button-warning"
-            onClick={check}
-            style={{ marginRight: "5px" }}
-          />
-        </>
-      )}
-
+      <CardLearnCheck
+        showGrade={showGrade}
+        userCardAnswer={userCardAnswer}
+        check={check}
+      />
       <Button
         label="Next"
         onClick={onNext}
