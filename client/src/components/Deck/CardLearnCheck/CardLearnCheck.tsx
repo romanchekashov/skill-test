@@ -10,12 +10,14 @@ type Props = {
   showGrade: boolean;
   userCardAnswer: UserCardAnswerDto;
   check: () => void;
+  graded: (grade: Grade) => void;
 };
 
 const CardLearnCheck: React.FC<Props> = ({
   showGrade,
   userCardAnswer,
   check,
+  graded,
 }) => {
   const [grade, setGrade] = useState<Grade>();
 
@@ -30,6 +32,7 @@ const CardLearnCheck: React.FC<Props> = ({
         onUpdate={(g) => {
           userCardAnswer.grade = g;
           setGrade(g);
+          graded(g);
         }}
         className={styles.inline}
       />
@@ -39,7 +42,7 @@ const CardLearnCheck: React.FC<Props> = ({
   return (
     <>
       <Timer
-        timeoutInSeconds={10}
+        timeoutInSeconds={15}
         start={userCardAnswer}
         finished={check}
         className={styles.inline}

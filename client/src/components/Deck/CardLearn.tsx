@@ -6,17 +6,13 @@ import { CardLearnMode } from "./CardLearnMode";
 
 type Props = {
   mode: CardLearnMode;
-  questionNumber: number;
   userCardAnswer: UserCardAnswerDto;
 };
 
-const CardLearn: React.FC<Props> = ({
-  mode,
-  questionNumber,
-  userCardAnswer,
-}) => {
+const CardLearn: React.FC<Props> = ({ mode, userCardAnswer }) => {
   const { card } = userCardAnswer;
   const [answer, setAnswer] = useState<string>();
+  const subTitle = `Incorrect: ${userCardAnswer.incorrect}, Almost: ${userCardAnswer.almost}, Correct: ${userCardAnswer.correct}`;
 
   useEffect(() => {
     setAnswer(userCardAnswer.answer || "");
@@ -32,7 +28,7 @@ const CardLearn: React.FC<Props> = ({
       <div className="CurrentTestQuestion card">
         <Card
           title={card.question}
-          subTitle={"Question " + questionNumber}
+          subTitle={subTitle}
           style={{ width: "100%", marginBottom: "2em" }}
         >
           <div className="p-col-12 p-field">
@@ -58,7 +54,7 @@ const CardLearn: React.FC<Props> = ({
     <div className="CurrentTestQuestion card">
       <Card
         title={card.question}
-        subTitle={"Question " + questionNumber}
+        subTitle={subTitle}
         style={{ width: "100%", marginBottom: "2em" }}
       >
         <div className="p-col-12 p-field">

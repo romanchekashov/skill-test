@@ -52,6 +52,7 @@ const DeckView: React.FC<Props> = ({ deck }) => {
           onClick={() => {
             dispatch(setMode(DeckMode.LEARN));
           }}
+          style={{ marginRight: "5px" }}
         />
         <Button
           label="Add Card"
@@ -62,6 +63,7 @@ const DeckView: React.FC<Props> = ({ deck }) => {
                 deckId: deck.id,
                 question: "",
                 answer: "",
+                translations: [],
               };
               dispatch(editCard(card));
             }

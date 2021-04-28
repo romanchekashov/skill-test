@@ -16,6 +16,11 @@ type Props = {
 
 const GradeSelect: React.FC<Props> = ({ grade, onUpdate, className }) => {
   const onChange = (e: any) => onUpdate(e.value);
+
+  if (grade) {
+    return <span>{gradeToOption[grade].name}</span>;
+  }
+
   return (
     <SelectButton
       value={grade}

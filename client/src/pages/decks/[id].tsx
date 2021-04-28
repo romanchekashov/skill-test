@@ -6,7 +6,7 @@ import DeckView from "../../components/Deck/DeckView";
 import HeaderMenu from "../../components/Header/HeaderMenu";
 import { DeckMode } from "../../app/DeckMode";
 import { LoadingState } from "../../app/LoadingState";
-import { fetchDeck, selectDeck } from "../../app/slices/decksSlice";
+import { fetchDeck, selectDeck, setMode } from "../../app/slices/decksSlice";
 
 const DeckPage = () => {
   const router = useRouter();
@@ -16,7 +16,10 @@ const DeckPage = () => {
   const { mode, deck, deckLoading, deckLoadingError } = useSelector(selectDeck);
 
   useEffect(() => {
-    if (deckId) dispatch(fetchDeck(deckId));
+    if (deckId) {
+      dispatch(fetchDeck(deckId));
+      dispatch(setMode(DeckMode.VIEW));
+    }
   }, [dispatch, deckId]);
 
   return (

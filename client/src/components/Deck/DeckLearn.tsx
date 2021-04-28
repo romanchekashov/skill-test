@@ -1,16 +1,18 @@
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
+import { Grade } from "@skill-test/data/dto/learn/Grade";
 import { UserCardAnswerDto } from "@skill-test/data/dto/learn/UserCardAnswerDto";
-import { UserDeckLearnResultDto } from "@skill-test/data/dto/learn/UserDeckLearnResultDto";
 import { UserDto } from "@skill-test/data/dto/UserDto";
 import { Button } from "primereact/button";
-import { Paginator } from "primereact/paginator";
-import React, { useState } from "react";
+import { Toolbar } from "primereact/toolbar";
+import React, { useEffect, useState } from "react";
 import { DeckMode } from "../../app/DeckMode";
 import { useAppDispatch } from "../../app/hooks";
 import { setMode } from "../../app/slices/decksSlice";
+import { LinkedList } from "../../utils/LinkedList";
 import CardLearn from "./CardLearn";
 import CardLearnCheck from "./CardLearnCheck/CardLearnCheck";
 import { CardLearnMode } from "./CardLearnMode";
+import styles from "./DeckLearn.module.scss";
 
 type Props = {
   deck: DeckDto;
@@ -20,29 +22,70 @@ type Props = {
 const DeckLearn: React.FC<Props> = ({ deck, user }) => {
   const dispatch = useAppDispatch();
 
-  const resultInitialState: UserDeckLearnResultDto = {
-    deck,
-    user,
-    result: deck.cards.map((card) => ({ card })),
+  const [list, setList] = useState<LinkedList<UserCardAnswerDto>>();
+  const [currentCard, setCurrentCard] = useState<UserCardAnswerDto>();
+  const [cardLearnMode, setCardLearnMode] = useState<CardLearnMode>(
+    CardLearnMode.ANSWERING
+  );
+  const [showGrade, setShowGrade] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (deck && user) {
+      const list = new LinkedList<UserCardAnswerDto>();
+      deck.cards.forEach((card) =>
+        list.add({ card, incorrect: 0, correct: 0, almost: 0 })
+      );
+      setList(list);
+      const card = list.removeFirst();
+      if (card) {
+        setCurrentCard(card);
+        newCard(card);
+      }
+    }
+  }, [deck, user]);
+
+  const calcNewEFactor = (eFactor: number, grade: Grade): number => {
+    const newEFactor =
+      eFactor + (0.1 - (5 - grade) * (0.08 + (5 - grade) * 0.02));
+    return newEFactor > 1.3 ? newEFactor : 1.3;
   };
 
-  const [first2, setFirst2] = useState(0);
-  const [result, setResult] = useState<UserDeckLearnResultDto>(
-    resultInitialState
-  );
-
-  const onPageChange2 = (event: any) => {
-    newCard(event.first);
+  const calcIndex = (length: number, grade?: Grade): number => {
+    let index = length;
+    if (2 === grade) index = length / 4;
+    if (3 === grade) index = length / 2;
+    return Math.ceil(index);
   };
 
   const onNext = (event: any) => {
-    newCard(first2 + 1);
+    if (!list) return;
+
+    if (currentCard && currentCard.grade) {
+      switch (currentCard.grade) {
+        case 2:
+          currentCard.incorrect++;
+          break;
+        case 3:
+          currentCard.almost++;
+          break;
+        case 4:
+          currentCard.correct++;
+          break;
+      }
+      currentCard.grade = undefined;
+      currentCard.answer = undefined;
+      list.addAt(calcIndex(list.size, currentCard.grade), currentCard);
+    }
+
+    const card = list.removeFirst();
+    if (card) {
+      setCurrentCard(card);
+      newCard(card);
+    }
   };
 
-  const newCard = (index: number) => {
-    const userCardAnswer: UserCardAnswerDto = result.result[index];
-    setFirst2(index);
-    if (userCardAnswer.answer) {
+  const newCard = (userCardAnswer: UserCardAnswerDto) => {
+    if (userCardAnswer.grade || userCardAnswer.answer) {
       setShowGrade(true);
       setCardLearnMode(CardLearnMode.CHECKING);
     } else {
@@ -60,40 +103,33 @@ const DeckLearn: React.FC<Props> = ({ deck, user }) => {
     dispatch(setMode(DeckMode.VIEW));
   };
 
-  const userCardAnswer: UserCardAnswerDto = result.result[first2];
-  const [cardLearnMode, setCardLearnMode] = useState<CardLearnMode>(
-    CardLearnMode.ANSWERING
-  );
-  const [showGrade, setShowGrade] = useState<boolean>(false);
-
   const leftContent = (
     <>
-      <Button type="button" icon="pi pi-refresh" onClick={() => setFirst2(0)} />
+      <Button type="button" icon="pi pi-refresh" onClick={() => {}} />
       <Button
         label="Finish"
         className="p-button-warning"
         onClick={onFinish}
         style={{ marginLeft: "5px" }}
       />
+      <span style={{ margin: "0 5px" }}>All: {deck.cards.length}</span>
     </>
   );
   const rightContent = (
     <>
-      <CardLearnCheck
-        showGrade={showGrade}
-        userCardAnswer={userCardAnswer}
-        check={check}
-      />
-      <Button
-        label="Next"
-        onClick={onNext}
-        disabled={first2 + 1 >= deck.cards.length}
-      />
+      {currentCard ? (
+        <CardLearnCheck
+          showGrade={showGrade}
+          userCardAnswer={currentCard}
+          check={check}
+          graded={onNext}
+        />
+      ) : null}
     </>
   );
 
   return (
-    <div className="CurrentTest card">
+    <div className={styles.container}>
       <div className="CurrentTest-head">
         <h2>
           {deck.name}{" "}
@@ -101,22 +137,10 @@ const DeckLearn: React.FC<Props> = ({ deck, user }) => {
         </h2>
       </div>
 
-      <Paginator
-        first={first2}
-        rows={1}
-        totalRecords={deck.cards.length}
-        onPageChange={onPageChange2}
-        leftContent={leftContent}
-        rightContent={rightContent}
-        template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-      ></Paginator>
+      <Toolbar left={leftContent} right={rightContent} />
 
-      {deck.cards[first2] ? (
-        <CardLearn
-          mode={cardLearnMode}
-          questionNumber={first2 + 1}
-          userCardAnswer={userCardAnswer}
-        />
+      {currentCard ? (
+        <CardLearn mode={cardLearnMode} userCardAnswer={currentCard} />
       ) : null}
     </div>
   );
