@@ -1,42 +1,47 @@
 .CurrentTest {
-    /*padding: 15px;*/
-    /*margin: 5px;*/
-    /*border: 1px solid;*/
-    /*width: 150px;*/
+  /*padding: 15px;*/
+  /*margin: 5px;*/
+  /*border: 1px solid;*/
+  /*width: 150px;*/
 }
 
 .CurrentTest .loading {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    /*background-color: wheat;*/
-    justify-content: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /*background-color: wheat;*/
+  justify-content: center;
 }
 
 .CurrentTest .p-paginator {
-    text-align: left;
-    width: 60%;
-    margin: auto;
-    margin-bottom: 15px;
+  text-align: left;
+  width: 60%;
+  margin: auto;
+  margin-bottom: 15px;
 }
 
 .CurrentTest-head span {
-    font-weight: normal;
-    font-size: 1rem;
+  font-weight: normal;
+  font-size: 1rem;
 }
 
 .CurrentTestQuestion {
-    text-align: left;
-    width: 60%;
-    margin: auto;
+  text-align: left;
+  width: 60%;
+  margin: auto;
 }
 
 .possibleAnswer {
-    margin: 15px;
+  margin: 15px;
 }
 .possibleAnswer label {
-    margin-left: 10px;
+  margin-left: 10px;
+}
+
+.gradeSelect {
+  display: inline-block;
+  margin-right: 5px;
 }

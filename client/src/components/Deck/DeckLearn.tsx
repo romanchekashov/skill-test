@@ -1,11 +1,18 @@
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
+import { Grade } from "@skill-test/data/dto/learn/Grade";
+import { UserCardAnswerDto } from "@skill-test/data/dto/learn/UserCardAnswerDto";
 import { UserDeckLearnResultDto } from "@skill-test/data/dto/learn/UserDeckLearnResultDto";
 import { UserDto } from "@skill-test/data/dto/UserDto";
 import { Button } from "primereact/button";
 import { Paginator } from "primereact/paginator";
 import React, { useState } from "react";
+import { DeckMode } from "../../app/DeckMode";
+import { useAppDispatch } from "../../app/hooks";
+import { setMode } from "../../app/slices/decksSlice";
 import CardLearn from "./CardLearn";
 import styles from "./DeckLearn.module.scss";
+import GradeSelect from "./GradeSelect";
+import Timer from "./Timer";
 
 type Props = {
   deck: DeckDto;
@@ -13,6 +20,8 @@ type Props = {
 };
 
 const DeckLearn: React.FC<Props> = ({ deck, user }) => {
+  const dispatch = useAppDispatch();
+
   const resultInitialState: UserDeckLearnResultDto = {
     deck,
     user,
@@ -41,44 +50,64 @@ const DeckLearn: React.FC<Props> = ({ deck, user }) => {
 
   const onNext = (event: any) => {
     setFirst2(first2 + 1);
+    setShowGrade(false);
   };
 
   const onFinish = (event: any) => {
     setFinished(true);
+    dispatch(setMode(DeckMode.VIEW));
   };
 
+  const userCardAnswer: UserCardAnswerDto = result.result[first2];
+  const [grade, setGrade] = useState<Grade>();
+  const [showGrade, setShowGrade] = useState<boolean>(false);
+
   const leftContent = (
-    <Button type="button" icon="pi pi-refresh" onClick={() => setFirst2(0)} />
-  );
-  const rightContent = (
     <>
-      <Button
-        label="Next"
-        onClick={onNext}
-        disabled={first2 + 1 >= deck.cards.length}
-      />
+      <Button type="button" icon="pi pi-refresh" onClick={() => setFirst2(0)} />
       <Button
         label="Finish"
         className="p-button-warning"
         onClick={onFinish}
         style={{ marginLeft: "5px" }}
       />
-      {deck.author.username === user.username ? (
+    </>
+  );
+  const rightContent = (
+    <>
+      {showGrade ? (
+        <GradeSelect
+          grade={userCardAnswer.grade}
+          onUpdate={(g) => {
+            userCardAnswer.grade = g;
+            setGrade(g);
+          }}
+          className={styles.gradeSelect}
+        />
+      ) : (
         <>
-          <Button
-            label="Add"
-            className="p-button-warning"
-            onClick={onFinish}
-            style={{ marginLeft: "5px" }}
+          <Timer
+            timeoutInSeconds={10}
+            start={first2}
+            finished={() => {
+              setShowGrade(true);
+            }}
+            className={styles.gradeSelect}
           />
           <Button
-            label="Edit"
+            label="Check"
             className="p-button-warning"
-            onClick={onFinish}
-            style={{ marginLeft: "5px" }}
+            onClick={() => setShowGrade(true)}
+            style={{ marginRight: "5px" }}
           />
         </>
-      ) : null}
+      )}
+
+      <Button
+        label="Next"
+        onClick={onNext}
+        disabled={first2 + 1 >= deck.cards.length}
+      />
     </>
   );
 
@@ -104,7 +133,7 @@ const DeckLearn: React.FC<Props> = ({ deck, user }) => {
       {deck.cards[first2] ? (
         <CardLearn
           questionNumber={first2 + 1}
-          userCardAnswer={result.result[first2]}
+          userCardAnswer={userCardAnswer}
         />
       ) : null}
     </div>
