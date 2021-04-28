@@ -140,4 +140,32 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="update_table_cards_remove_question_answer_explanation" author="rchekashov">
+        
+        <!-- <dropUniqueConstraint constraintName="uk_cards_question_deck_id"
+                              tableName="cards"/> -->
+
+        <dropColumn tableName="cards">
+            <column name="question"/>
+            <column name="answer"/>
+            <column name="explanation"/>
+        </dropColumn>
+
+        <rollback>
+            <addColumn tableName="cards">
+                <column name="question" type="varchar(256)" defaultValue="">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="answer" type="varchar(512)" defaultValue="">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="explanation" type="text"/>
+            </addColumn>
+
+            <!-- <addUniqueConstraint columnNames="question, deck_id"
+                                 constraintName="uk_cards_question_deck_id"
+                                 tableName="cards"/> -->
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>
