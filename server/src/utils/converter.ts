@@ -40,30 +40,21 @@ export const mapEntityToDtoDeck = ({
 // --------------------------------- Cards
 export const mapCardDtoToEntity = ({
   deckId,
-  question,
-  answer,
-  explanation,
   translations,
 }: CardDto): Card => ({
   deck_id: deckId,
-  question,
-  answer,
-  explanation,
   translations: translations.map(mapCardTranslationDtoToEntity),
 });
 
 export const mapEntityToDtoCard = ({
   id,
-  question,
-  answer,
-  explanation,
   deck_id,
   translations,
 }: Card): CardDto => ({
   id,
-  question,
-  answer,
-  explanation,
+  question: "",
+  answer: "",
+  explanation: "",
   deckId: deck_id,
   translations: translations?.map(mapEntityToDtoCardTranslation) || [],
 });
