@@ -10,6 +10,7 @@ import { DeckMode } from "../../app/DeckMode";
 import { useAppDispatch } from "../../app/hooks";
 import { setMode } from "../../app/slices/decksSlice";
 import CardLearn from "./CardLearn";
+import { CardLearnMode } from "./CardLearnMode";
 import styles from "./DeckLearn.module.scss";
 import GradeSelect from "./GradeSelect";
 import Timer from "./Timer";
@@ -46,11 +47,21 @@ const DeckLearn: React.FC<Props> = ({ deck, user }) => {
 
   const onPageChange2 = (event: any) => {
     setFirst2(event.first);
+    setGrade(undefined);
+    setShowGrade(false);
+    setCardLearnMode(CardLearnMode.ANSWERING);
   };
 
   const onNext = (event: any) => {
     setFirst2(first2 + 1);
+    setGrade(undefined);
     setShowGrade(false);
+    setCardLearnMode(CardLearnMode.ANSWERING);
+  };
+
+  const check = () => {
+    setShowGrade(true);
+    setCardLearnMode(CardLearnMode.CHECKING);
   };
 
   const onFinish = (event: any) => {
@@ -60,6 +71,9 @@ const DeckLearn: React.FC<Props> = ({ deck, user }) => {
 
   const userCardAnswer: UserCardAnswerDto = result.result[first2];
   const [grade, setGrade] = useState<Grade>();
+  const [cardLearnMode, setCardLearnMode] = useState<CardLearnMode>(
+    CardLearnMode.ANSWERING
+  );
   const [showGrade, setShowGrade] = useState<boolean>(false);
 
   const leftContent = (
@@ -89,15 +103,13 @@ const DeckLearn: React.FC<Props> = ({ deck, user }) => {
           <Timer
             timeoutInSeconds={10}
             start={first2}
-            finished={() => {
-              setShowGrade(true);
-            }}
+            finished={check}
             className={styles.gradeSelect}
           />
           <Button
             label="Check"
             className="p-button-warning"
-            onClick={() => setShowGrade(true)}
+            onClick={check}
             style={{ marginRight: "5px" }}
           />
         </>
@@ -132,6 +144,7 @@ const DeckLearn: React.FC<Props> = ({ deck, user }) => {
 
       {deck.cards[first2] ? (
         <CardLearn
+          mode={cardLearnMode}
           questionNumber={first2 + 1}
           userCardAnswer={userCardAnswer}
         />

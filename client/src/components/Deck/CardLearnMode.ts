@@ -1,4 +1,4 @@
 export enum CardLearnMode {
-  ANSWER,
-  CHECK,
+  ANSWERING,
+  CHECKING,
 }
