@@ -74,7 +74,7 @@ const DeckView: React.FC<Props> = ({ deck }) => {
       <div className="p-grid">
         {deck.cards.map((card) => (
           <div key={card.id} className="p-col-3">
-            <Card title={card.question} style={{}}>
+            <Card title={card.question} className={styles.card}>
               <div className="possibleAnswers">{card.answer}</div>
               <Button
                 icon="pi pi-eye"
