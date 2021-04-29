@@ -1,6 +1,5 @@
 import { CardDto } from "@skill-test/data/dto/learn/CardDto";
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
-import Link from "next/link";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import React from "react";
@@ -31,14 +30,25 @@ const DeckView: React.FC<Props> = ({ deck }) => {
       }}
     />
   );
-  const footer = (
-    <span>
-      <Link href={"/" + deck.id}>
-        <Button label="Show" icon="pi pi-check" />
-      </Link>
-      {/*<Button label="Cancel" icon="pi pi-times" className="p-button-secondary p-ml-2" />*/}
-    </span>
+  const footer = (card: CardDto) => (
+    <>
+      <Button
+        icon="pi pi-eye"
+        className="p-button-rounded p-button-text"
+        onClick={() => {
+          dispatch(viewCard(card));
+        }}
+      />
+      <Button
+        icon="pi pi-pencil"
+        className="p-button-rounded p-button-text"
+        onClick={() => {
+          dispatch(editCard(card));
+        }}
+      />
+    </>
   );
+
   return (
     <div className="CurrentTest card">
       <div className={styles.header}>
@@ -74,22 +84,12 @@ const DeckView: React.FC<Props> = ({ deck }) => {
       <div className="p-grid">
         {deck.cards.map((card) => (
           <div key={card.id} className="p-col-3">
-            <Card title={card.question} className={styles.card}>
+            <Card
+              title={card.question}
+              className={styles.card}
+              footer={footer(card)}
+            >
               <div className="possibleAnswers">{card.answer}</div>
-              <Button
-                icon="pi pi-eye"
-                className="p-button-rounded p-button-text"
-                onClick={() => {
-                  dispatch(viewCard(card));
-                }}
-              />
-              <Button
-                icon="pi pi-pencil"
-                className="p-button-rounded p-button-text"
-                onClick={() => {
-                  dispatch(editCard(card));
-                }}
-              />
             </Card>
           </div>
         ))}

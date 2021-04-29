@@ -1,5 +1,21 @@
+.card {
+  position: relative;
+  height: 100%;
+}
+
 .card :global .p-card-title {
   word-break: break-word;
+}
+
+.card :global .p-card-content {
+  margin-bottom: 15px;
+}
+
+.card :global .p-card-footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 5px;
 }
 
 .CurrentTest {
