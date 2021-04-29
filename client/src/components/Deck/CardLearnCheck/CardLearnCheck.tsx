@@ -42,7 +42,7 @@ const CardLearnCheck: React.FC<Props> = ({
   return (
     <>
       <Timer
-        timeoutInSeconds={15}
+        timeoutInSeconds={60}
         start={userCardAnswer}
         finished={check}
         className={styles.inline}
