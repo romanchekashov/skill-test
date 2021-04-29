@@ -1,5 +1,11 @@
+import hljs from "highlight.js";
 import dynamic from "next/dynamic";
 import React from "react";
+
+hljs.configure({
+  // optionally configure hljs
+  languages: ["javascript", "typescript", "python", "java", "css", "c-like"],
+});
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
@@ -7,10 +13,14 @@ const QuillNoSSRWrapper = dynamic(import("react-quill"), {
 });
 
 const modules = {
+  syntax: {
+    highlight: (text: any) => hljs.highlightAuto(text).value,
+  },
   toolbar: [
     [{ header: "1" }, { header: "2" }, { font: [] }],
     [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote", "code-block"],
+    ["bold", "italic", "underline", "strike"],
+    ["blockquote", "code-block"],
     [
       { list: "ordered" },
       { list: "bullet" },

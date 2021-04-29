@@ -1940,6 +1940,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/highlightjs@^9.12.1":
+  version "9.12.1"
+  resolved "https://registry.yarnpkg.com/@types/highlightjs/-/highlightjs-9.12.1.tgz#c2692a1fe91441bcd63279d52c1ea245a485e904"
+  integrity sha512-gFzpOxbCBJYZrYrN7TiPeCysP/Pw4sxmpPLwY7zgGPAJ51XL81DS2dgH9TBoFN6WNuMb55fUw4F2tsRrMumDNA==
+
 "@types/history@*":
   version "4.7.8"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.8.tgz#49348387983075705fe8f4e02fb67f7daaec4934"
@@ -6133,6 +6138,11 @@ hex-color-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
+
+highlight.js@^10.7.2:
+  version "10.7.2"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.7.2.tgz#89319b861edc66c48854ed1e6da21ea89f847360"
+  integrity sha512-oFLl873u4usRM9K63j4ME9u3etNF0PLiJhSQ8rdfuL51Wn3zkD6drf9ZW0dOzjnZI22YYG24z30JcmfCZjMgYg==
 
 history@^4.9.0:
   version "4.10.1"

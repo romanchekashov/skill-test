@@ -6,6 +6,7 @@ import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import React, { ComponentType } from "react";
 import "react-quill/dist/quill.snow.css";
+import "highlight.js/styles/atom-one-dark.css";
 import { Provider } from "react-redux";
 import store from "../app/store";
 import "../styles/index.scss";
