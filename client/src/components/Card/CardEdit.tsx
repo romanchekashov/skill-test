@@ -3,6 +3,7 @@ import { CardTranslationDto } from "@skill-test/data/dto/learn/CardTranslationDt
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import React, { useEffect, useState } from "react";
+import { CrudMode } from "../../app/CrudMode";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   createCard,
@@ -88,6 +89,7 @@ const CardEdit: React.FC<Props> = ({}) => {
   };
 
   const renderFooter = () => {
+    if (mode === CrudMode.READ) return null;
     return (
       <div>
         <Button
