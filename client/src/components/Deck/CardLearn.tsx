@@ -1,7 +1,8 @@
 import { UserCardAnswerDto } from "@skill-test/data/dto/learn/UserCardAnswerDto";
+import hljs from "highlight.js";
 import { Card } from "primereact/card";
 import { InputTextarea } from "primereact/inputtextarea";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CardLearnMode } from "./CardLearnMode";
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
 };
 
 const CardLearn: React.FC<Props> = ({ mode, userCardAnswer }) => {
+  const explanationRef = useRef<HTMLDivElement>(null);
   const { card } = userCardAnswer;
   const [answer, setAnswer] = useState<string>();
   const subTitle = `Incorrect: ${userCardAnswer.incorrect}, Almost: ${userCardAnswer.almost}, Correct: ${userCardAnswer.correct}`;
@@ -17,6 +19,17 @@ const CardLearn: React.FC<Props> = ({ mode, userCardAnswer }) => {
   useEffect(() => {
     setAnswer(userCardAnswer.answer || "");
   }, [userCardAnswer]);
+
+  useEffect(() => {
+    if (mode === CardLearnMode.CHECKING) {
+      explanationRef.current
+        ?.querySelectorAll("pre.ql-syntax")
+        .forEach((block: any) => {
+          // then highlight each
+          hljs.highlightBlock(block);
+        });
+    }
+  }, [mode]);
 
   const onChangeAnswer = (e: any) => {
     setAnswer(e.target.value);
@@ -72,8 +85,11 @@ const CardLearn: React.FC<Props> = ({ mode, userCardAnswer }) => {
       </Card>
       {card.explanation ? (
         <div
+          ref={explanationRef}
           className="card"
-          dangerouslySetInnerHTML={{ __html: card.explanation }}
+          dangerouslySetInnerHTML={{
+            __html: card.explanation || "",
+          }}
         ></div>
       ) : null}
     </div>

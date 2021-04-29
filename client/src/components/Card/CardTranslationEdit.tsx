@@ -1,6 +1,7 @@
 import { CardTranslationDto } from "@skill-test/data/dto/learn/CardTranslationDto";
+import hljs from "highlight.js";
 import { InputTextarea } from "primereact/inputtextarea";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CrudMode } from "../../app/CrudMode";
 import Editor from "../Editor";
 
@@ -15,6 +16,7 @@ const CardTranslationEdit: React.FC<Props> = ({
   translation,
   onUpdate,
 }) => {
+  const explanationRef = useRef<HTMLDivElement>(null);
   const [question, setQuestion] = useState<string>();
   const [answer, setAnswer] = useState<string>();
   const [explanation, setExplanation] = useState<string>("");
@@ -23,6 +25,12 @@ const CardTranslationEdit: React.FC<Props> = ({
     setQuestion(translation.question);
     setAnswer(translation.answer);
     setExplanation(translation.explanation || "");
+    explanationRef.current
+      ?.querySelectorAll("pre.ql-syntax")
+      .forEach((block: any) => {
+        // then highlight each
+        hljs.highlightBlock(block);
+      });
   }, [translation]);
 
   const onChangeQuestion = (e: any) => {
@@ -87,8 +95,9 @@ const CardTranslationEdit: React.FC<Props> = ({
         </label>
         {mode === CrudMode.READ ? (
           <div
+            ref={explanationRef}
             dangerouslySetInnerHTML={{
-              __html: explanation,
+              __html: translation.explanation || "",
             }}
           ></div>
         ) : (
