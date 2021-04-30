@@ -1,0 +1,5 @@
+// fix show select on front of dialog
+.select :global .p-dropdown-panel {
+  top: inherit !important;
+  left: inherit !important;
+}

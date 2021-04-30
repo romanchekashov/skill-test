@@ -3,6 +3,8 @@ import hljs from "highlight.js";
 import { Card } from "primereact/card";
 import { InputTextarea } from "primereact/inputtextarea";
 import React, { useEffect, useRef, useState } from "react";
+import SpeechToText from "../SpeechToText/SpeechToText";
+import styles from "./CardLearn.module.scss";
 import { CardLearnMode } from "./CardLearnMode";
 
 type Props = {
@@ -14,6 +16,7 @@ const CardLearn: React.FC<Props> = ({ mode, userCardAnswer }) => {
   const explanationRef = useRef<HTMLDivElement>(null);
   const { card } = userCardAnswer;
   const [answer, setAnswer] = useState<string>();
+  const [recording, setRecording] = useState<boolean>(false);
   const subTitle = `Incorrect: ${userCardAnswer.incorrect}, Almost: ${userCardAnswer.almost}, Correct: ${userCardAnswer.correct}`;
 
   useEffect(() => {
@@ -22,6 +25,7 @@ const CardLearn: React.FC<Props> = ({ mode, userCardAnswer }) => {
 
   useEffect(() => {
     if (mode === CardLearnMode.CHECKING) {
+      setRecording(false);
       explanationRef.current
         ?.querySelectorAll("pre.ql-syntax")
         .forEach((block: any) => {
@@ -31,37 +35,14 @@ const CardLearn: React.FC<Props> = ({ mode, userCardAnswer }) => {
     }
   }, [mode]);
 
-  const onChangeAnswer = (e: any) => {
-    setAnswer(e.target.value);
-    userCardAnswer.answer = e.target.value;
+  const onChangeAnswer = (text: string) => {
+    setAnswer(text);
+    userCardAnswer.answer = text;
   };
 
-  if (mode === CardLearnMode.ANSWERING) {
-    return (
-      <div className="CurrentTestQuestion card">
-        <Card
-          title={card.question}
-          subTitle={subTitle}
-          style={{ width: "100%", marginBottom: "2em" }}
-        >
-          <div className="p-col-12 p-field">
-            <label htmlFor="answer" className="p-d-block">
-              Answer
-            </label>
-            <InputTextarea
-              id="answer"
-              value={answer}
-              onChange={onChangeAnswer}
-              rows={5}
-              cols={30}
-              style={{ resize: "none", width: "100%" }}
-              maxLength={512}
-            />
-          </div>
-        </Card>
-      </div>
-    );
-  }
+  const onSpeechToText = (text: string) => {
+    onChangeAnswer(answer + " " + text);
+  };
 
   return (
     <div className="CurrentTestQuestion card">
@@ -70,20 +51,39 @@ const CardLearn: React.FC<Props> = ({ mode, userCardAnswer }) => {
         subTitle={subTitle}
         style={{ width: "100%", marginBottom: "2em" }}
       >
-        <div className="p-col-12 p-field">
-          <label htmlFor="answer" className="p-d-block">
+        <div className="p-col-12">
+          <label htmlFor="answer" className={`p-d-block ${styles.labelAnswer}`}>
             Your Answer
           </label>
-          <p className="possibleAnswers">{userCardAnswer.answer}</p>
+          <SpeechToText
+            recording={recording}
+            toggle={setRecording}
+            text={onSpeechToText}
+            style={{
+              display: mode === CardLearnMode.CHECKING ? "none" : "block",
+            }}
+          />
+          <InputTextarea
+            id="answer"
+            value={answer}
+            onChange={(e: any) => onChangeAnswer(e.target.value)}
+            rows={5}
+            cols={30}
+            style={{ resize: "none", width: "100%" }}
+            maxLength={512}
+            disabled={mode === CardLearnMode.CHECKING}
+          />
         </div>
-        <div className="p-col-12 p-field">
-          <label htmlFor="answer" className="p-d-block">
-            Answer
-          </label>
-          <p className="possibleAnswers">{card.answer}</p>
-        </div>
+        {mode === CardLearnMode.CHECKING ? (
+          <div className="p-col-12">
+            <label htmlFor="answer" className="p-d-block">
+              Answer
+            </label>
+            <p className="possibleAnswers">{card.answer}</p>
+          </div>
+        ) : null}
       </Card>
-      {card.explanation ? (
+      {card.explanation && mode === CardLearnMode.CHECKING ? (
         <div
           ref={explanationRef}
           className="card"
