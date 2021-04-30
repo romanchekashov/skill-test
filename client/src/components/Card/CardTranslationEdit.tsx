@@ -53,7 +53,7 @@ const CardTranslationEdit: React.FC<Props> = ({
 
   return (
     <>
-      <div className="p-col-12 p-field">
+      <div className="p-col-12">
         <label htmlFor="question" className="p-d-block">
           Question
         </label>
@@ -71,7 +71,7 @@ const CardTranslationEdit: React.FC<Props> = ({
           />
         )}
       </div>
-      <div className="p-col-12 p-field">
+      <div className="p-col-12">
         <label htmlFor="answer" className="p-d-block">
           Answer
         </label>
@@ -89,7 +89,7 @@ const CardTranslationEdit: React.FC<Props> = ({
           />
         )}
       </div>
-      <div className="p-col-12 p-field">
+      <div className="p-col-12">
         <label htmlFor="explanation" className="p-d-block">
           Explanation
         </label>

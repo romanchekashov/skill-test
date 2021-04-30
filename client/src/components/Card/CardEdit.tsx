@@ -113,7 +113,7 @@ const CardEdit: React.FC<Props> = ({}) => {
       baseZIndex={1000}
     >
       <div className="p-grid">
-        <div className="p-col-12 p-field">
+        <div className="p-col-12">
           <label htmlFor="question" className="p-d-block">
             Language
           </label>
