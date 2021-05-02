@@ -46,3 +46,6 @@ yarn-error.log*
 .vercel
 
 *.log
+
+# server
+server/backup

@@ -17,6 +17,8 @@ const app = express();
 const host = "localhost";
 const port = 3001;
 const apiUrl = "/api";
+// cron tasks
+require("./scheduled-jobs/db-backup");
 
 /**
  * For production:
