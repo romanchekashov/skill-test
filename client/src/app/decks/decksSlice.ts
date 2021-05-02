@@ -8,10 +8,10 @@ import { CardDto } from "@skill-test/data/dto/learn/CardDto";
 import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
 import { getDeck, getDecks } from "../../api/deckApi";
 import { fillCardWithTranslation } from "../../utils/utils";
-import { DeckMode } from "../DeckMode";
+import { DeckMode } from "./DeckMode";
+import { LangsState } from "../langs/langsSlice";
 import { LoadingState } from "../LoadingState";
 import { CoreState } from "../store";
-import { LangsState } from "../langs/langsSlice";
 
 export interface DecksState {
   decks: DeckDto[];

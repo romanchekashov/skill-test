@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DeckThumbnailList from "../components/DeckThumbnailList/DeckThumbnailList";
-import HeaderMenu from "../components/Header/HeaderMenu";
+import { fetchDecks, selectDecks } from "../app/decks/decksSlice";
+import DeckThumbnailList from "../app/decks/DeckThumbnailList/DeckThumbnailList";
 import { LoadingState } from "../app/LoadingState";
-import { fetchDecks, selectDecks } from "../app/slices/decksSlice";
+import HeaderMenu from "../components/Header/HeaderMenu";
 
 const IndexPage = () => {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { CrudMode } from "../CrudMode";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { createCard, selectCardSave, setMode } from "./cardsSlice";
-import { addCard, selectDeck } from "../slices/decksSlice";
+import { addCard, selectDeck } from "../decks/decksSlice";
 import { selectLangs } from "../langs/langsSlice";
 import { fillCardWithTranslation, removeNewLines } from "../../utils/utils";
 import CardTranslationEdit from "./CardTranslationEdit";

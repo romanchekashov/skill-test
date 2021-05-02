@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DeckLearn from "../../components/Deck/DeckLearn";
-import DeckView from "../../components/Deck/DeckView";
-import HeaderMenu from "../../components/Header/HeaderMenu";
-import { DeckMode } from "../../app/DeckMode";
+import { DeckMode } from "../../app/decks/DeckMode";
+import DeckLearn from "../../app/decks/DeckLearn/DeckLearn";
+import { fetchDeck, selectDeck, setMode } from "../../app/decks/decksSlice";
+import DeckView from "../../app/decks/DeckView/DeckView";
 import { LoadingState } from "../../app/LoadingState";
-import { fetchDeck, selectDeck, setMode } from "../../app/slices/decksSlice";
+import HeaderMenu from "../../components/Header/HeaderMenu";
 
 const DeckPage = () => {
   const router = useRouter();

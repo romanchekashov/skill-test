@@ -5,7 +5,7 @@ import {
   ThunkAction,
 } from "@reduxjs/toolkit";
 import cardsReducer from "./cards/cardsSlice";
-import decksReducer from "./slices/decksSlice";
+import decksReducer from "./decks/decksSlice";
 import usersReducer from "./users/usersSlice";
 import langsReducer from "./langs/langsSlice";
 

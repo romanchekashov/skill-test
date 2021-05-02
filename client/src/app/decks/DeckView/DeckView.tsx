@@ -3,12 +3,12 @@ import { DeckDto } from "@skill-test/data/dto/learn/DeckDto";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import React from "react";
-import { DeckMode } from "../../app/DeckMode";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { editCard, viewCard } from "../../app/cards/cardsSlice";
-import { setMode } from "../../app/slices/decksSlice";
-import { selectLangs } from "../../app/langs/langsSlice";
-import CardEdit from "../../app/cards/CardEdit";
+import CardEdit from "../../cards/CardEdit";
+import { editCard, viewCard } from "../../cards/cardsSlice";
+import { DeckMode } from "../DeckMode";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { selectLangs } from "../../langs/langsSlice";
+import { setMode } from "../decksSlice";
 import styles from "./DeckView.module.scss";
 
 type Props = {

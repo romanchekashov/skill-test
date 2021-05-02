@@ -5,14 +5,14 @@ import { UserDto } from "@skill-test/data/dto/UserDto";
 import { Button } from "primereact/button";
 import { Toolbar } from "primereact/toolbar";
 import React, { useEffect, useState } from "react";
-import { DeckMode } from "../../app/DeckMode";
-import { useAppDispatch } from "../../app/hooks";
-import { setMode } from "../../app/slices/decksSlice";
-import { LinkedList } from "../../utils/LinkedList";
-import CardLearnCheck from "../../app/cards/CardLearnCheck/CardLearnCheck";
+import { LinkedList } from "../../../utils/LinkedList";
+import CardLearn from "../../cards/CardLearn/CardLearn";
+import CardLearnCheck from "../../cards/CardLearnCheck/CardLearnCheck";
+import { CardLearnMode } from "../../cards/CardLearnMode";
+import { DeckMode } from "../DeckMode";
+import { useAppDispatch } from "../../hooks";
+import { setMode } from "../decksSlice";
 import styles from "./DeckLearn.module.scss";
-import { CardLearnMode } from "../../app/cards/CardLearnMode";
-import CardLearn from "../../app/cards/CardLearn";
 
 type Props = {
   deck: DeckDto;
