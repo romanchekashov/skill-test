@@ -3,7 +3,7 @@ import hljs from "highlight.js";
 import { Card } from "primereact/card";
 import { InputTextarea } from "primereact/inputtextarea";
 import React, { useEffect, useRef, useState } from "react";
-import SpeechToText from "../SpeechToText/SpeechToText";
+import SpeechToText from "../../components/SpeechToText/SpeechToText";
 import styles from "./CardLearn.module.scss";
 import { CardLearnMode } from "./CardLearnMode";
 

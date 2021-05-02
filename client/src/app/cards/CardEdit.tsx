@@ -3,18 +3,14 @@ import { CardTranslationDto } from "@skill-test/data/dto/learn/CardTranslationDt
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import React, { useEffect, useState } from "react";
-import { CrudMode } from "../../app/CrudMode";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import {
-  createCard,
-  selectCardSave,
-  setMode,
-} from "../../app/slices/cardsSlice";
-import { addCard, selectDeck } from "../../app/slices/decksSlice";
-import { selectLangs } from "../../app/langs/langsSlice";
+import { CrudMode } from "../CrudMode";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { createCard, selectCardSave, setMode } from "./cardsSlice";
+import { addCard, selectDeck } from "../slices/decksSlice";
+import { selectLangs } from "../langs/langsSlice";
 import { fillCardWithTranslation, removeNewLines } from "../../utils/utils";
-import LangSelect from "../LangSelect/LangSelect";
 import CardTranslationEdit from "./CardTranslationEdit";
+import LangSelect from "../langs/LangSelect/LangSelect";
 
 type Props = {};
 

@@ -4,7 +4,7 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { Language } from "../../types/Language";
+import { Language } from "./Language";
 import { getCookie, setCookie } from "../../utils/cookies";
 import { timeout } from "../../utils/utils";
 import { CoreState } from "../store";

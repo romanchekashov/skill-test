@@ -1,7 +1,7 @@
 // import dataStore from "../api/dataStore";
 
 import { CardDto } from "@skill-test/data/dto/learn/CardDto";
-import { Language } from "../types/Language";
+import { Language } from "../app/langs/Language";
 
 export const isProd = (): boolean => process.env.NODE_ENV === "production";
 

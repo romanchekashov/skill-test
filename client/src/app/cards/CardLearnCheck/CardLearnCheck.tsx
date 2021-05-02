@@ -2,8 +2,8 @@ import { Grade } from "@skill-test/data/dto/learn/Grade";
 import { UserCardAnswerDto } from "@skill-test/data/dto/learn/UserCardAnswerDto";
 import { Button } from "primereact/button";
 import React, { useEffect, useState } from "react";
-import GradeSelect from "../GradeSelect";
-import Timer from "../Timer";
+import GradeSelect from "../../../components/Deck/GradeSelect";
+import Timer from "../../../components/Deck/Timer";
 import styles from "./CardLearnCheck.module.scss";
 
 type Props = {

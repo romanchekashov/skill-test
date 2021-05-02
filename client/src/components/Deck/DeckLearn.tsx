@@ -9,10 +9,10 @@ import { DeckMode } from "../../app/DeckMode";
 import { useAppDispatch } from "../../app/hooks";
 import { setMode } from "../../app/slices/decksSlice";
 import { LinkedList } from "../../utils/LinkedList";
-import CardLearn from "./CardLearn";
-import CardLearnCheck from "./CardLearnCheck/CardLearnCheck";
-import { CardLearnMode } from "./CardLearnMode";
+import CardLearnCheck from "../../app/cards/CardLearnCheck/CardLearnCheck";
 import styles from "./DeckLearn.module.scss";
+import { CardLearnMode } from "../../app/cards/CardLearnMode";
+import CardLearn from "../../app/cards/CardLearn";
 
 type Props = {
   deck: DeckDto;

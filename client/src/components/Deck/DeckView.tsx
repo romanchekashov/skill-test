@@ -5,10 +5,10 @@ import { Card } from "primereact/card";
 import React from "react";
 import { DeckMode } from "../../app/DeckMode";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { editCard, viewCard } from "../../app/slices/cardsSlice";
+import { editCard, viewCard } from "../../app/cards/cardsSlice";
 import { setMode } from "../../app/slices/decksSlice";
 import { selectLangs } from "../../app/langs/langsSlice";
-import CardEdit from "../Card/CardEdit";
+import CardEdit from "../../app/cards/CardEdit";
 import styles from "./DeckView.module.scss";
 
 type Props = {

@@ -1,8 +1,8 @@
 import { Dropdown } from "primereact/dropdown";
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectLang, selectLangs } from "../../app/langs/langsSlice";
-import { Language } from "../../types/Language";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { selectLang, selectLangs } from "../langsSlice";
+import { Language } from "../Language";
 import styles from "./LangSelect.module.scss";
 
 const langOptions = [

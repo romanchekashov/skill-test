@@ -2,7 +2,7 @@ import { SplitButton } from "primereact/splitbutton";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { selectLangs, setLocale } from "../langsSlice";
-import { Language } from "../../../types/Language";
+import { Language } from "../Language";
 import styles from "./MainLangSelect.module.scss";
 
 const icon = "pi pi-circle-off";

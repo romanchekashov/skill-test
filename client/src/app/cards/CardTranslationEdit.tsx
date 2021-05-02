@@ -3,7 +3,7 @@ import hljs from "highlight.js";
 import { InputTextarea } from "primereact/inputtextarea";
 import React, { useEffect, useRef, useState } from "react";
 import { CrudMode } from "../../app/CrudMode";
-import Editor from "../Editor";
+import Editor from "../../components/Editor";
 
 type Props = {
   mode: CrudMode | undefined;
