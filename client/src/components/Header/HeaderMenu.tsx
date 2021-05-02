@@ -10,8 +10,8 @@ import {
   selectUser,
   showLogin,
   showSignup,
-} from "../../app/slices/usersSlice";
-import Login from "../auth/Login";
+} from "../../app/users/usersSlice";
+import Login from "../../app/users/Login/Login";
 import MainLangSelect from "./MainLangSelect/MainLangSelect";
 
 type Props = {};

@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import cardsReducer from "./slices/cardsSlice";
 import decksReducer from "./slices/decksSlice";
-import usersReducer from "./slices/usersSlice";
+import usersReducer from "./users/usersSlice";
 import langsReducer from "./slices/langsSlice";
 
 const rootReducer = combineReducers({

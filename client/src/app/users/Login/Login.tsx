@@ -6,7 +6,7 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { SelectButton } from "primereact/selectbutton";
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   closeLoginDialog,
   createUser,
@@ -16,7 +16,7 @@ import {
   selectUser,
   showLogin,
   showSignup,
-} from "../../app/slices/usersSlice";
+} from "../usersSlice";
 import styles from "./Login.module.scss";
 
 type Props = {
