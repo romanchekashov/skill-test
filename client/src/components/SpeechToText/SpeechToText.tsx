@@ -2,7 +2,7 @@ import { Button } from "primereact/button";
 import React, { useEffect, useState } from "react";
 import { MdMic, MdMicNone } from "react-icons/md";
 import { useAppSelector } from "../../app/hooks";
-import { selectLangs } from "../../app/slices/langsSlice";
+import { selectLangs } from "../../app/langs/langsSlice";
 import styles from "./SpeechToText.module.scss";
 
 type Props = {

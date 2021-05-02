@@ -11,7 +11,7 @@ import {
   setMode,
 } from "../../app/slices/cardsSlice";
 import { addCard, selectDeck } from "../../app/slices/decksSlice";
-import { selectLangs } from "../../app/slices/langsSlice";
+import { selectLangs } from "../../app/langs/langsSlice";
 import { fillCardWithTranslation, removeNewLines } from "../../utils/utils";
 import LangSelect from "../LangSelect/LangSelect";
 import CardTranslationEdit from "./CardTranslationEdit";

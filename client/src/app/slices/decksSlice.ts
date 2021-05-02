@@ -11,7 +11,7 @@ import { fillCardWithTranslation } from "../../utils/utils";
 import { DeckMode } from "../DeckMode";
 import { LoadingState } from "../LoadingState";
 import { CoreState } from "../store";
-import { LangsState } from "./langsSlice";
+import { LangsState } from "../langs/langsSlice";
 
 export interface DecksState {
   decks: DeckDto[];

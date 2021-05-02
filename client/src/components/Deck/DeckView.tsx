@@ -7,7 +7,7 @@ import { DeckMode } from "../../app/DeckMode";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { editCard, viewCard } from "../../app/slices/cardsSlice";
 import { setMode } from "../../app/slices/decksSlice";
-import { selectLangs } from "../../app/slices/langsSlice";
+import { selectLangs } from "../../app/langs/langsSlice";
 import CardEdit from "../Card/CardEdit";
 import styles from "./DeckView.module.scss";
 

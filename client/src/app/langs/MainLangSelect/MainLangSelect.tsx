@@ -1,7 +1,7 @@
 import { SplitButton } from "primereact/splitbutton";
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { selectLangs, setLocale } from "../../../app/slices/langsSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { selectLangs, setLocale } from "../langsSlice";
 import { Language } from "../../../types/Language";
 import styles from "./MainLangSelect.module.scss";
 

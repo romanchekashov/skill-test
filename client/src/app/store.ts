@@ -7,7 +7,7 @@ import {
 import cardsReducer from "./slices/cardsSlice";
 import decksReducer from "./slices/decksSlice";
 import usersReducer from "./users/usersSlice";
-import langsReducer from "./slices/langsSlice";
+import langsReducer from "./langs/langsSlice";
 
 const rootReducer = combineReducers({
   decks: decksReducer,
