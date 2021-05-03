@@ -79,7 +79,7 @@ const CardLearn: React.FC<Props> = ({ mode, userCardAnswer }) => {
             <label htmlFor="answer" className="p-d-block">
               Answer
             </label>
-            <p className="possibleAnswers">{card.answer}</p>
+            <p className={styles.answer}>{card.answer}</p>
           </div>
         ) : null}
       </Card>

@@ -89,7 +89,7 @@ const DeckView: React.FC<Props> = ({ deck }) => {
               className={styles.card}
               footer={footer(card)}
             >
-              <div className="possibleAnswers">{card.answer}</div>
+              <div className={styles.answer}>{card.answer}</div>
             </Card>
           </div>
         ))}

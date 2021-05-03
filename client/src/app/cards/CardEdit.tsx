@@ -3,14 +3,14 @@ import { CardTranslationDto } from "@skill-test/data/dto/learn/CardTranslationDt
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import React, { useEffect, useState } from "react";
+import { fillCardWithTranslation } from "../../utils/utils";
 import { CrudMode } from "../CrudMode";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { createCard, selectCardSave, setMode } from "./cardsSlice";
 import { addCard, selectDeck } from "../decks/decksSlice";
-import { selectLangs } from "../langs/langsSlice";
-import { fillCardWithTranslation, removeNewLines } from "../../utils/utils";
-import CardTranslationEdit from "./CardTranslationEdit";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import LangSelect from "../langs/LangSelect/LangSelect";
+import { selectLangs } from "../langs/langsSlice";
+import { createCard, selectCardSave, setMode } from "./cardsSlice";
+import CardTranslation from "./CardTranslation/CardTranslation";
 
 type Props = {};
 
@@ -62,8 +62,8 @@ const CardEdit: React.FC<Props> = ({}) => {
     if (deck?.id && translations.length > 0) {
       const newTranslations = translations.map((t) => {
         const tr = { ...t };
-        tr.question = removeNewLines(tr.question).trim();
-        tr.answer = removeNewLines(tr.answer).trim();
+        tr.question = tr.question.trim();
+        tr.answer = tr.answer.trim();
         return tr;
       });
       const dto: CardDto = card
@@ -116,7 +116,7 @@ const CardEdit: React.FC<Props> = ({}) => {
           <LangSelect />
         </div>
         {translation ? (
-          <CardTranslationEdit
+          <CardTranslation
             mode={mode}
             translation={translation}
             // onUpdate={() => console.log(translation)}
