@@ -49,10 +49,13 @@ const CardEdit: React.FC<Props> = ({}) => {
         answer: card.answer,
         explanation: card.explanation || "",
       };
-      setTranslations([...translations, translation]);
+
+      if (mode !== CrudMode.READ)
+        setTranslations([...translations, translation]);
     }
+
     setTranslation(translation);
-  }, [card, selectedLang, translations]);
+  }, [card, selectedLang, translations, mode]);
 
   const onHide = () => {
     dispatch(setMode());
